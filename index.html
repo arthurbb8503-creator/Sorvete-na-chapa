@@ -277,6 +277,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
   <div class="nav-tab on" data-tab="operacional">📍 Hoje</div>
   <div class="nav-tab" data-tab="mes">📊 Mês</div>
   <div class="nav-tab" data-tab="graficos">📈 Gráficos</div>
+  <div class="nav-tab" data-tab="horarios">⏱ Horários</div>
   <div class="nav-tab" data-tab="custos">🛒 Custos</div>
   <div class="nav-tab" data-tab="gestao">🔍 Gestão</div>
 </div>
@@ -393,13 +394,12 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
       <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
       <div class="drawer" id="d-fat">
         <div class="drawer-title">Composição do Faturamento</div>
-        <div class="drawer-row"><span>Vendas de sorvete (estimado)</span><span>R$10.217</span></div>
-        <div class="drawer-row"><span>Extras (adicionais)</span><span>R$379</span></div>
-        <div class="drawer-row"><span>Total</span><span><strong>R$10.596</strong></span></div>
+        <div class="drawer-row"><span>Faturamento total</span><span><strong>R$10.596</strong></span></div>
         <div class="drawer-row"><span>Média diária</span><span>R$505 (±R$151)</span></div>
         <div class="drawer-row"><span>Melhor dia</span><span>21/03 · R$775</span></div>
         <div class="drawer-row"><span>Pior dia</span><span>03/03 · R$144</span></div>
-        <div class="drawer-insight">Alta volatilidade: desvio padrão de R$151 significa que a média de R$505 não é representativa de um dia típico. O negócio oscila entre R$144 e R$775 — uma variação de 438%.</div>
+        <div class="drawer-row" style="opacity:.55"><span>ℹ Extras no mês (já incluídos)</span><span>R$379 — só informativo</span></div>
+        <div class="drawer-insight">Os extras (R$379) já estão dentro do faturamento total — são registrados separadamente apenas para entender o mix de receita. Alta volatilidade: o negócio oscilou entre R$144 e R$775 — variação de 438%.</div>
       </div>
     </div>
     <div class="kpi expandable" onclick="toggleDrawer('d-lucro',this)">
@@ -409,24 +409,39 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
       <div class="kpi-sub">41,6% de margem</div>
       <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
       <div class="drawer" id="d-lucro">
-        <div class="drawer-title">Composição do Lucro</div>
+        <div class="drawer-title">Composição do Lucro (planilha)</div>
         <div class="drawer-row"><span>Faturamento</span><span>R$10.596</span></div>
-        <div class="drawer-row"><span>Despesas variáveis</span><span>−R$2.631</span></div>
+        <div class="drawer-row"><span>Despesas variáveis (insumos)</span><span>−R$2.631</span></div>
         <div class="drawer-row"><span>Diárias</span><span>−R$1.657</span></div>
         <div class="drawer-row"><span>Taxa maquininha</span><span>−R$96</span></div>
-        <div class="drawer-row"><span>Outros lançamentos</span><span>−R$1.807</span></div>
-        <div class="drawer-row"><span><strong>Lucro registrado</strong></span><span><strong>R$4.405</strong></span></div>
-        <div class="drawer-insight">⚠ Este número não inclui pró-labore do operador. Se o operador trabalha diariamente e não se remunerou, o lucro real é menor. Definir um pró-labore é essencial para avaliar a viabilidade real do negócio.</div>
+        <div class="drawer-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:4px;padding-top:8px"><span>🏠 Aluguel (11 e 18/03)</span><span>−R$1.560</span></div>
+        <div class="drawer-row"><span>Potes e embalagens (outros)</span><span>−R$304,68</span></div>
+        <div class="drawer-row"><span>Demais lançamentos em "Outros"</span><span>−R$31,00</span></div>
+        <div class="drawer-row"><span>Ajuste de saldo (−R$60)</span><span>+R$60</span></div>
+        <div class="drawer-row" style="margin-top:4px"><span><strong>Lucro registrado</strong></span><span><strong>R$4.405</strong></span></div>
+        <div class="drawer-insight">⚠ O aluguel (R$780/semana, toda quarta) aparece em "Outros" na planilha. Nos dias 11 e 18/03 foram registrados R$1.560 no total — restam 2 pagamentos de março (05 e 26/03) que podem não ter sido lançados ainda.</div>
       </div>
     </div>
   </div>
 
   <div class="kpi-grid cols3 au3">
-    <div class="kpi">
+    <div class="kpi expandable" onclick="toggleDrawer('d-desp',this)">
       <div class="kpi-accent" style="background:var(--amber)"></div>
       <div class="kpi-lbl">Despesas</div>
       <div class="kpi-val amber">R$6.191</div>
       <div class="kpi-sub">58,4% do faturamento</div>
+      <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
+      <div class="drawer" id="d-desp">
+        <div class="drawer-title">Composição das Despesas</div>
+        <div class="drawer-row"><span>Insumos e compras</span><span>R$2.631</span></div>
+        <div class="drawer-row"><span>Diárias</span><span>R$1.657</span></div>
+        <div class="drawer-row"><span style="color:var(--amber)">🏠 Aluguel (2 pagamentos)</span><span>R$1.560</span></div>
+        <div class="drawer-row"><span>Potes e embalagens (Outros)</span><span>R$304,68</span></div>
+        <div class="drawer-row"><span>Taxa maquininha</span><span>R$96</span></div>
+        <div class="drawer-row"><span>Demais lançamentos</span><span>R$31</span></div>
+        <div class="drawer-row" style="margin-top:4px"><span><strong>Total despesas</strong></span><span><strong>R$6.191</strong></span></div>
+        <div class="drawer-insight">⚠ Apenas 2 pagamentos de aluguel (11 e 18/03) estão registrados. Os pagamentos de 05 e 26/03 (R$1.560) podem estar faltando — o que significa que o lucro real pode ser R$1.560 menor do que o registrado.</div>
+      </div>
     </div>
     <div class="kpi">
       <div class="kpi-accent" style="background:var(--purple)"></div>
@@ -449,11 +464,22 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
       <div class="kpi-val coral">R$775</div>
       <div class="kpi-sub">21/03 · Sábado</div>
     </div>
-    <div class="kpi">
+    <div class="kpi expandable" onclick="toggleDrawer('d-lucroreal',this)">
       <div class="kpi-accent" style="background:var(--red)"></div>
-      <div class="kpi-lbl">Dias no Prejuízo</div>
-      <div class="kpi-val red">2</div>
-      <div class="kpi-sub">03/03 e 16/03 — compras altas</div>
+      <div class="kpi-lbl">Lucro Real/Dia</div>
+      <div class="kpi-val green">R$186</div>
+      <div class="kpi-sub">Média · 1 dia negativo (03/03)</div>
+      <div class="btn-expand"><span class="arr">›</span> Ver fórmula</div>
+      <div class="drawer" id="d-lucroreal">
+        <div class="drawer-title">Fórmula de Lucro Real por Dia</div>
+        <div class="drawer-row"><span>Faturamento do dia</span><span>variável</span></div>
+        <div class="drawer-row"><span>− Diária</span><span>variável</span></div>
+        <div class="drawer-row"><span>− Aluguel rateado</span><span>R$104/dia</span></div>
+        <div class="drawer-row"><span>&nbsp;&nbsp;(R$780 × 4 semanas ÷ 30 dias)</span><span></span></div>
+        <div class="drawer-row"><span>− Custo sorvetes do dia</span><span>sorv × R$4,02</span></div>
+        <div class="drawer-row"><span>− Taxa maquininha</span><span>variável</span></div>
+        <div class="drawer-insight">Com esta fórmula, apenas <strong>03/03 gerou prejuízo real (−R$77)</strong> — quando o faturamento foi de somente R$144. Os demais 20 dias foram positivos. Compras de insumos altas em outros dias não indicam prejuízo, pois o estoque serve o mês inteiro.</div>
+      </div>
     </div>
   </div>
 
@@ -711,7 +737,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="tbl-hdr">
       <div class="tbl-title">Registro de Caixa</div>
       <div style="display:flex;gap:8px;align-items:center">
-        <span style="font-size:10px;color:var(--t3)">🔴 prejuízo &nbsp;🟡 alerta</span>
+        <span style="font-size:10px;color:var(--t3)">🏠 aluguel &nbsp;🟡 nova tarifa &nbsp;🔴 prejuízo real</span>
         <div class="tbl-cnt" id="tcnt-v">21 registros</div>
       </div>
     </div>
@@ -726,7 +752,8 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
           <th data-tbl="v" data-c="3">Desp.Var. ↕</th>
           <th data-tbl="v" data-c="4">Tx Maq. ↕</th>
           <th data-tbl="v" data-c="5">Diária ↕</th>
-          <th data-tbl="v" data-c="6">Lucro ↕</th>
+          <th>Aluguel/Outros</th>
+          <th data-tbl="v" data-c="6">Lucro Real ↕</th>
           <th>Obs.</th><th>Alerta</th>
         </tr></thead>
         <tbody id="tbody-v"></tbody>
@@ -734,6 +761,254 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     </div>
     <div class="pag" id="pag-v"></div>
   </div>
+</div>
+
+<!-- ══════════ ABA: HORÁRIOS ══════════ -->
+
+<div class="pg" id="tab-horarios">
+  <div style="height:16px"></div>
+
+  <!-- KPIs de horário -->
+
+  <div class="slbl au">Visão Geral · Maquininha</div>
+  <div class="kpi-grid cols3 au">
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--teal)"></div>
+      <div class="kpi-lbl">Faturamento Maquininha</div>
+      <div class="kpi-val green">R$9.095</div>
+      <div class="kpi-sub">455 transações no mês</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--amber)"></div>
+      <div class="kpi-lbl">Vendas em Dinheiro</div>
+      <div class="kpi-val amber">R$1.501</div>
+      <div class="kpi-sub">Faturamento fora da maquininha · 14,2% do total</div>
+    </div>
+    <div class="kpi expandable" onclick="toggleDrawer('d-ticket',this)">
+      <div class="kpi-accent" style="background:var(--purple)"></div>
+      <div class="kpi-lbl">Ticket Médio</div>
+      <div class="kpi-val purple">R$20,00</div>
+      <div class="kpi-sub">Maquininha · 455 vendas</div>
+      <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
+      <div class="drawer" id="d-ticket">
+        <div class="drawer-title">Ticket por Método de Pagamento</div>
+        <div class="drawer-row"><span>Cartão de Débito</span><span>R$20,48</span></div>
+        <div class="drawer-row"><span>Cartão de Crédito</span><span>R$20,21</span></div>
+        <div class="drawer-row"><span>Pix</span><span>R$19,14</span></div>
+        <div class="drawer-insight">O ticket médio é praticamente igual entre os métodos — sem grande diferença de comportamento de compra por forma de pagamento.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-grid au2">
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--coral)"></div>
+      <div class="kpi-lbl">Pico de Vendas</div>
+      <div class="kpi-val coral">20h–21h</div>
+      <div class="kpi-sub">60,1% do faturamento nesta janela</div>
+    </div>
+    <div class="kpi expandable" onclick="toggleDrawer('d-efic',this)">
+      <div class="kpi-accent" style="background:var(--teal)"></div>
+      <div class="kpi-lbl">Eficiência Média/Hora</div>
+      <div class="kpi-val green">R$120/h</div>
+      <div class="kpi-sub">Melhor: R$167/h em 21/03</div>
+      <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
+      <div class="drawer" id="d-efic">
+        <div class="drawer-title">Faturamento por Hora de Operação</div>
+        <div class="drawer-row"><span>Média mensal</span><span>R$119,52/h</span></div>
+        <div class="drawer-row"><span>Melhor dia (21/03)</span><span>R$167,07/h</span></div>
+        <div class="drawer-row"><span>Pior dia (02/03)</span><span>R$47,76/h — abriu às 13h</span></div>
+        <div class="drawer-row"><span>Duração média da operação</span><span>~3,5 horas/dia</span></div>
+        <div class="drawer-insight">O dia 02/03 foi o único com abertura muito cedo (13h36) — operou 8,5h e teve a pior eficiência/hora. Os melhores dias abrem por volta das 18h–19h e operam ~3–4h com alta densidade de vendas.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPACIDADE MÁXIMA -->
+
+  <div class="slbl au2">Capacidade Máxima de Produção</div>
+  <div class="chart-card au2" style="margin-bottom:16px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+      <div>
+        <div class="chart-title" style="margin:0">🏆 Horas Mais Produtivas do Mês</div>
+        <div class="chart-sub" style="margin:4px 0 0">Média das top 10 horas individuais — indica seu teto real de produção por hora</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div style="background:rgba(242,96,64,.12);border:1px solid rgba(242,96,64,.25);border-radius:10px;padding:8px 14px;text-align:center">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(242,96,64,.7);margin-bottom:4px">Recorde absoluto</div>
+          <div style="font-size:22px;font-weight:800;color:#F26040;letter-spacing:-1px">R$225</div>
+          <div style="font-size:10px;color:var(--t3)">12/03 às 20h · 9 vendas</div>
+        </div>
+        <div style="background:rgba(28,201,168,.1);border:1px solid rgba(28,201,168,.2);border-radius:10px;padding:8px 14px;text-align:center">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(28,201,168,.7);margin-bottom:4px">Média top 5 horas</div>
+          <div style="font-size:22px;font-weight:800;color:#1CC9A8;letter-spacing:-1px">R$207</div>
+          <div style="font-size:10px;color:var(--t3)">~10 vendas · ticket R$21,94</div>
+        </div>
+        <div style="background:rgba(155,109,255,.1);border:1px solid rgba(155,109,255,.2);border-radius:10px;padding:8px 14px;text-align:center">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(155,109,255,.7);margin-bottom:4px">Média top 10 horas</div>
+          <div style="font-size:22px;font-weight:800;color:#9B6DFF;letter-spacing:-1px">R$193</div>
+          <div style="font-size:10px;color:var(--t3)">~9 vendas · ticket R$21,31</div>
+        </div>
+      </div>
+    </div>
+
+```
+<!-- Barras top 10 -->
+<div style="display:flex;flex-direction:column;gap:6px">
+  <div style="display:flex;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);padding:0 2px;margin-bottom:2px">
+    <span style="min-width:90px">Hora</span>
+    <span style="flex:1">Faturamento</span>
+    <span style="min-width:52px;text-align:right">Vendas</span>
+    <span style="min-width:52px;text-align:right">Ticket</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">🥇 12/03 20h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:100%;background:linear-gradient(90deg,#F26040,#C8341A);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$225</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">9 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$25,00</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">🥈 11/03 21h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:97.8%;background:linear-gradient(90deg,#F26040,#C8341A);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$220</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">7 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$31,43</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">🥉 06/03 20h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:93.3%;background:linear-gradient(90deg,#F26040,#C8341A);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$210</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">14 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$15,00</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">4. 21/03 20h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:86.7%;background:linear-gradient(90deg,#1CC9A8,#0F8A74);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$195</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">11 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$17,73</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">5. 15/03 20h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:82.2%;background:linear-gradient(90deg,#1CC9A8,#0F8A74);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$185</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">9 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$20,56</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">6. 16/03 21h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:82.2%;background:rgba(155,109,255,.6);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$185</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">10 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$18,50</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">7. 21/03 21h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:80%;background:rgba(155,109,255,.6);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$180</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">7 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$25,71</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">8. 14/03 20h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:80%;background:rgba(155,109,255,.6);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$180</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">10 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$18,00</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">9. 22/03 21h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:80%;background:rgba(155,109,255,.6);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$180</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">8 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$22,50</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">10. 08/03 20h</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:74.7%;background:rgba(155,109,255,.6);border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;color:var(--t1);min-width:52px;text-align:right">R$168</span><span style="font-size:10px;color:var(--purple);min-width:52px;text-align:right">9 vend.</span><span style="font-size:10px;color:var(--t3);min-width:52px;text-align:right">R$18,67</span></div>
+</div>
+
+<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--bor);font-size:11px;color:var(--t2);line-height:1.7;background:rgba(242,96,64,.06);border-radius:8px;padding:10px 12px;margin-top:12px">
+  💡 <strong style="color:var(--t1)">O que esses números dizem:</strong> no seu melhor cenário, você consegue faturar R$207–R$225 em uma única hora. Operando 3,5h/dia no pico (19h–22h30), o potencial teórico seria ~R$700–750/dia — o que você já atingiu em 21/03 (R$775). Isso indica que <strong style="color:var(--teal)">você já operou próximo do seu teto atual</strong> neste período.
+</div>
+```
+
+  </div>
+  <div class="chart-card au3">
+    <div class="chart-title">⏱ Faturamento por Hora do Dia</div>
+    <div class="chart-sub">Total acumulado no mês · pico às 20h–21h representa 60% do faturamento</div>
+    <canvas id="cHoras" height="160"></canvas>
+    <div class="stat-strip">
+      <div class="stat-item"><div class="stat-v" style="color:var(--coral)">20h</div><div class="stat-l">Mais $ (R$2.820)</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--teal)">21h</div><div class="stat-l">Mais vendas (127)</div></div>
+      <div class="stat-item"><div class="stat-v">R$20,83</div><div class="stat-l">Ticket 21h</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">18h</div><div class="stat-l">Menor (R$243)</div></div>
+    </div>
+  </div>
+
+  <!-- FAIXA DE 30MIN -->
+
+  <div class="chart-card au4">
+    <div class="chart-title">🔍 Vendas por Faixa de 30 Minutos</div>
+    <div class="chart-sub">Janela de ouro: 20h00–21h30 concentra 46% do faturamento total</div>
+    <canvas id="cFaixas" height="155"></canvas>
+  </div>
+
+  <!-- MIX DE PAGAMENTO -->
+
+  <div class="slbl au4">Mix de Pagamento</div>
+  <div class="kpi-grid cols3 au4">
+    <div class="kpi expandable" onclick="toggleDrawer('d-debito',this)">
+      <div class="kpi-accent" style="background:var(--teal)"></div>
+      <div class="kpi-lbl">Débito</div>
+      <div class="kpi-val green">38,7%</div>
+      <div class="kpi-sub">172 trans. · R$3.523 · taxa ~0,92%</div>
+      <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
+      <div class="drawer" id="d-debito">
+        <div class="drawer-title">Cartão de Débito</div>
+        <div class="drawer-row"><span>Transações</span><span>172</span></div>
+        <div class="drawer-row"><span>Faturamento</span><span>R$3.523</span></div>
+        <div class="drawer-row"><span>Ticket médio</span><span>R$20,48</span></div>
+        <div class="drawer-row"><span>Taxa média</span><span>~0,92%</span></div>
+        <div class="drawer-row"><span>Taxa total estimada</span><span>~R$32,41</span></div>
+      </div>
+    </div>
+    <div class="kpi expandable" onclick="toggleDrawer('d-credito',this)">
+      <div class="kpi-accent" style="background:var(--amber)"></div>
+      <div class="kpi-lbl">Crédito</div>
+      <div class="kpi-val amber">32,4%</div>
+      <div class="kpi-sub">146 trans. · R$2.950 · taxa ~1,30%</div>
+      <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
+      <div class="drawer" id="d-credito">
+        <div class="drawer-title">Cartão de Crédito</div>
+        <div class="drawer-row"><span>Transações</span><span>146</span></div>
+        <div class="drawer-row"><span>Faturamento</span><span>R$2.950</span></div>
+        <div class="drawer-row"><span>Ticket médio</span><span>R$20,21</span></div>
+        <div class="drawer-row"><span>Taxa média</span><span>~1,30%</span></div>
+        <div class="drawer-row"><span>Taxa total estimada</span><span>~R$38,35</span></div>
+        <div class="drawer-insight">⚠ Com a nova tarifa, o crédito passa a custar mais. Monitorar se essa proporção cresce — cada ponto percentual de aumento no mix de crédito custa mais em taxa.</div>
+      </div>
+    </div>
+    <div class="kpi expandable" onclick="toggleDrawer('d-pix',this)">
+      <div class="kpi-accent" style="background:var(--purple)"></div>
+      <div class="kpi-lbl">Pix</div>
+      <div class="kpi-val purple">28,8%</div>
+      <div class="kpi-sub">137 trans. · R$2.622 · taxa 0%</div>
+      <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
+      <div class="drawer" id="d-pix">
+        <div class="drawer-title">Pix</div>
+        <div class="drawer-row"><span>Transações</span><span>137</span></div>
+        <div class="drawer-row"><span>Faturamento</span><span>R$2.622</span></div>
+        <div class="drawer-row"><span>Ticket médio</span><span>R$19,14</span></div>
+        <div class="drawer-row"><span>Taxa</span><span>0% — custo zero</span></div>
+        <div class="drawer-row"><span>Economia vs crédito</span><span>~R$34 no mês</span></div>
+        <div class="drawer-insight">💡 Pix tem taxa zero e representa 28,8% das vendas. Incentivar Pix no lugar de crédito pode economizar ~R$34–50/mês em taxas sem impacto no cliente.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREÇOS VENDIDOS -->
+
+  <div class="slbl au5">Mix de Preços</div>
+  <div class="chart-card au5">
+    <div class="chart-title">💰 Frequência de Valores por Transação</div>
+    <div class="chart-sub">R$15 = 1 sorvete · R$30 = 2 · R$45 = 3 · R$20 = sorvete com adicional</div>
+    <canvas id="cPrecos" height="130"></canvas>
+    <div class="stat-strip">
+      <div class="stat-item"><div class="stat-v" style="color:var(--coral)">64,2%</div><div class="stat-l">Sorvete único R$15</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--teal)">16,9%</div><div class="stat-l">Duplo R$30</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--purple)">8,6%</div><div class="stat-l">Com adicional R$20</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">2,2%</div><div class="stat-l">Triplo R$45</div></div>
+    </div>
+  </div>
+
+  <!-- DINHEIRO vs MAQUININHA -->
+
+  <div class="slbl">Dinheiro vs Maquininha por Dia</div>
+  <div class="chart-card">
+    <div class="chart-title">💵 Composição do Faturamento por Dia</div>
+    <div class="chart-sub">🟡 dinheiro · 🟢 maquininha — diferença = vendas em espécie não registradas na maq.</div>
+    <canvas id="cDinheiro" height="155"></canvas>
+    <div class="stat-strip">
+      <div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$9.095</div><div class="stat-l">Maquininha</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">R$1.501</div><div class="stat-l">Dinheiro</div></div>
+      <div class="stat-item"><div class="stat-v">14,2%</div><div class="stat-l">% em espécie</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">R$180</div><div class="stat-l">Maior dia (06/03)</div></div>
+    </div>
+  </div>
+
+  <div class="alert-card info" style="margin-bottom:12px">
+    <div class="alert-title">💡 Sobre o dinheiro em caixa</div>
+    <div class="alert-items">
+      <div class="alert-item"><span class="ai-txt">Todo faturamento que não passou pela maquininha foi em dinheiro. R$1.501 no mês — média de <strong>R$71/dia</strong>. O dia 06/03 teve a maior entrada em espécie (R$180) e também o maior faturamento total do período (R$747).</span></div>
+      <div class="alert-item"><span class="ai-txt">⚠ Vendas em dinheiro não geram taxa de maquininha — mas exigem controle de caixa separado. Qualquer erro de troco ou falta de registro sai diretamente do lucro sem rastreabilidade.</span></div>
+    </div>
+  </div>
+
+  <!-- HORÁRIO POR DIA -->
+
+  <div class="slbl">Abertura e Fechamento por Dia</div>
+  <div class="tbl-wrap">
+    <div class="tbl-hdr">
+      <div class="tbl-title">Operação Diária</div>
+      <div class="tbl-cnt">21 dias</div>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr>
+          <th>Data</th><th>Abertura</th><th>Fechamento</th>
+          <th>Duração</th><th>Vendas</th><th>Fat. Maq.</th><th>R$/hora</th>
+        </tr></thead>
+        <tbody id="tbody-op"></tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
@@ -784,7 +1059,11 @@ const vendas=[
   {d:'21/03',wd:5,fat:775, ext:50, dv:60.13, maq:11.88,dia:80, luc:622.99, out:null,   obs:''},
   {d:'22/03',wd:6,fat:670, ext:15, dv:117.46,maq:9.78, dia:73, luc:469.76, out:null,   obs:''},
 ];
-vendas.forEach(r=>{r.sorv=Math.round((r.fat-r.ext)/15);});
+vendas.forEach(r=>{
+  r.sorv = Math.round((r.fat-r.ext)/15);
+  // Lucro real = Fat - Diária - (780*4/30) - (custo/sorv * sorv) - Tx maq
+  r.lucro_real = Math.round((r.fat - r.dia - 104 - (4.02*r.sorv) - r.maq)*100)/100;
+});
 
 const compras=[
   {d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Topping',val:18.79,tipo:''},
@@ -929,7 +1208,7 @@ document.getElementById('srch-v').addEventListener('input',()=>{
   vF=vendas.filter(r=>!q||r.d.includes(q)||(r.obs&&r.obs.toLowerCase().includes(q)));
   vP=1;rV();
 });
-const VC=['d','fat','ext','dv','maq','dia','luc'];
+const VC=['d','fat','ext','dv','maq','dia','lucro_real'];
 document.querySelectorAll('th[data-tbl="v"]').forEach(th=>{
   th.addEventListener('click',()=>{
     const c=+th.dataset.c;vSC===c?vSA=!vSA:(vSC=c,vSA=true);
@@ -942,13 +1221,20 @@ function rV(){
   const sl=vF.slice((vP-1)*10,vP*10);
   document.getElementById('tcnt-v').textContent=vF.length+' reg.';
   document.getElementById('tbody-v').innerHTML=sl.map(r=>{
-    const lc=r.luc>0?'td-p':'td-n';
-    const chip=r.luc>0?'<span class="chip chip-g">↑</span>':'<span class="chip chip-r">↓</span>';
-    const obs=r.obs?`<span class="obs-chip">${r.obs}</span>`:'';
-    const out=r.out!=null?`<span class="${r.out<0?'td-n':''}">${fv(r.out)}</span>`:`<span style="color:var(--t3)">—</span>`;
+    const lrc=r.lucro_real>=0?'td-p':'td-n';
+    const chip=r.lucro_real>=0?'<span class="chip chip-g">↑</span>':'<span class="chip chip-r">↓</span>';
+    const obs=r.obs&&r.obs!=='Aluguel'?`<span class="obs-chip">${r.obs}</span>`:'';
+    // Separar aluguel dos outros lançamentos
+    const isAlug = r.obs==='Aluguel';
+    let outCell='<span style="color:var(--t3)">—</span>';
+    if(isAlug && r.out!=null){
+      outCell=`<span style="color:var(--amber);font-weight:700">🏠 ${fv(r.out)}</span>`;
+    } else if(r.out!=null){
+      outCell=`<span class="${r.out<0?'td-n':''}">${fv(r.out)}</span>`;
+    }
     const alert=r.maq>5?'<span class="chip chip-w">Tx↑</span>':'';
-    const rc=r.maq>5?'rwarn':'';
-    return `<tr class="${rc}"><td class="td-d">${r.d}</td><td class="td-d" style="color:var(--t3)">${WN[r.wd]}</td><td>${fv(r.fat)}</td><td>${r.ext>0?fv(r.ext):`<span style="color:var(--t3)">—</span>`}</td><td style="color:var(--purple)">${r.sorv}</td><td>${fv(r.dv)}</td><td class="${r.maq>5?'td-n':''}">${fv(r.maq)}</td><td>${fv(r.dia)}</td><td class="${lc}">${fv(r.luc)} ${chip}</td><td>${obs}</td><td>${alert}</td></tr>`;
+    const rc=r.lucro_real<0?'rdanger':r.maq>5?'rwarn':'';
+    return `<tr class="${rc}"><td class="td-d">${r.d}</td><td class="td-d" style="color:var(--t3)">${WN[r.wd]}</td><td>${fv(r.fat)}</td><td>${r.ext>0?fv(r.ext):`<span style="color:var(--t3)">—</span>`}</td><td style="color:var(--purple)">${r.sorv}</td><td>${fv(r.dv)}</td><td class="${r.maq>5?'td-n':''}">${fv(r.maq)}</td><td>${fv(r.dia)}</td><td>${outCell}</td><td class="${lrc}">${fv(r.lucro_real)} ${chip}</td><td>${obs}</td><td>${alert}</td></tr>`;
   }).join('');pV();}
 function pV(){
   const tot=Math.ceil(vF.length/10),el=document.getElementById('pag-v');
@@ -996,6 +1282,147 @@ function pC(){
 }
 function gC(p){const t=Math.ceil(cF.length/15);if(p<1||p>t)return;cP=p;rC();}
 rC();
+
+// ── ABA HORÁRIOS ─────────────────────────────────────────────────────
+const horasData=[
+  {h:'13h',fat:1,   v:1},  {h:'17h',fat:45,  v:2},
+  {h:'18h',fat:243, v:14}, {h:'19h',fat:1672,v:82},
+  {h:'20h',fat:2820,v:145},{h:'21h',fat:2646,v:127},
+  {h:'22h',fat:1573,v:79}, {h:'23h',fat:95,  v:5},
+];
+const faixasData=[
+  {f:'13:30',fat:1,v:1},   {f:'17:30',fat:45,v:2},
+  {f:'18:00',fat:20,v:1},  {f:'18:30',fat:223,v:13},
+  {f:'19:00',fat:490,v:25},{f:'19:30',fat:1182,v:57},
+  {f:'20:00',fat:1492,v:73},{f:'20:30',fat:1328,v:72},
+  {f:'21:00',fat:1600,v:73},{f:'21:30',fat:1046,v:54},
+  {f:'22:00',fat:1118,v:59},{f:'22:30',fat:455,v:20},
+  {f:'23:00',fat:95,v:5},
+];
+const precosData=[
+  {v:'R$15',n:292,c:'#F26040'},{v:'R$30',n:77,c:'#1CC9A8'},
+  {v:'R$20',n:39,c:'#9B6DFF'},{v:'R$45',n:10,c:'#F0A020'},
+  {v:'R$18',n:10,c:'#F0A020'},{v:'R$40',n:8,c:'#6A5840'},
+  {v:'Outros',n:19,c:'#6A5840'},
+];
+
+// Dinheiro por dia = planilha - maquininha
+const dinheiroDia=[
+  {d:'02/03',plan:495,maq:406,din:89},  {d:'03/03',plan:144,maq:94, din:50},
+  {d:'04/03',plan:447,maq:435,din:12},  {d:'05/03',plan:330,maq:315,din:15},
+  {d:'06/03',plan:747,maq:567,din:180}, {d:'07/03',plan:615,maq:555,din:60},
+  {d:'08/03',plan:408,maq:378,din:30},  {d:'09/03',plan:440,maq:350,din:90},
+  {d:'10/03',plan:505,maq:400,din:105}, {d:'11/03',plan:575,maq:515,din:60},
+  {d:'12/03',plan:730,maq:635,din:95},  {d:'13/03',plan:520,maq:410,din:110},
+  {d:'14/03',plan:640,maq:535,din:105}, {d:'15/03',plan:500,maq:455,din:45},
+  {d:'16/03',plan:340,maq:320,din:20},  {d:'17/03',plan:335,maq:260,din:75},
+  {d:'18/03',plan:525,maq:490,din:35},  {d:'19/03',plan:345,maq:325,din:20},
+  {d:'20/03',plan:510,maq:465,din:45},  {d:'21/03',plan:775,maq:685,din:90},
+  {d:'22/03',plan:670,maq:500,din:170},
+];
+
+const opDiaria=[
+  {d:'02/03',ab:'13:36',fe:'22:08',dur:8.5,fat:406,fph:47.76, v:19},
+  {d:'03/03',ab:'19:59',fe:'20:50',dur:0.8,fat:94, fph:117.50,v:6},
+  {d:'04/03',ab:'18:35',fe:'22:28',dur:3.9,fat:435,fph:111.54,v:25},
+  {d:'05/03',ab:'19:29',fe:'22:39',dur:3.2,fat:315,fph:98.44, v:16},
+  {d:'06/03',ab:'17:46',fe:'23:05',dur:5.3,fat:567,fph:106.98,v:33},
+  {d:'07/03',ab:'18:48',fe:'23:03',dur:4.2,fat:555,fph:132.14,v:28},
+  {d:'08/03',ab:'18:50',fe:'22:22',dur:3.5,fat:378,fph:108.00,v:22},
+  {d:'09/03',ab:'19:24',fe:'22:37',dur:3.2,fat:350,fph:109.38,v:19},
+  {d:'10/03',ab:'18:30',fe:'22:11',dur:3.7,fat:400,fph:108.11,v:24},
+  {d:'11/03',ab:'19:03',fe:'22:17',dur:3.2,fat:515,fph:160.94,v:26},
+  {d:'12/03',ab:'19:02',fe:'23:07',dur:4.1,fat:635,fph:154.88,v:25},
+  {d:'13/03',ab:'18:50',fe:'22:25',dur:3.6,fat:410,fph:113.89,v:17},
+  {d:'14/03',ab:'18:59',fe:'23:05',dur:4.1,fat:535,fph:130.49,v:25},
+  {d:'15/03',ab:'18:02',fe:'22:14',dur:4.2,fat:455,fph:108.33,v:20},
+  {d:'16/03',ab:'19:17',fe:'22:40',dur:3.4,fat:320,fph:94.12, v:17},
+  {d:'17/03',ab:'19:50',fe:'22:20',dur:2.5,fat:260,fph:104.00,v:13},
+  {d:'18/03',ab:'19:38',fe:'22:43',dur:3.1,fat:490,fph:158.06,v:24},
+  {d:'19/03',ab:'19:31',fe:'22:51',dur:3.3,fat:325,fph:98.48, v:15},
+  {d:'20/03',ab:'19:06',fe:'22:22',dur:3.3,fat:465,fph:140.91,v:24},
+  {d:'21/03',ab:'18:40',fe:'22:45',dur:4.1,fat:685,fph:167.07,v:33},
+  {d:'22/03',ab:'19:12',fe:'22:46',dur:3.6,fat:500,fph:138.89,v:24},
+];
+
+const TO={backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1};
+
+// Chart por hora
+new Chart('cHoras',{type:'bar',data:{
+  labels:horasData.map(h=>h.h),
+  datasets:[
+    {label:'Faturamento',data:horasData.map(h=>h.fat),
+     backgroundColor:horasData.map(h=>h.h==='20h'||h.h==='21h'?'rgba(242,96,64,.65)':'rgba(255,255,255,.1)'),
+     borderColor:horasData.map(h=>h.h==='20h'||h.h==='21h'?'#F26040':'rgba(255,255,255,.18)'),
+     borderWidth:1.5,borderRadius:4,yAxisID:'y'},
+    {label:'Nº Vendas',data:horasData.map(h=>h.v),type:'line',
+     borderColor:'#1CC9A8',backgroundColor:'rgba(28,201,168,.08)',
+     borderWidth:2,pointRadius:4,pointBackgroundColor:'#1CC9A8',fill:true,tension:.35,yAxisID:'y1'}
+  ]
+},options:{responsive:true,plugins:{
+  legend:{labels:{font:{size:10},color:'#A89880',usePointStyle:true}},
+  tooltip:{...TO,callbacks:{label:c=>c.datasetIndex===0?` R$ ${c.raw}`:` ${c.raw} vendas`}}
+},scales:{
+  x:{ticks:tck,grid:grd},
+  y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd,position:'left'},
+  y1:{ticks:tck,grid:{display:false},position:'right'}
+}}});
+
+// Chart faixas 30min
+new Chart('cFaixas',{type:'bar',data:{
+  labels:faixasData.map(f=>f.f),
+  datasets:[{
+    data:faixasData.map(f=>f.fat),
+    backgroundColor:faixasData.map(f=>f.fat>=1000?'rgba(242,96,64,.65)':f.fat>=300?'rgba(242,96,64,.3)':'rgba(255,255,255,.08)'),
+    borderColor:faixasData.map(f=>f.fat>=1000?'#F26040':f.fat>=300?'rgba(242,96,64,.5)':'rgba(255,255,255,.1)'),
+    borderWidth:1.5,borderRadius:4
+  }]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{...TO,callbacks:{label:c=>[` R$ ${c.raw}`,` ${faixasData[c.dataIndex].v} vendas`]}}
+},scales:{x:{ticks:{...tck,maxRotation:45},grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+
+// Chart preços
+new Chart('cPrecos',{type:'bar',data:{
+  labels:precosData.map(p=>p.v),
+  datasets:[{
+    data:precosData.map(p=>p.n),
+    backgroundColor:precosData.map(p=>p.c+'99'),
+    borderColor:precosData.map(p=>p.c),
+    borderWidth:1.5,borderRadius:4
+  }]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{...TO,callbacks:{label:c=>`${c.raw} vendas (${precosData[c.dataIndex] ? ((c.raw/455)*100).toFixed(1) : 0}%)`}}
+},scales:{x:{ticks:tck,grid:grd},y:{ticks:tck,grid:grd}}}});
+
+// Chart dinheiro vs maquininha empilhado
+if(document.getElementById('cDinheiro')){
+new Chart('cDinheiro',{type:'bar',data:{
+  labels:dinheiroDia.map(d=>d.d),
+  datasets:[
+    {label:'Maquininha',data:dinheiroDia.map(d=>d.maq),backgroundColor:'rgba(28,201,168,.5)',borderColor:'#1CC9A8',borderWidth:1,borderRadius:0},
+    {label:'Dinheiro',data:dinheiroDia.map(d=>d.din),backgroundColor:'rgba(240,160,32,.7)',borderColor:'#F0A020',borderWidth:1,borderRadius:4}
+  ]
+},options:{responsive:true,plugins:{
+  legend:{labels:{font:{size:10},color:'#A89880',usePointStyle:true}},
+  tooltip:{...TO}
+},scales:{x:{ticks:tck,grid:grd,stacked:true},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd,stacked:true}}}});
+}
+
+// Tabela operação
+document.getElementById('tbody-op').innerHTML=opDiaria.map(r=>{
+  const bestFph = r.fph>=150;
+  const piorFph = r.fph<60;
+  const rc=bestFph?'rwarn':piorFph?'rdanger':'';
+  return `<tr class="${rc}">
+    <td class="td-d">${r.d}</td>
+    <td style="color:var(--teal);font-weight:600">${r.ab}</td>
+    <td style="color:var(--t2)">${r.fe}</td>
+    <td>${r.dur}h</td>
+    <td style="color:var(--purple)">${r.v}</td>
+    <td style="font-weight:600">R$${r.fat}</td>
+    <td style="font-weight:700;color:${bestFph?'var(--teal)':piorFph?'var(--red)':'var(--t1)'}">R$${r.fph}</td>
+  </tr>`;
+}).join('');
 </script>
 
 </body>
