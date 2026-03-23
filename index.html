@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorvete na Chapa · Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F0EB;--surface:#FDFAF7;--border:#E8E0D5;
+  --coral:#F26040;--coral2:#C8441E;
+  --teal:#1B9C86;--teal2:#137060;
+  --amber:#D98F10;--red:#D94040;--purple:#7C5CFC;
+  --text1:#1A1208;--text2:#5C4A36;--text3:#A08060;--sand:#EDE5D8;
+  --warn:#FFF3CD;--warnb:#D98F10;--redbg:#FFF0F0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text1);}
+
+/* ── HEADER ── */
+header{background:var(–text1);padding:15px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(–coral);}
+.brand{display:flex;align-items:center;gap:11px;}
+.brand-icon{width:34px;height:34px;background:var(–coral);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;}
+.brand-name{font-size:16px;font-weight:800;color:#FDFAF7;letter-spacing:-.3px;}
+.brand-sub{font-size:10px;color:var(–text3);letter-spacing:1.1px;text-transform:uppercase;margin-top:1px;}
+.season-tag{background:rgba(242,96,64,.2);border:1px solid rgba(242,96,64,.4);color:#FFAA88;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px;}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;border-bottom:2px solid rgba(255,255,255,.1);background:var(–text1);padding:0 32px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:13px 16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+.tab:hover{color:rgba(255,255,255,.8);}
+.tab.on{color:#FDFAF7;border-bottom-color:var(–coral);}
+
+/* ── PAGES ── */
+.page{display:none;padding:24px 32px;max-width:1420px;margin:0 auto;}
+.page.on{display:block;}
+
+/* ── SECTION LABEL ── */
+.sec{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–text3);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.sec::after{content:’’;flex:1;height:1px;background:var(–border);}
+
+/* ── ALERT BANNER ── */
+.alert-banner{background:var(–warn);border:1.5px solid var(–warnb);border-radius:11px;padding:12px 16px;margin-bottom:18px;display:flex;gap:10px;font-size:12px;color:var(–text2);line-height:1.6;}
+.alert-banner strong{color:var(–text1);}
+
+/* ── KPI ROW ── */
+.kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;margin-bottom:18px;}
+.kpi{background:var(–surface);border:1.5px solid var(–border);border-radius:11px;padding:14px 13px;position:relative;overflow:hidden;transition:transform .14s,box-shadow .14s;}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(26,18,8,.07);}
+.kpi::after{content:’’;position:absolute;top:0;left:0;right:0;height:3px;border-radius:11px 11px 0 0;}
+.kpi.ct::after{background:var(–teal);}
+.kpi.cc::after{background:var(–coral);}
+.kpi.ca::after{background:var(–amber);}
+.kpi.cp::after{background:var(–purple);}
+.kpi.cr::after{background:var(–red);}
+.kpi.cg::after{background:#999;}
+.kpi-l{font-size:9px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(–text3);margin-bottom:6px;}
+.kpi-v{font-size:21px;font-weight:800;letter-spacing:-.7px;line-height:1;}
+.kpi-v.pos{color:var(–teal);}
+.kpi-v.neg{color:var(–red);}
+.kpi-v.amb{color:var(–amber);}
+.kpi-v.pur{color:var(–purple);}
+.kpi-s{font-size:10px;color:var(–text3);margin-top:4px;}
+.kpi-flag{font-size:9px;font-weight:700;background:var(–warn);color:var(–warnb);padding:2px 6px;border-radius:6px;margin-top:4px;display:inline-block;}
+
+/* ── META ── */
+.meta{background:var(–surface);border:1.5px solid var(–border);border-radius:11px;padding:16px 20px;margin-bottom:18px;}
+.meta-h{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:9px;}
+.meta-t{font-size:13px;font-weight:700;}
+.meta-p{font-size:22px;font-weight:800;color:var(–teal);letter-spacing:-1px;}
+.meta-track{height:10px;background:var(–sand);border-radius:20px;overflow:hidden;}
+.meta-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(–teal),var(–teal2));}
+.meta-legs{display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(–text3);}
+
+/* ── TODAY ── */
+.today-section{background:linear-gradient(135deg,#1A1208 0%,#2C1A08 60%,#3D1F0A 100%);border-radius:14px;padding:22px 26px;margin-bottom:18px;border:1.5px solid rgba(242,96,64,.35);position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(242,96,64,.15);}
+.today-section::before{content:‘HOJE’;position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:88px;font-weight:800;color:rgba(242,96,64,.07);letter-spacing:-4px;pointer-events:none;line-height:1;}
+.today-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.today-pulse{width:10px;height:10px;border-radius:50%;background:var(–coral);box-shadow:0 0 0 0 rgba(242,96,64,.6);animation:pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(242,96,64,.6);}70%{box-shadow:0 0 0 10px rgba(242,96,64,0);}100%{box-shadow:0 0 0 0 rgba(242,96,64,0);}}
+.today-header-txt{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.today-date-tag{margin-left:auto;background:rgba(242,96,64,.2);border:1px solid rgba(242,96,64,.4);color:#FFAA88;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px;}
+.today-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.today-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:18px 20px;position:relative;overflow:hidden;transition:background .2s;}
+.today-card:hover{background:rgba(255,255,255,.08);}
+.today-card::after{content:’’;position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(–coral),transparent);}
+.today-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;}
+.today-v{font-size:38px;font-weight:800;letter-spacing:-2px;line-height:1;color:#FFFFFF;}
+.today-v span{font-size:18px;letter-spacing:-.5px;color:rgba(255,255,255,.7);margin-left:2px;}
+.today-s{font-size:11px;color:rgba(255,255,255,.45);margin-top:8px;line-height:1.6;}
+.today-warn{font-size:10px;color:#FFAA88;margin-top:5px;display:flex;align-items:center;gap:4px;}
+.today-hist{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.today-hist-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:600;color:rgba(255,255,255,.7);}
+.today-hist-item.hi{border-color:rgba(27,156,134,.5);color:#5DDED0;}
+.today-hist-item.lo{border-color:rgba(217,64,64,.4);color:#FF9090;}
+
+/* ── CARDS / CHARTS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-bottom:18px;}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:13px;margin-bottom:18px;}
+.card{background:var(–surface);border:1.5px solid var(–border);border-radius:11px;padding:18px;}
+.card-t{font-size:13px;font-weight:700;margin-bottom:3px;}
+.card-sub{font-size:10px;color:var(–text3);margin-bottom:13px;}
+.stat-row{display:flex;justify-content:space-around;margin-top:11px;padding-top:11px;border-top:1px solid var(–border);}
+.stat-item{text-align:center;}
+.stat-v{font-size:14px;font-weight:800;letter-spacing:-.3px;}
+.stat-l{font-size:9px;color:var(–text3);text-transform:uppercase;letter-spacing:.8px;margin-top:2px;}
+
+/* ── WEEKDAY ── */
+.wd-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+.wd-col{text-align:center;}
+.wd-name{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(–text3);margin-bottom:5px;}
+.wd-bwrap{height:90px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:5px;}
+.wd-b{width:66%;max-width:38px;border-radius:5px 5px 0 0;transition:height .9s cubic-bezier(.23,1,.32,1);}
+.wd-b.norm{background:linear-gradient(180deg,var(–coral),var(–coral2));}
+.wd-b.best{background:linear-gradient(180deg,#2DD4BF,var(–teal2));}
+.wd-b.worst{background:linear-gradient(180deg,#F0A0A0,var(–red));}
+.wd-b.none{background:var(–sand);}
+.wd-b.today{outline:2.5px solid var(–amber);outline-offset:2px;}
+.wd-v{font-size:11px;font-weight:700;}
+.wd-sub{font-size:9px;color:var(–text3);margin-top:1px;}
+.wd-sorv{font-size:9px;color:var(–purple);font-weight:600;margin-top:1px;}
+
+/* ── DIAGNÓSTICO ── */
+.diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px;}
+.diag-card{border-radius:11px;padding:14px 16px;border:1.5px solid;}
+.diag-card.danger{background:var(–redbg);border-color:#F5BBBB;}
+.diag-card.warning{background:var(–warn);border-color:#F0D090;}
+.diag-title{font-size:11px;font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:6px;}
+.diag-items{display:flex;flex-direction:column;gap:5px;}
+.diag-item{display:flex;align-items:flex-start;gap:8px;font-size:11px;padding:7px 9px;border-radius:7px;background:rgba(255,255,255,.6);}
+.di-date{font-weight:700;white-space:nowrap;min-width:36px;}
+.di-val{font-weight:700;white-space:nowrap;}
+.di-why{color:var(–text2);flex:1;line-height:1.45;}
+
+/* ── LACUNAS ── */
+.gaps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px;}
+.gap-item{background:var(–surface);border:1.5px dashed var(–border);border-radius:9px;padding:11px 13px;}
+.gap-prio{font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.gap-prio.c{color:var(–red);}
+.gap-prio.i{color:var(–amber);}
+.gap-prio.d{color:var(–teal);}
+.gap-name{font-size:12px;font-weight:700;margin-bottom:2px;}
+.gap-why{font-size:10px;color:var(–text3);line-height:1.5;}
+
+/* ── TABLE ── */
+.tcard{background:var(–surface);border:1.5px solid var(–border);border-radius:11px;overflow:hidden;margin-bottom:24px;}
+.th-row{padding:13px 18px;border-bottom:1.5px solid var(–border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.tcard-t{font-size:13px;font-weight:700;}
+.tcnt{font-size:10px;color:var(–text3);background:var(–sand);padding:3px 9px;border-radius:20px;font-weight:600;}
+.search-wrap{display:flex;align-items:center;gap:8px;padding:9px 16px;border-bottom:1px solid var(–border);background:var(–bg);}
+.search-wrap input{flex:1;padding:5px 12px;border-radius:20px;border:1.5px solid var(–border);background:var(–surface);font-family:inherit;font-size:12px;color:var(–text1);outline:none;transition:border-color .13s;}
+.search-wrap input:focus{border-color:var(–coral);}
+.search-wrap input::placeholder{color:var(–text3);}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(–sand);}
+thead th{padding:8px 12px;text-align:left;font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:var(–text2);font-weight:700;cursor:pointer;white-space:nowrap;user-select:none;}
+thead th:hover,thead th.s{color:var(–coral);}
+tbody tr{border-bottom:1px solid var(–border);transition:background .1s;}
+tbody tr:hover{background:var(–bg);}
+tbody tr.row-danger{background:#FFF5F5;}
+tbody tr.row-warn{background:#FFFAF0;}
+tbody tr:last-child{border-bottom:none;}
+tbody td{padding:9px 12px;font-size:12px;font-weight:500;}
+.td-d{color:var(–text2);font-weight:600;}
+.td-p{color:var(–teal);font-weight:600;}
+.td-n{color:var(–red);font-weight:600;}
+.chip{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;}
+.chip-g{background:#D0F5EE;color:var(–teal2);}
+.chip-r{background:#FFE4E4;color:var(–red);}
+.chip-w{background:var(–warn);color:var(–amber);}
+.chip-p{background:#EDE8FF;color:var(–purple);}
+.chip-gray{background:var(–sand);color:var(–text2);}
+.obs-chip{background:var(–sand);color:var(–text2);font-size:9px;padding:2px 6px;border-radius:7px;border:1px solid var(–border);font-weight:600;}
+.pag{display:flex;justify-content:center;align-items:center;gap:5px;padding:11px;border-top:1px solid var(–border);}
+.pb{width:27px;height:27px;border-radius:6px;border:1.5px solid var(–border);background:transparent;font-family:inherit;font-size:12px;font-weight:600;color:var(–text2);cursor:pointer;transition:all .12s;display:flex;align-items:center;justify-content:center;}
+.pb:hover{border-color:var(–coral);color:var(–coral);}
+.pb.on{background:var(–coral);border-color:var(–coral);color:white;}
+.pb:disabled{opacity:.3;cursor:not-allowed;}
+
+/* ── COMPRAS PAGE ── */
+.custo-hero{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px;}
+.bar-list{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.bar-item{display:flex;align-items:center;gap:10px;}
+.bar-item-label{font-size:11px;font-weight:600;color:var(–text2);min-width:130px;}
+.bar-item-track{flex:1;height:10px;background:var(–sand);border-radius:20px;overflow:hidden;}
+.bar-item-fill{height:100%;border-radius:20px;transition:width .8s cubic-bezier(.23,1,.32,1);}
+.bar-item-val{font-size:11px;font-weight:700;color:var(–text1);min-width:60px;text-align:right;}
+.bar-item-cnt{font-size:10px;color:var(–text3);min-width:32px;text-align:right;}
+
+.purchase-table tbody tr.equip{background:#F0F8FF;}
+.purchase-table tbody tr.ajuste{background:#FFFAF0;}
+
+@keyframes up{from{opacity:0;transform:translateY(11px);}to{opacity:1;transform:translateY(0);}}
+.a1{animation:up .38s ease both;}
+.a2{animation:up .38s .06s ease both;}
+.a3{animation:up .38s .12s ease both;}
+.a4{animation:up .38s .18s ease both;}
+.a5{animation:up .38s .24s ease both;}
+.a6{animation:up .38s .30s ease both;}
+.a7{animation:up .38s .36s ease both;}
+
+@media(max-width:960px){
+.page,header,.tabs{padding-left:14px;padding-right:14px;}
+.kpi-row,.custo-hero{grid-template-columns:repeat(3,1fr);}
+.g2,.g3,.g21,.today-row,.diag-grid{grid-template-columns:1fr;}
+.wd-grid{grid-template-columns:repeat(4,1fr);}
+.gaps-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">🍦</div>
+    <div>
+      <div class="brand-name">Sorvete na Chapa</div>
+      <div class="brand-sub">Caixa Diário · Março 2026</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="season-tag">⚠️ ALTA TEMPORADA</span>
+    <span style="font-size:11px;color:var(--text3)">23/03/2026</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab on" data-tab="vendas">📈 Vendas</div>
+  <div class="tab" data-tab="compras">🛒 Compras & Custos</div>
+  <div class="tab" data-tab="gestao">🔍 Gestão</div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     ABA 1 — VENDAS
+════════════════════════════════════════════════ -->
+
+<div class="page on" id="tab-vendas">
+
+  <div class="alert-banner a1">
+    <span>⚠️</span>
+    <div><strong>Dados de alta temporada.</strong> Março é período de pico turístico em Natal/RN. Resultados deste mês podem não refletir a performance média anual. Compare com meses fora de temporada antes de tomar decisões estruturais.</div>
+  </div>
+
+  <div class="sec a1">Resumo do Mês</div>
+  <div class="kpi-row a1">
+    <div class="kpi ct">
+      <div class="kpi-l">Faturamento</div>
+      <div class="kpi-v pos">R$ 10.596</div>
+      <div class="kpi-s">Meta atingida (+6%) ✅</div>
+    </div>
+    <div class="kpi cc">
+      <div class="kpi-l">Lucro Líquido</div>
+      <div class="kpi-v">R$ 4.405</div>
+      <div class="kpi-s">41,6% de margem</div>
+    </div>
+    <div class="kpi ca">
+      <div class="kpi-l">Despesas</div>
+      <div class="kpi-v amb">R$ 6.191</div>
+      <div class="kpi-s">58,4% do faturamento</div>
+    </div>
+    <div class="kpi ct">
+      <div class="kpi-l">Fat. Médio/Dia</div>
+      <div class="kpi-v pos">R$ 505</div>
+      <div class="kpi-s">DP ±R$ 151 — alta volatilidade</div>
+    </div>
+    <div class="kpi cp">
+      <div class="kpi-l">Sorvetes/Dia</div>
+      <div class="kpi-v pur">~32</div>
+      <div class="kpi-s">(Fat − Extras) ÷ R$15</div>
+    </div>
+    <div class="kpi cr">
+      <div class="kpi-l">Melhor Dia</div>
+      <div class="kpi-v" style="color:var(--coral)">R$ 775</div>
+      <div class="kpi-s">21/03 · Sábado</div>
+    </div>
+  </div>
+
+  <div class="meta a2">
+    <div class="meta-h">
+      <div>
+        <div class="meta-t">Meta de Faturamento — R$ 10.000</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Meta atingida — R$ 596 acima. 8 dias restantes para ampliar 🎉</div>
+      </div>
+      <div class="meta-p">106%</div>
+    </div>
+    <div class="meta-track"><div class="meta-fill" style="width:100%"></div></div>
+    <div class="meta-legs"><span>R$ 0</span><span><strong>R$ 10.596</strong> faturados</span><span>Meta: R$ 10.000</span></div>
+  </div>
+
+  <div class="today-section a3">
+    <div class="today-header">
+      <div class="today-pulse"></div>
+      <div class="today-header-txt">Previsão para Hoje</div>
+      <div class="today-date-tag">Segunda-feira · 23/03/2026</div>
+    </div>
+    <div class="today-row">
+      <div class="today-card">
+        <div class="today-lbl">Faturamento Esperado</div>
+        <div class="today-v">R$ 425<span>reais</span></div>
+        <div class="today-hist">
+          <span class="today-hist-item hi">02/03 · R$495</span>
+          <span class="today-hist-item">09/03 · R$440</span>
+          <span class="today-hist-item lo">16/03 · R$340</span>
+        </div>
+        <div class="today-warn">⚠️ Amplitude real: R$340–R$495 · média pode enganar</div>
+      </div>
+      <div class="today-card">
+        <div class="today-lbl">Sorvetes Estimados</div>
+        <div class="today-v">~27<span>sorv.</span></div>
+        <div class="today-s">(Faturamento − Extras) ÷ R$15 · média das segundas-feiras</div>
+        <div class="today-warn">⚠️ Estimativa — assume preço único de R$15</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec a4">Análise Visual</div>
+  <div class="g2 a4">
+    <div class="card">
+      <div class="card-t">📈 Faturamento Diário</div>
+      <div class="card-sub">🟢 acima R$600 &nbsp;·&nbsp; ⚫ intermediário &nbsp;·&nbsp; 🔴 abaixo R$300</div>
+      <canvas id="cFat" height="155"></canvas>
+      <div class="stat-row">
+        <div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$775</div><div class="stat-l">Maior</div></div>
+        <div class="stat-item"><div class="stat-v">R$505</div><div class="stat-l">Média</div></div>
+        <div class="stat-item"><div class="stat-v" style="color:var(--red)">R$144</div><div class="stat-l">Menor</div></div>
+        <div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$151</div><div class="stat-l">Desvio P.</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">🍦 Sorvetes por Dia</div>
+      <div class="card-sub">(Faturamento − Extras) ÷ R$15 — estimativa</div>
+      <canvas id="cSorv" height="155"></canvas>
+      <div class="stat-row">
+        <div class="stat-item"><div class="stat-v" style="color:var(--teal)">50</div><div class="stat-l">Maior</div></div>
+        <div class="stat-item"><div class="stat-v">32</div><div class="stat-l">Média</div></div>
+        <div class="stat-item"><div class="stat-v" style="color:var(--red)">9</div><div class="stat-l">Menor</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="g3 a5">
+    <div class="card">
+      <div class="card-t">💰 Faturamento Acumulado</div>
+      <div class="card-sub">Curva real do mês incluindo todos os dias</div>
+      <canvas id="cAcum" height="160"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-t">📊 Extras por Dia</div>
+      <div class="card-sub">Receita fora do sorvete — R$379 no mês (R$18/dia)</div>
+      <canvas id="cExtras" height="160"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-t">⚡ Taxa Maquininha por Dia</div>
+      <div class="card-sub">Subiu em 20–22/03 — nova tarifa vigente</div>
+      <canvas id="cMaq" height="160"></canvas>
+    </div>
+  </div>
+
+  <div class="sec a5">Média por Dia da Semana</div>
+  <div class="card a5" style="margin-bottom:18px">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+      <div>
+        <div class="card-t" style="margin:0">Faturamento Médio por Dia da Semana</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">3 semanas de dados · cada barra = média de 3 dias — cuidado com generalizações</div>
+      </div>
+      <span style="background:var(--teal);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Média geral: R$ 505</span>
+    </div>
+    <div class="wd-grid" id="wdGrid"></div>
+    <div style="font-size:10px;color:var(--text3);margin-top:10px;display:flex;gap:14px;flex-wrap:wrap">
+      <span>🟩 Melhor: <strong>Sábado</strong> R$677</span>
+      <span>🔴 Pior: <strong>Terça</strong> R$328</span>
+      <span>📍 Hoje: <strong>Segunda</strong></span>
+      <span>↕ Diferença Sáb→Ter: <strong>+106%</strong></span>
+    </div>
+  </div>
+
+  <!-- TABELA VENDAS -->
+
+  <div class="sec a6">Detalhamento Diário</div>
+  <div class="tcard a6">
+    <div class="th-row">
+      <div class="tcard-t">Registro de Caixa</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:10px;color:var(--text3)">🔴 prejuízo &nbsp;🟡 alerta</span>
+        <div class="tcnt" id="tcnt-v">21 registros</div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span style="font-size:11px;color:var(--text3)">🔍</span>
+      <input id="srch-v" placeholder="Buscar por data ou observação…">
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr>
+          <th data-tbl="v" data-c="0">Data ↕</th><th>Dia</th>
+          <th data-tbl="v" data-c="1">Faturamento ↕</th>
+          <th data-tbl="v" data-c="2">Extras ↕</th>
+          <th>Sorvetes</th>
+          <th data-tbl="v" data-c="3">Desp.Var. ↕</th>
+          <th data-tbl="v" data-c="4">Tx Maq. ↕</th>
+          <th data-tbl="v" data-c="5">Diária ↕</th>
+          <th data-tbl="v" data-c="6">Lucro ↕</th>
+          <th>Outros</th><th>Obs.</th><th>Alerta</th>
+        </tr></thead>
+        <tbody id="tbody-v"></tbody>
+      </table>
+    </div>
+    <div class="pag" id="pag-v"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     ABA 2 — COMPRAS & CUSTOS
+════════════════════════════════════════════════ -->
+
+<div class="page" id="tab-compras">
+
+  <div class="sec a1">Resumo de Custos · Março 2026</div>
+  <div class="custo-hero a1">
+    <div class="kpi ct">
+      <div class="kpi-l">Total Compras</div>
+      <div class="kpi-v pos">R$ 2.869</div>
+      <div class="kpi-s">Valor total das notas</div>
+    </div>
+    <div class="kpi cc">
+      <div class="kpi-l">Custo Operacional</div>
+      <div class="kpi-v">R$ 2.740</div>
+      <div class="kpi-s">Sem equipamentos e ajustes</div>
+    </div>
+    <div class="kpi cp">
+      <div class="kpi-l">Custo por Sorvete</div>
+      <div class="kpi-v pur">R$ 4,02</div>
+      <div class="kpi-s">Insumos ÷ 681 sorvetes</div>
+    </div>
+    <div class="kpi ct">
+      <div class="kpi-l">Margem Bruta/Sorvete</div>
+      <div class="kpi-v pos">R$ 10,98</div>
+      <div class="kpi-s">73,2% · (sem diária e maq.)</div>
+    </div>
+    <div class="kpi ca">
+      <div class="kpi-l">Equipamentos</div>
+      <div class="kpi-v amb">R$ 171</div>
+      <div class="kpi-s">Faca + Garrafas · não recorrente</div>
+    </div>
+    <div class="kpi cg">
+      <div class="kpi-l">Ajustes de Saldo</div>
+      <div class="kpi-v">R$ 117</div>
+      <div class="kpi-s">4 dias · a verificar</div>
+      <span class="kpi-flag">⏳ Pendente</span>
+    </div>
+  </div>
+
+  <!-- Composição + Top Itens -->
+
+  <div class="g21 a2">
+    <div class="card">
+      <div class="card-t">🏆 Top 10 Itens por Gasto no Mês</div>
+      <div class="card-sub">Valor total gasto em cada produto · excluindo equipamentos e ajustes</div>
+      <div class="bar-list" id="topItemsBars"></div>
+    </div>
+    <div class="card">
+      <div class="card-t">🥧 Composição por Categoria</div>
+      <div class="card-sub">Distribuição do custo operacional</div>
+      <canvas id="cCats" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- Frequência + Gasto diário -->
+
+  <div class="g2 a3">
+    <div class="card">
+      <div class="card-t">🔄 Itens com Maior Frequência de Reposição</div>
+      <div class="card-sub">Comprados 3 ou mais vezes no mês</div>
+      <canvas id="cFreq" height="180"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-t">📅 Gasto de Compras por Dia</div>
+      <div class="card-sub">Mostra concentração de compras — normal ter picos</div>
+      <canvas id="cComprasDia" height="180"></canvas>
+    </div>
+  </div>
+
+  <!-- Alertas de custo -->
+
+  <div class="sec a4">Observações sobre Custos</div>
+  <div class="diag-grid a4">
+    <div class="diag-card warning">
+      <div class="diag-title">🟡 Nutella — principal custo de topping</div>
+      <div class="diag-items">
+        <div class="diag-item">
+          <span class="di-date">Total</span>
+          <span class="di-val" style="color:var(--amber)">R$ 489,57</span>
+          <span class="di-why">17,9% do custo operacional. Comprada 5x no mês com média de R$97,91/compra. Se o volume de vendas com Nutella não justificar, é o item de maior impacto a revisar.</span>
+        </div>
+        <div class="diag-item">
+          <span class="di-date">16/03</span>
+          <span class="di-val" style="color:var(--amber)">R$ 319,92</span>
+          <span class="di-why">Compra de 6 unidades de uma vez. Preço unitário: R$53,32 — coerente com as compras individuais (~R$40). Não é erro de preço.</span>
+        </div>
+      </div>
+    </div>
+    <div class="diag-card warning">
+      <div class="diag-title">🟡 Embalagens — 26% do custo operacional</div>
+      <div class="diag-items">
+        <div class="diag-item">
+          <span class="di-date">Potes</span>
+          <span class="di-val" style="color:var(--amber)">R$ 309,66</span>
+          <span class="di-why">Maior gasto de embalagem. Comprado 3x (07, 13, 18/03). Verificar se quantidade por compra está correta — pode haver espaço para compra em maior volume com desconto.</span>
+        </div>
+        <div class="diag-item">
+          <span class="di-date">Colher</span>
+          <span class="di-val" style="color:var(--amber)">R$ 107,14</span>
+          <span class="di-why">Comprada 2x em datas diferentes (08/03 e 22/03). Valor alto — quantas unidades por compra?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela de compras -->
+
+  <div class="sec a5">Todas as Compras</div>
+  <div class="tcard a5">
+    <div class="th-row">
+      <div class="tcard-t">Detalhamento de Notas</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:10px;color:var(--text3)">🔵 equipamento &nbsp;🟡 ajuste de saldo</span>
+        <div class="tcnt" id="tcnt-c">72 itens</div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span style="font-size:11px;color:var(--text3)">🔍</span>
+      <input id="srch-c" placeholder="Buscar item ou data…">
+    </div>
+    <div style="overflow-x:auto">
+      <table class="purchase-table">
+        <thead><tr>
+          <th data-tbl="c" data-c="0">Data ↕</th>
+          <th data-tbl="c" data-c="1">Item ↕</th>
+          <th data-tbl="c" data-c="2">Categoria</th>
+          <th data-tbl="c" data-c="3">Valor ↕</th>
+          <th>Obs.</th>
+        </tr></thead>
+        <tbody id="tbody-c"></tbody>
+      </table>
+    </div>
+    <div class="pag" id="pag-c"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     ABA 3 — GESTÃO
+════════════════════════════════════════════════ -->
+
+<div class="page" id="tab-gestao">
+
+  <div class="sec a1">Diagnóstico de Dias Críticos</div>
+  <div class="diag-grid a1">
+    <div class="diag-card warning">
+      <div class="diag-title">🟡 Contexto corrigido — compras são mensais</div>
+      <div class="diag-items">
+        <div class="diag-item">
+          <span class="di-date"></span>
+          <span class="di-why" style="flex:1">Despesas variáveis altas em determinados dias (03, 04, 16/03) refletem compras de insumos para o mês inteiro — não prejuízo operacional real daquele dia. O lucro por dia isolado não é uma métrica confiável neste modelo.</span>
+        </div>
+        <div class="diag-item">
+          <span class="di-date">Nova Tx</span>
+          <span class="di-val" style="color:var(--amber)">Maq.</span>
+          <span class="di-why">A partir de 20/03 a taxa da maquininha aumentou (fim de promoção). Impacto mensal estimado de <strong>+R$150–200/mês</strong> nos próximos meses comparado com março.</span>
+        </div>
+      </div>
+    </div>
+    <div class="diag-card danger">
+      <div class="diag-title">🔴 Ajustes de saldo pendentes — 4 dias</div>
+      <div class="diag-items">
+        <div class="diag-item"><span class="di-date">11/03</span><span class="di-val" style="color:var(--red)">R$65,75</span><span class="di-why">Diferença entre notas e planilha — a verificar</span></div>
+        <div class="diag-item"><span class="di-date">12/03</span><span class="di-val" style="color:var(--red)">−R$23,49</span><span class="di-why">Notas maiores que planilha — a verificar</span></div>
+        <div class="diag-item"><span class="di-date">13/03</span><span class="di-val" style="color:var(--red)">R$32,88</span><span class="di-why">Planilha maior que notas — a verificar</span></div>
+        <div class="diag-item"><span class="di-date">19/03</span><span class="di-val" style="color:var(--red)">R$41,64</span><span class="di-why">Garrafas e pote pendentes de classificação</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec a2">Reclassificações Aplicadas</div>
+  <div class="card a2" style="margin-bottom:18px">
+    <div class="card-t">📋 O que foi corrigido nesta análise</div>
+    <div class="card-sub">Diferenças entre o que estava na planilha e o que foi reclassificado</div>
+    <table style="margin-top:8px">
+      <thead><tr>
+        <th style="cursor:default">Item</th><th style="cursor:default">Valor</th>
+        <th style="cursor:default">Era</th><th style="cursor:default">Passa a ser</th><th style="cursor:default">Impacto</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="td-d">Garrafas (19/03)</td><td>R$ 159,20</td><td>Despesa variável</td><td><span class="chip chip-p">Equipamento</span></td><td class="td-p">Não recorrente</td></tr>
+        <tr><td class="td-d">Faca (04/03)</td><td>R$ 11,90</td><td>Despesa variável</td><td><span class="chip chip-p">Equipamento</span></td><td class="td-p">Não recorrente</td></tr>
+        <tr><td class="td-d">Depósito plástico (08/03)</td><td>R$ 78,90</td><td>"Outros" na planilha</td><td><span class="chip chip-g">Embalagem</span></td><td>Custo operacional real</td></tr>
+        <tr><td class="td-d">Leite 200g (04/03)</td><td>R$ 318,01</td><td>R$355,67 na planilha</td><td><span class="chip chip-g">Valor corrigido</span></td><td class="td-p">−R$37,66 de despesa</td></tr>
+        <tr><td class="td-d">Nutella 03/03</td><td>R$ 44,80</td><td>Não registrada</td><td><span class="chip chip-w">Incluída (s/nota)</span></td><td class="td-n">+R$44,80 de despesa</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec a3">Lacunas de Dados — O que falta registrar</div>
+  <div class="gaps-grid a3">
+    <div class="gap-item"><div class="gap-prio c">🔴 Crítico</div><div class="gap-name">Horário de abertura/fechamento</div><div class="gap-why">Sem isso, dia fraco pode ser operação parcial. O 03/03 pode ter sido 2h de trabalho.</div></div>
+    <div class="gap-item"><div class="gap-prio c">🔴 Crítico</div><div class="gap-name">Categoria das despesas variáveis</div><div class="gap-why">Coluna única mistura insumos, embalagens e outros. Dificulta análise de custo real.</div></div>
+    <div class="gap-item"><div class="gap-prio c">🔴 Crítico</div><div class="gap-name">Separar equipamentos de insumos</div><div class="gap-why">Garrafas e faca distorcem despesa variável. Mês seguinte parecerá mais barato.</div></div>
+    <div class="gap-item"><div class="gap-prio i">🟡 Importante</div><div class="gap-name">Mix de pagamento por dia</div><div class="gap-why">Taxa de maquininha variou 1.300%. Pix vs débito vs crédito — saber o mix permite controlar esse custo.</div></div>
+    <div class="gap-item"><div class="gap-prio i">🟡 Importante</div><div class="gap-name">Registro de clima/chuva</div><div class="gap-why">Foodpark ao ar livre: chuva esvazia. Cruzar com faturamento mostraria o impacto real.</div></div>
+    <div class="gap-item"><div class="gap-prio i">🟡 Importante</div><div class="gap-name">Contagem real de sorvetes</div><div class="gap-why">Atual é estimativa por fórmula. Contagem física revelaria se preço médio é realmente R$15.</div></div>
+    <div class="gap-item"><div class="gap-prio d">🟢 Desejável</div><div class="gap-name">Quantidade por compra de insumo</div><div class="gap-why">Saber "50 leites" muda a análise. Sem quantidade, não dá para calcular custo unitário real.</div></div>
+    <div class="gap-item"><div class="gap-prio d">🟢 Desejável</div><div class="gap-name">Eventos no foodpark</div><div class="gap-why">Pico de R$775 em 21/03 pode ter sido impulsionado por evento externo — ou não. Sem registro, não dá para saber.</div></div>
+    <div class="gap-item"><div class="gap-prio d">🟢 Desejável</div><div class="gap-name">Horário de pico de vendas</div><div class="gap-why">Concentrar esforço no momento certo pode aumentar eficiência sem aumentar horas trabalhadas.</div></div>
+  </div>
+
+  <div class="sec a4">Perguntas Estratégicas em Aberto</div>
+  <div class="card a4" style="margin-bottom:24px">
+    <div class="card-t">❓ O que ainda não está claro</div>
+    <div class="card-sub">Perguntas que um gestor experiente faria ao ver esses dados</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+      <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.6;border:1px solid var(--border)"><strong>1.</strong> A meta de R$10.000 foi calibrada com base em quê? Histórico, benchmark ou intuição?</div>
+      <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.6;border:1px solid var(--border)"><strong>2.</strong> Qual é o potencial máximo de faturamento por dia? Existe limitação de produção que impeça crescimento?</div>
+      <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.6;border:1px solid var(--border)"><strong>3.</strong> O que acontece em meses fora da alta temporada? Junho, julho, setembro mostrariam resultados bem diferentes?</div>
+      <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.6;border:1px solid var(--border)"><strong>4.</strong> O upsell de extras (R$18/dia) é resultado de estratégia ativa ou de pedidos espontâneos dos clientes?</div>
+      <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.6;border:1px solid var(--border)"><strong>5.</strong> Com a nova taxa de maquininha, qual o impacto mensal nos meses seguintes?</div>
+      <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.6;border:1px solid var(--border)"><strong>6.</strong> A Nutella (R$490/mês, 17,9% do custo) está gerando receita proporcional em extras? Ou está sendo absorvida no preço base?</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<script>
+// ── TABS ──────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    document.getElementById('tab-'+t.dataset.tab).classList.add('on');
+  });
+});
+
+// ── VENDAS DATA ───────────────────────────────────────────────────────
+const WN=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+const TODAY_WD=0;
+const vendas=[
+  {d:'02/03',wd:0,fat:495, ext:0,  dv:null,   maq:2.47, dia:90, luc:402.53, out:null,   obs:''},
+  {d:'03/03',wd:1,fat:144, ext:9,  dv:173.98, maq:0.85, dia:80, luc:-110.83,out:null,   obs:''},
+  {d:'04/03',wd:2,fat:447, ext:0,  dv:355.67, maq:2.33, dia:80, luc:9.00,   out:null,   obs:'Aluguel'},
+  {d:'05/03',wd:3,fat:330, ext:15, dv:50.82,  maq:1.56, dia:80, luc:197.62, out:null,   obs:''},
+  {d:'06/03',wd:4,fat:747, ext:0,  dv:101.21, maq:2.00, dia:80, luc:563.79, out:null,   obs:''},
+  {d:'07/03',wd:5,fat:615, ext:0,  dv:257.68, maq:2.70, dia:80, luc:274.62, out:null,   obs:''},
+  {d:'08/03',wd:6,fat:408, ext:0,  dv:73.94,  maq:1.93, dia:110,luc:222.13, out:78.90,  obs:'Potes'},
+  {d:'09/03',wd:0,fat:440, ext:5,  dv:154.30, maq:1.78, dia:80, luc:203.92, out:null,   obs:''},
+  {d:'10/03',wd:1,fat:505, ext:10, dv:27.84,  maq:3.38, dia:90, luc:383.78, out:-60,    obs:'Ajuste saldo'},
+  {d:'11/03',wd:2,fat:575, ext:0,  dv:74.85,  maq:3.39, dia:70, luc:426.76, out:780,    obs:'Aluguel'},
+  {d:'12/03',wd:3,fat:730, ext:65, dv:46.36,  maq:3.02, dia:83, luc:597.62, out:null,   obs:''},
+  {d:'13/03',wd:4,fat:520, ext:25, dv:197.71, maq:2.60, dia:80, luc:239.69, out:91,     obs:'Filtro'},
+  {d:'14/03',wd:5,fat:640, ext:35, dv:24.58,  maq:2.54, dia:77, luc:535.88, out:null,   obs:''},
+  {d:'15/03',wd:6,fat:500, ext:20, dv:20.89,  maq:2.33, dia:74, luc:402.78, out:null,   obs:''},
+  {d:'16/03',wd:0,fat:340, ext:55, dv:375.11, maq:1.91, dia:81, luc:-118.02,out:null,   obs:''},
+  {d:'17/03',wd:1,fat:335, ext:5,  dv:46.74,  maq:1.53, dia:90, luc:196.73, out:null,   obs:''},
+  {d:'18/03',wd:2,fat:525, ext:30, dv:111.49, maq:2.32, dia:76, luc:335.19, out:780,    obs:'Aluguel'},
+  {d:'19/03',wd:3,fat:345, ext:25, dv:71.68,  maq:1.48, dia:75, luc:196.84, out:225.78, obs:'Potes'},
+  {d:'20/03',wd:4,fat:510, ext:15, dv:179.90, maq:9.10, dia:73, luc:248.00, out:null,   obs:'Empréstimo'},
+  {d:'21/03',wd:5,fat:775, ext:50, dv:60.13,  maq:11.88,dia:80, luc:622.99, out:null,   obs:''},
+  {d:'22/03',wd:6,fat:670, ext:15, dv:117.46, maq:9.78, dia:73, luc:469.76, out:null,   obs:''},
+];
+vendas.forEach(r=>{ r.sorv=Math.round((r.fat-r.ext)/15); });
+
+// ── COMPRAS DATA ──────────────────────────────────────────────────────
+const compras=[
+  {d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Topping/Cobertura',val:18.79,tipo:''},
+  {d:'03/03',item:'Cobertura Morango 1,3kg',cat:'Topping/Cobertura',val:17.59,tipo:''},
+  {d:'03/03',item:'Leite 200g (50un)',cat:'Insumo Base',val:51.92,tipo:''},
+  {d:'03/03',item:'Papel Toalha',cat:'Limpeza/Higiene',val:4.19,tipo:''},
+  {d:'03/03',item:'Cobertura Caramelo 300g',cat:'Topping/Cobertura',val:7.79,tipo:''},
+  {d:'03/03',item:'Açúcar',cat:'Insumo Base',val:28.90,tipo:''},
+  {d:'03/03',item:'Nutella (s/nota)',cat:'Topping/Cobertura',val:44.80,tipo:'ajuste'},
+  {d:'04/03',item:'Saco de lixo',cat:'Limpeza/Higiene',val:9.58,tipo:''},
+  {d:'04/03',item:'Pano',cat:'Limpeza/Higiene',val:8.99,tipo:''},
+  {d:'04/03',item:'Leite moça',cat:'Insumo Base',val:7.19,tipo:''},
+  {d:'04/03',item:'Faca',cat:'Equipamento',val:11.90,tipo:'equip'},
+  {d:'04/03',item:'Leite 200g (50un)',cat:'Insumo Base',val:318.01,tipo:''},
+  {d:'05/03',item:'Nutella',cat:'Topping/Cobertura',val:44.87,tipo:''},
+  {d:'05/03',item:'Outros',cat:'Outros',val:5.95,tipo:''},
+  {d:'06/03',item:'Água sanitária',cat:'Limpeza/Higiene',val:2.09,tipo:''},
+  {d:'06/03',item:'Água mineral',cat:'Outros',val:13.50,tipo:''},
+  {d:'06/03',item:'Frutas Vermelhas',cat:'Topping/Cobertura',val:42.63,tipo:''},
+  {d:'06/03',item:'Nesquik',cat:'Topping/Cobertura',val:22.99,tipo:''},
+  {d:'06/03',item:'Ouro Branco',cat:'Topping/Cobertura',val:20.00,tipo:''},
+  {d:'07/03',item:'Potes',cat:'Embalagem',val:183.34,tipo:''},
+  {d:'07/03',item:'Oreo',cat:'Topping/Cobertura',val:2.90,tipo:''},
+  {d:'07/03',item:'Ouro Branco',cat:'Topping/Cobertura',val:61.95,tipo:''},
+  {d:'07/03',item:'Bis',cat:'Topping/Cobertura',val:9.49,tipo:''},
+  {d:'08/03',item:'Colher',cat:'Embalagem',val:41.59,tipo:''},
+  {d:'08/03',item:'Pote plástico',cat:'Embalagem',val:78.90,tipo:''},
+  {d:'08/03',item:'MMs',cat:'Topping/Cobertura',val:32.35,tipo:''},
+  {d:'09/03',item:'Ovomaltine',cat:'Topping/Cobertura',val:41.70,tipo:''},
+  {d:'09/03',item:'Choco Power',cat:'Topping/Cobertura',val:23.46,tipo:''},
+  {d:'09/03',item:'Max Cream',cat:'Insumo Base',val:34.99,tipo:''},
+  {d:'09/03',item:'Emulsificante',cat:'Insumo Base',val:23.50,tipo:''},
+  {d:'09/03',item:'Liga Super Neutra',cat:'Insumo Base',val:22.48,tipo:''},
+  {d:'09/03',item:'Blue Ice',cat:'Insumo Base',val:8.17,tipo:''},
+  {d:'10/03',item:'Leite moça',cat:'Insumo Base',val:7.19,tipo:''},
+  {d:'10/03',item:'Coco ralado',cat:'Topping/Cobertura',val:5.86,tipo:''},
+  {d:'10/03',item:'Morango',cat:'Topping/Cobertura',val:14.79,tipo:''},
+  {d:'11/03',item:'Paçoquinha',cat:'Topping/Cobertura',val:9.10,tipo:''},
+  {d:'11/03',item:'Ajuste de saldo',cat:'Ajuste de Saldo',val:65.75,tipo:'ajuste'},
+  {d:'12/03',item:'Nutella',cat:'Topping/Cobertura',val:39.99,tipo:''},
+  {d:'12/03',item:'Luva',cat:'Limpeza/Higiene',val:3.88,tipo:''},
+  {d:'12/03',item:'KitKat',cat:'Topping/Cobertura',val:25.98,tipo:''},
+  {d:'12/03',item:'Ajuste de saldo',cat:'Ajuste de Saldo',val:-23.49,tipo:'ajuste'},
+  {d:'13/03',item:'Potes',cat:'Embalagem',val:64.00,tipo:''},
+  {d:'13/03',item:'Morango 4x',cat:'Topping/Cobertura',val:45.00,tipo:''},
+  {d:'13/03',item:'Bis',cat:'Topping/Cobertura',val:6.99,tipo:''},
+  {d:'13/03',item:'Oreo',cat:'Topping/Cobertura',val:8.85,tipo:''},
+  {d:'13/03',item:'Nutella',cat:'Topping/Cobertura',val:39.99,tipo:''},
+  {d:'13/03',item:'Ajuste de saldo',cat:'Ajuste de Saldo',val:32.88,tipo:'ajuste'},
+  {d:'14/03',item:'KitKat',cat:'Topping/Cobertura',val:19.79,tipo:''},
+  {d:'14/03',item:'Chocolate Granulado',cat:'Topping/Cobertura',val:4.79,tipo:''},
+  {d:'15/03',item:'Cobertura Chocolate 1,3kg',cat:'Topping/Cobertura',val:20.89,tipo:''},
+  {d:'16/03',item:'Choco Power',cat:'Topping/Cobertura',val:23.46,tipo:''},
+  {d:'16/03',item:'MMs',cat:'Topping/Cobertura',val:24.74,tipo:''},
+  {d:'16/03',item:'Nutella 6x',cat:'Topping/Cobertura',val:319.92,tipo:''},
+  {d:'16/03',item:'Leite moça',cat:'Insumo Base',val:6.99,tipo:''},
+  {d:'17/03',item:'Cobertura morango 300g',cat:'Topping/Cobertura',val:8.52,tipo:''},
+  {d:'17/03',item:'Coco ralado',cat:'Topping/Cobertura',val:5.97,tipo:''},
+  {d:'17/03',item:'Morango 2x',cat:'Topping/Cobertura',val:22.50,tipo:''},
+  {d:'17/03',item:'KitKat',cat:'Topping/Cobertura',val:9.75,tipo:''},
+  {d:'18/03',item:'Potes',cat:'Embalagem',val:62.32,tipo:''},
+  {d:'18/03',item:'KitKat',cat:'Topping/Cobertura',val:25.19,tipo:''},
+  {d:'18/03',item:'KitKat',cat:'Topping/Cobertura',val:23.98,tipo:''},
+  {d:'19/03',item:'Pote plástico',cat:'Embalagem',val:66.58,tipo:''},
+  {d:'19/03',item:'Morango 2x',cat:'Topping/Cobertura',val:29.98,tipo:''},
+  {d:'19/03',item:'Ovomaltine',cat:'Topping/Cobertura',val:41.70,tipo:''},
+  {d:'19/03',item:'Garrafas',cat:'Equipamento',val:159.20,tipo:'equip'},
+  {d:'19/03',item:'Ajuste de saldo',cat:'Ajuste de Saldo',val:41.64,tipo:'ajuste'},
+  {d:'20/03',item:'Chocolate granulado',cat:'Topping/Cobertura',val:26.99,tipo:''},
+  {d:'20/03',item:'MMs',cat:'Topping/Cobertura',val:32.35,tipo:''},
+  {d:'20/03',item:'Ouro Branco',cat:'Topping/Cobertura',val:52.60,tipo:''},
+  {d:'20/03',item:'Morango 4x',cat:'Topping/Cobertura',val:67.96,tipo:''},
+  {d:'21/03',item:'Emulsificante',cat:'Insumo Base',val:23.50,tipo:''},
+  {d:'21/03',item:'Max Cream',cat:'Insumo Base',val:36.63,tipo:''},
+  {d:'22/03',item:'Colher',cat:'Embalagem',val:65.55,tipo:''},
+  {d:'22/03',item:'Cobertura Morango 1,3kg',cat:'Topping/Cobertura',val:17.59,tipo:''},
+  {d:'22/03',item:'Frutas Vermelhas',cat:'Topping/Cobertura',val:22.99,tipo:''},
+  {d:'22/03',item:'Leite moça',cat:'Insumo Base',val:5.99,tipo:''},
+  {d:'22/03',item:'Oreo',cat:'Topping/Cobertura',val:5.34,tipo:''},
+];
+
+// ── CHART DEFAULTS ────────────────────────────────────────────────────
+Chart.defaults.font.family='Plus Jakarta Sans';
+const GRID='#EDE5D8',TICK='#A08060';
+const tck={color:TICK,font:{size:10}};
+const grd={color:GRID};
+
+// ── ABA VENDAS — CHARTS ───────────────────────────────────────────────
+new Chart('cFat',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.fat),backgroundColor:vendas.map(r=>r.fat>=600?'#1B9C8688':r.fat<300?'#D9404088':'#AAAAAA55'),borderColor:vendas.map(r=>r.fat>=600?'#1B9C86':r.fat<300?'#D94040':'#AAAAAA'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+new Chart('cSorv',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.sorv),backgroundColor:'#7C5CFC44',borderColor:'#7C5CFC',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw} sorvetes`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:tck,grid:grd}}}});
+
+let acc=0;
+new Chart('cAcum',{type:'line',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>{acc+=r.fat;return Math.round(acc);}),borderColor:'#F26040',backgroundColor:'#F2604020',borderWidth:2.5,fill:true,tension:0.35,pointRadius:3,pointBackgroundColor:'#F26040'}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+new Chart('cExtras',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.ext||0),backgroundColor:'#1B9C8655',borderColor:'#1B9C86',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+new Chart('cMaq',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.maq),backgroundColor:vendas.map(r=>r.maq>5?'#D9404066':'#D98F1055'),borderColor:vendas.map(r=>r.maq>5?'#D94040':'#D98F10'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw?.toFixed(2)}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+
+// ── WEEKDAY ───────────────────────────────────────────────────────────
+const wdS=Array(7).fill(0),wdC=Array(7).fill(0),wdSorv=Array(7).fill(0);
+vendas.forEach(r=>{wdS[r.wd]+=r.fat;wdC[r.wd]++;wdSorv[r.wd]+=r.sorv;});
+const wdA=wdS.map((s,i)=>wdC[i]>0?Math.round(s/wdC[i]):0);
+const wdAS=wdSorv.map((s,i)=>wdC[i]>0?Math.round(s/wdC[i]):0);
+const maxA=Math.max(...wdA),minA=Math.min(...wdA.filter(v=>v>0));
+document.getElementById('wdGrid').innerHTML=WN.map((n,i)=>{
+  const a=wdA[i],c=wdC[i],s=wdAS[i],pct=maxA>0?(a/maxA)*100:0;
+  const best=a===maxA&&c>0,worst=a===minA&&c>0,today=i===TODAY_WD,empty=c===0;
+  const cls=empty?'none':best?'best':worst?'worst':'norm';
+  return `<div class="wd-col"><div class="wd-name">${n}${today?' 📍':''}</div><div class="wd-bwrap"><div class="wd-b ${cls}${today?' today':''}" style="height:${empty?4:Math.max(pct,6)}px"></div></div><div class="wd-v">${c>0?'R$'+a:'—'}</div><div class="wd-sub">${c} dia${c!==1?'s':''}</div><div class="wd-sorv">${c>0?'~'+s+' sorv.':''}</div></div>`;
+}).join('');
+
+// ── ABA COMPRAS — CHARTS ──────────────────────────────────────────────
+// Categorias
+const catMap={'Topping/Cobertura':1394.86,'Insumo Base':575.46,'Embalagem':721.48,'Limpeza/Higiene':28.73,'Outros':19.45};
+new Chart('cCats',{type:'doughnut',data:{labels:Object.keys(catMap),datasets:[{data:Object.values(catMap),backgroundColor:['#F26040','#1B9C86','#7C5CFC','#D98F10','#AAAAAA'],borderWidth:0,hoverOffset:8}]},options:{responsive:true,cutout:'55%',plugins:{legend:{position:'bottom',labels:{font:{size:10},color:'#5C4A36',padding:10}},tooltip:{callbacks:{label:c=>` R$ ${c.raw.toFixed(0)} (${(c.raw/2739.98*100).toFixed(1)}%)`}}}}});
+
+// Top 10 barras
+const topItems=[
+  {n:'Nutella',v:489.57,cnt:5},{n:'Potes/Depósitos',v:455.14,cnt:5},
+  {n:'Leite 200g',v:369.93,cnt:2},{n:'Morango',v:223.93,cnt:8},
+  {n:'Garrafas*',v:159.20,cnt:1},{n:'Ouro Branco',v:134.55,cnt:3},
+  {n:'Colher',v:107.14,cnt:2},{n:'KitKat',v:104.69,cnt:5},
+  {n:'MMs',v:89.44,cnt:3},{n:'Ovomaltine',v:83.40,cnt:2},
+];
+const maxV=topItems[0].v;
+const barColors=['#F26040','#F26040','#1B9C86','#F26040','#AAAAAA','#F26040','#7C5CFC','#F26040','#F26040','#1B9C86'];
+document.getElementById('topItemsBars').innerHTML=topItems.map((item,i)=>`
+  <div class="bar-item">
+    <div class="bar-item-label">${item.n}${item.n==='Garrafas*'?' <span style="font-size:9px;color:var(--text3)">[equip]</span>':''}</div>
+    <div class="bar-item-track"><div class="bar-item-fill" style="width:${item.v/maxV*100}%;background:${barColors[i]}"></div></div>
+    <div class="bar-item-val">R$ ${item.v.toFixed(0)}</div>
+    <div class="bar-item-cnt">${item.cnt}x</div>
+  </div>`).join('');
+
+// Frequência
+const freqItems=[{n:'Morango',cnt:8},{n:'Nutella',cnt:5},{n:'Potes/Dep.',cnt:5},{n:'KitKat',cnt:5},{n:'Ouro Branco',cnt:3},{n:'MMs',cnt:3},{n:'Oreo',cnt:3},{n:'Leite moça',cnt:4}];
+new Chart('cFreq',{type:'bar',data:{labels:freqItems.map(i=>i.n),datasets:[{data:freqItems.map(i=>i.cnt),backgroundColor:'#1B9C8666',borderColor:'#1B9C86',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw}x no mês`}}},scales:{x:{ticks:{...tck,stepSize:1},grid:grd},y:{ticks:tck,grid:{display:false}}}}});
+
+// Gasto por dia (compras)
+const dailyCompras={};
+compras.forEach(c=>{if(c.tipo!=='equip'){dailyCompras[c.d]=(dailyCompras[c.d]||0)+c.val;}});
+const cdDays=Object.keys(dailyCompras).sort();
+new Chart('cComprasDia',{type:'bar',data:{labels:cdDays,datasets:[{data:cdDays.map(d=>+dailyCompras[d].toFixed(2)),backgroundColor:'#7C5CFC44',borderColor:'#7C5CFC',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+
+// ── TABELAS ───────────────────────────────────────────────────────────
+const fv=v=>v==null?`<span style="color:var(--text3)">—</span>`:'R$\u00A0'+v.toFixed(2);
+
+// Tabela Vendas
+let vFilt=[...vendas],vSortC=0,vSortA=true,vPg=1;
+document.getElementById('srch-v').addEventListener('input',()=>{
+  const q=document.getElementById('srch-v').value.toLowerCase();
+  vFilt=vendas.filter(r=>!q||r.d.includes(q)||(r.obs&&r.obs.toLowerCase().includes(q)));
+  vPg=1;renderV();
+});
+const VCOLS=['d','fat','ext','dv','maq','dia','luc'];
+document.querySelectorAll('th[data-tbl="v"]').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const c=+th.dataset.c;vSortC===c?vSortA=!vSortA:(vSortC=c,vSortA=true);
+    document.querySelectorAll('th[data-tbl="v"]').forEach(t=>t.classList.remove('s'));th.classList.add('s');
+    vFilt.sort((a,b)=>{const k=VCOLS[c],av=a[k]??-Infinity,bv=b[k]??-Infinity;return vSortA?(av>bv?1:-1):(av<bv?1:-1);});
+    vPg=1;renderV();
+  });
+});
+function getAlertV(r){
+  if(r.maq>5) return '<span class="chip chip-w">🟡 Nova tarifa</span>';
+  return '';
+}
+function renderV(){
+  const sl=vFilt.slice((vPg-1)*10,vPg*10);
+  document.getElementById('tcnt-v').textContent=vFilt.length+' registros';
+  document.getElementById('tbody-v').innerHTML=sl.map(r=>{
+    const lc=r.luc>0?'td-p':'td-n';
+    const chip=r.luc>0?'<span class="chip chip-g">↑</span>':'<span class="chip chip-r">↓</span>';
+    const obs=r.obs?`<span class="obs-chip">${r.obs}</span>`:'';
+    const out=r.out!=null?`<span class="${r.out<0?'td-n':''}">${fv(r.out)}</span>`:`<span style="color:var(--text3)">—</span>`;
+    return `<tr><td class="td-d">${r.d}</td><td class="td-d">${WN[r.wd]}</td><td>${fv(r.fat)}</td><td>${r.ext>0?fv(r.ext):`<span style="color:var(--text3)">—</span>`}</td><td>${r.sorv} sorv.</td><td>${fv(r.dv)}</td><td class="${r.maq>5?'td-n':''}">${fv(r.maq)}</td><td>${fv(r.dia)}</td><td class="${lc}">${fv(r.luc)} ${chip}</td><td>${out}</td><td>${obs}</td><td>${getAlertV(r)}</td></tr>`;
+  }).join('');
+  pagV();
+}
+function pagV(){
+  const tot=Math.ceil(vFilt.length/10),el=document.getElementById('pag-v');
+  if(tot<=1){el.innerHTML='';return;}
+  let h=`<button class="pb" onclick="gPV(${vPg-1})" ${vPg===1?'disabled':''}>‹</button>`;
+  for(let i=1;i<=tot;i++)h+=`<button class="pb ${i===vPg?'on':''}" onclick="gPV(${i})">${i}</button>`;
+  h+=`<button class="pb" onclick="gPV(${vPg+1})" ${vPg===tot?'disabled':''}>›</button>`;
+  el.innerHTML=h;
+}
+function gPV(p){const t=Math.ceil(vFilt.length/10);if(p<1||p>t)return;vPg=p;renderV();}
+renderV();
+
+// Tabela Compras
+let cFilt=[...compras],cSortC=0,cSortA=true,cPg=1;
+document.getElementById('srch-c').addEventListener('input',()=>{
+  const q=document.getElementById('srch-c').value.toLowerCase();
+  cFilt=compras.filter(r=>!q||r.d.includes(q)||r.item.toLowerCase().includes(q)||r.cat.toLowerCase().includes(q));
+  cPg=1;renderC();
+});
+const CCOLS=['d','item','cat','val'];
+document.querySelectorAll('th[data-tbl="c"]').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const c=+th.dataset.c;cSortC===c?cSortA=!cSortA:(cSortC=c,cSortA=true);
+    document.querySelectorAll('th[data-tbl="c"]').forEach(t=>t.classList.remove('s'));th.classList.add('s');
+    cFilt.sort((a,b)=>{const k=CCOLS[c],av=a[k]??'',bv=b[k]??'';return cSortA?(av>bv?1:-1):(av<bv?1:-1);});
+    cPg=1;renderC();
+  });
+});
+const catChip={
+  'Topping/Cobertura':'<span class="chip chip-r">Topping</span>',
+  'Insumo Base':'<span class="chip chip-g">Insumo</span>',
+  'Embalagem':'<span class="chip chip-p">Embalagem</span>',
+  'Limpeza/Higiene':'<span class="chip chip-gray">Limpeza</span>',
+  'Equipamento':'<span class="chip" style="background:#E0F0FF;color:#2060A0">Equipamento</span>',
+  'Ajuste de Saldo':'<span class="chip chip-w">Ajuste</span>',
+  'Outros':'<span class="chip chip-gray">Outros</span>',
+};
+function renderC(){
+  const sl=cFilt.slice((cPg-1)*15,cPg*15);
+  document.getElementById('tcnt-c').textContent=cFilt.length+' itens';
+  document.getElementById('tbody-c').innerHTML=sl.map(r=>{
+    const rowCls=r.tipo==='equip'?'equip':r.tipo==='ajuste'?'ajuste':'';
+    const valCls=r.val<0?'td-n':r.tipo==='equip'?'':'';
+    const obs=r.tipo==='equip'?'<span class="obs-chip">Não recorrente</span>':r.tipo==='ajuste'&&r.item==='Ajuste de saldo'?'<span class="obs-chip">A verificar</span>':r.item.includes('s/nota')?'<span class="obs-chip">Sem nota</span>':'';
+    return `<tr class="${rowCls}"><td class="td-d">${r.d}</td><td>${r.item}</td><td>${catChip[r.cat]||r.cat}</td><td class="${valCls}" style="font-weight:700">${fv(r.val)}</td><td>${obs}</td></tr>`;
+  }).join('');
+  pagC();
+}
+function pagC(){
+  const tot=Math.ceil(cFilt.length/15),el=document.getElementById('pag-c');
+  if(tot<=1){el.innerHTML='';return;}
+  let h=`<button class="pb" onclick="gPC(${cPg-1})" ${cPg===1?'disabled':''}>‹</button>`;
+  for(let i=1;i<=tot;i++)h+=`<button class="pb ${i===cPg?'on':''}" onclick="gPC(${i})">${i}</button>`;
+  h+=`<button class="pb" onclick="gPC(${cPg+1})" ${cPg===tot?'disabled':''}>›</button>`;
+  el.innerHTML=h;
+}
+function gPC(p){const t=Math.ceil(cFilt.length/15);if(p<1||p>t)return;cPg=p;renderC();}
+renderC();
+</script>
+
+</body>
+</html>
