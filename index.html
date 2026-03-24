@@ -267,7 +267,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <span class="badge-season">⚠ ALTA TEMPORADA
       <span class="season-tip"><strong>Dados de alta temporada.</strong> Março é período de pico turístico em Natal/RN. Os resultados deste mês podem não refletir a performance média anual do negócio. Compare com meses fora de temporada antes de tomar decisões estruturais baseadas nestes números.</span>
     </span>
-    <span class="hdr-date">23/03/2026</span>
+    <span class="hdr-date" id="lastUpdated">23/03/2026</span>
   </div>
 </div>
 
@@ -352,6 +352,46 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
       <div class="alert-item"><span class="ai-txt">Segunda-feira é historicamente o <strong>3º pior dia da semana</strong> (média R$425 vs. R$677 no sábado). Prepare-se para volume menor.</span></div>
       <div class="alert-item"><span class="ai-txt">Nova tarifa de maquininha vigente desde 20/03. Estimativa de custo por dia: <strong>~R$8–12</strong> (vs. ~R$2 antes). Monitorar.</span></div>
       <div class="alert-item"><span class="ai-txt">Estoque de Nutella comprado em bulk em 16/03 (6 unidades). Verificar se ainda há disponível para hoje.</span></div>
+    </div>
+  <!-- SALDOS FINANCEIROS -->
+  <div class="slbl au3">Posição Financeira · Planilha</div>
+  <div style="background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:16px;margin-bottom:8px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:rgba(28,201,168,.08);border:1px solid rgba(28,201,168,.15);border-radius:10px;padding:12px 14px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(28,201,168,.7);margin-bottom:6px">🏦 Baú (cofre)</div>
+        <div style="font-size:22px;font-weight:800;color:#1CC9A8;letter-spacing:-1px">R$8.000</div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">Caixa físico / reserva</div>
+      </div>
+      <div style="background:rgba(155,109,255,.08);border:1px solid rgba(155,109,255,.15);border-radius:10px;padding:12px 14px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(155,109,255,.7);margin-bottom:6px">🏛 Saldo Conta</div>
+        <div style="font-size:22px;font-weight:800;color:#9B6DFF;letter-spacing:-1px">R$3.979</div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">Conta bancária</div>
+      </div>
+      <div style="background:rgba(232,64,64,.07);border:1px solid rgba(232,64,64,.15);border-radius:10px;padding:12px 14px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(232,64,64,.7);margin-bottom:6px">💳 Fatura Cartão</div>
+        <div style="font-size:22px;font-weight:800;color:var(--red);letter-spacing:-1px">R$2.730</div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">A pagar</div>
+      </div>
+      <div style="background:rgba(240,160,32,.08);border:1px solid rgba(240,160,32,.15);border-radius:10px;padding:12px 14px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(240,160,32,.7);margin-bottom:6px">💵 Caixa</div>
+        <div style="font-size:22px;font-weight:800;color:var(--amber);letter-spacing:-1px">R$200</div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">Troco / dinheiro em caixa</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">🗂 Envelope</div>
+        <div style="font-size:22px;font-weight:800;color:var(--t1);letter-spacing:-1px">R$1.455</div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">Dinheiro separado / reserva</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal);margin-bottom:4px">Patrimônio líquido</div>
+        <div style="font-size:18px;font-weight:800;color:var(--teal)">R$13.904</div>
+        <div style="font-size:10px;color:var(--t3)">(Baú + Conta + Caixa + Env. − Fatura)</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:rgba(240,160,32,.08);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:8px 12px;font-size:11px;color:var(--t2)">
+      ⚠ <strong style="color:var(--amber)">Informação não atualizada</strong> — conforme indicado na planilha. Os saldos acima refletem o último registro manual feito.
     </div>
   </div>
 
@@ -1283,7 +1323,17 @@ function pC(){
 function gC(p){const t=Math.ceil(cF.length/15);if(p<1||p>t)return;cP=p;rC();}
 rC();
 
-// ── ABA HORÁRIOS ─────────────────────────────────────────────────────
+// ── ÚLTIMA ATUALIZAÇÃO ───────────────────────────────────────────────
+(function(){
+  const el = document.getElementById('lastUpdated');
+  if(!el) return;
+  // Data fixa da última atualização dos dados (23/03/2026)
+  // + hora atual do acesso para mostrar "visualizado agora"
+  const dataBase = '23/03/2026';
+  const now = new Date();
+  const hm = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  el.innerHTML = `Dados: ${dataBase} &nbsp;·&nbsp; Aberto: ${hm}`;
+})();
 const horasData=[
   {h:'13h',fat:1,   v:1},  {h:'17h',fat:45,  v:2},
   {h:'18h',fat:243, v:14}, {h:'19h',fat:1672,v:82},
