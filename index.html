@@ -1068,29 +1068,22 @@ function toggleDrawer(id, btn){
 const WN=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
 const TW=1;
 const vendas=[
-  {d:'02/03',wd:0,fat:495,ext:0,dv:null,maq:2.47,dia:90,luc:402.53,out:null,obs:'',sorv:33,lucro_real:165.87},
-  {d:'03/03',wd:1,fat:144,ext:9,dv:173.98,maq:0.85,dia:80,luc:-110.82999999999998,out:null,obs:'',sorv:9,lucro_real:-77.03},
-  {d:'04/03',wd:2,fat:447,ext:0,dv:355.67,maq:2.33,dia:80,luc:8.999999999999984,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
-  {d:'05/03',wd:3,fat:330,ext:15,dv:50.82,maq:1.56,dia:80,luc:197.62,out:null,obs:'',sorv:21,lucro_real:60.02},
-  {d:'06/03',wd:4,fat:747,ext:0,dv:101.21000000000001,maq:2,dia:80,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360},
-  {d:'07/03',wd:5,fat:615,ext:0,dv:257.68,maq:2.7,dia:80,luc:274.62,out:null,obs:'',sorv:41,lucro_real:263.48},
-  {d:'08/03',wd:6,fat:408,ext:0,dv:73.94,maq:1.93,dia:110,luc:222.13,out:78.9,obs:'Potes',sorv:27,lucro_real:83.53},
-  {d:'09/03',wd:0,fat:440,ext:5,dv:154.3,maq:1.78,dia:80,luc:203.92,out:null,obs:'',sorv:29,lucro_real:137.64},
-  {d:'10/03',wd:1,fat:505,ext:10,dv:27.84,maq:3.38,dia:90,luc:383.78000000000003,out:-7,obs:'Ajuste saldo',sorv:33,lucro_real:174.96},
-  {d:'11/03',wd:2,fat:575,ext:0,dv:74.85,maq:3.39,dia:70,luc:426.76,out:780,obs:'Aluguel',sorv:38,lucro_real:244.85},
-  {d:'12/03',wd:3,fat:730,ext:65,dv:46.36,maq:3.02,dia:83,luc:597.62,out:null,obs:'',sorv:44,lucro_real:363.1},
-  {d:'13/03',wd:4,fat:520,ext:25,dv:197.71,maq:2.6,dia:80,luc:239.68999999999997,out:91,obs:'Filtro',sorv:33,lucro_real:200.74},
-  {d:'14/03',wd:5,fat:640,ext:35,dv:24.58,maq:2.54,dia:77,luc:535.88,out:null,obs:'',sorv:40,lucro_real:295.66},
-  {d:'15/03',wd:6,fat:500,ext:20,dv:20.89,maq:2.33,dia:74,luc:402.78000000000003,out:null,obs:'',sorv:32,lucro_real:191.03},
-  {d:'16/03',wd:0,fat:340,ext:55,dv:375.11,maq:1.91,dia:81,luc:-118.02000000000001,out:null,obs:'',sorv:19,lucro_real:76.71},
-  {d:'17/03',wd:1,fat:335,ext:5,dv:46.739999999999995,maq:1.53,dia:90,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
-  {d:'18/03',wd:2,fat:525,ext:30,dv:111.49000000000001,maq:2.32,dia:76,luc:335.19,out:780,obs:'Aluguel',sorv:33,lucro_real:210.02},
-  {d:'19/03',wd:3,fat:345,ext:25,dv:71.68,maq:1.48,dia:75,luc:196.84,out:225.77999999999997,obs:'Potes',sorv:21,lucro_real:80.1},
-  {d:'20/03',wd:4,fat:510,ext:15,dv:179.89999999999998,maq:9.1,dia:73,luc:248.00000000000003,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
-  {d:'21/03',wd:5,fat:775,ext:50,dv:60.13,maq:11.88,dia:80,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
-  {d:'22/03',wd:6,fat:670,ext:15,dv:117.46,maq:9.78,dia:73,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
-  {d:'23/03',wd:0,fat:240,ext:30,dv:115.53999999999999,maq:3.02,dia:126,luc:-4.559999999999992,out:null,obs:'',sorv:14,lucro_real:-49.3},
-  {d:'24/03',wd:1,fat:1000,ext:0,dv:22.5,maq:0,dia:0,luc:977.5,out:null,obs:'',sorv:67,lucro_real:626.66}
+  {d:'31/12',wd:2,fat:9,ext:173.98,dv:0.85,maq:80,dia:-110.82999999999998,luc:0,out:null,obs:'',sorv:-11,lucro_real:-19.95},
+  {d:'31/12',wd:2,fat:15,ext:50.82,dv:1.56,maq:80,dia:197.62,luc:0,out:null,obs:'',sorv:-2,lucro_real:-358.58},
+  {d:'31/12',wd:2,fat:5,ext:154.3,dv:1.78,maq:80,dia:203.92,luc:0,out:null,obs:'',sorv:-10,lucro_real:-342.72},
+  {d:'31/12',wd:2,fat:10,ext:27.84,dv:3.38,maq:90,dia:383.78000000000003,luc:-7,out:0,obs:'',sorv:-1,lucro_real:-563.76},
+  {d:'31/12',wd:2,fat:65,ext:46.36,dv:3.02,maq:83,dia:597.62,luc:0,out:null,obs:'',sorv:1,lucro_real:-723.64},
+  {d:'31/12',wd:2,fat:25,ext:197.71,dv:2.6,maq:80,dia:239.68999999999997,luc:91,out:0,obs:'',sorv:-12,lucro_real:-350.45},
+  {d:'31/12',wd:2,fat:35,ext:24.58,dv:2.54,maq:77,dia:535.88,luc:0,out:null,obs:'',sorv:1,lucro_real:-685.9},
+  {d:'31/12',wd:2,fat:20,ext:20.89,dv:2.33,maq:74,dia:402.78000000000003,luc:0,out:null,obs:'',sorv:0,lucro_real:-560.78},
+  {d:'31/12',wd:2,fat:55,ext:375.11,dv:1.91,maq:81,dia:-118.02000000000001,luc:0,out:null,obs:'',sorv:-21,lucro_real:72.44},
+  {d:'31/12',wd:2,fat:5,ext:46.739999999999995,dv:1.53,maq:90,dia:196.73,luc:0,out:null,obs:'',sorv:-3,lucro_real:-373.67},
+  {d:'31/12',wd:2,fat:30,ext:111.49000000000001,dv:2.32,maq:76,dia:335.19,luc:780,out:0,obs:'',sorv:-5,lucro_real:-465.09},
+  {d:'31/12',wd:2,fat:25,ext:71.68,dv:1.48,maq:75,dia:196.84,luc:225.77999999999997,out:0,obs:'',sorv:-3,lucro_real:-338.78},
+  {d:'31/12',wd:2,fat:15,ext:179.89999999999998,dv:9.1,maq:73,dia:248.00000000000003,luc:0,out:0,obs:'',sorv:-11,lucro_real:-365.78},
+  {d:'31/12',wd:2,fat:50,ext:60.13,dv:11.88,maq:80,dia:622.99,luc:0,out:null,obs:'',sorv:-1,lucro_real:-752.97},
+  {d:'31/12',wd:2,fat:15,ext:117.46,dv:9.78,maq:73,dia:469.76,luc:0,out:null,obs:'',sorv:-7,lucro_real:-603.62},
+  {d:'31/12',wd:2,fat:30,ext:115.53999999999999,dv:3.02,maq:126,dia:-4.559999999999992,luc:0,out:null,obs:'',sorv:-6,lucro_real:-171.32}
 ];
 vendas.forEach(r=>{
   r.sorv = Math.round((r.fat-r.ext)/15);
@@ -1638,7 +1631,7 @@ renderHorarios();
 // ══════════════════════════════════════════════════════════════
 function renderCustos(){
 
-  const SALDOS = {"bau":0,"conta":0,"fatura":0,"caixa":0,"envelope":0};
+  const SALDOS = {"bau":0,"conta":5197,"fatura":2898.2599999999998,"caixa":200,"envelope":1326.2999999999993};
   const patrimonio = SALDOS.bau + SALDOS.conta + SALDOS.caixa + SALDOS.envelope - SALDOS.fatura;
 
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
