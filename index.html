@@ -1631,7 +1631,7 @@ renderHorarios();
 // ══════════════════════════════════════════════════════════════
 function renderCustos(){
 
-  const SALDOS = {"bau":0,"conta":5197,"fatura":2898.2599999999998,"caixa":200,"envelope":326.2999999999993};
+  const SALDOS = {"bau":8000,"conta":5197,"fatura":2898.2599999999998,"caixa":200,"envelope":326.2999999999993};
   const patrimonio = SALDOS.bau + SALDOS.conta + SALDOS.caixa + SALDOS.envelope - SALDOS.fatura;
 
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
