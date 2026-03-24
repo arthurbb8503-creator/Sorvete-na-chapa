@@ -41,7 +41,7 @@ body{background:linear-gradient(160deg,var(--bg0) 0%,var(--bg1) 40%,#110E06 100%
 .badge-season .season-tip{display:none;position:absolute;top:calc(100% + 8px);right:0;width:260px;background:#1C160D;border:1px solid rgba(240,160,32,.25);border-radius:10px;padding:10px 12px;font-size:11px;font-weight:400;color:#A89880;line-height:1.6;letter-spacing:0;z-index:400;box-shadow:0 8px 24px rgba(0,0,0,.4);}
 .badge-season .season-tip strong{color:#F0EDE8;}
 .badge-season:hover .season-tip{display:block;}
-.hdr-date{font-size:11px;color:var(--t3);}
+.hdr-date{font-size:10px;color:var(--t3);white-space:nowrap;}
 
 /* ─── NAV TABS ─── */
 .nav{display:flex;background:var(--bg1);border-bottom:1px solid var(--bor);overflow-x:auto;scrollbar-width:none;}
@@ -247,7 +247,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
   .gaps-grid{grid-template-columns:1fr;}
   .q-grid{grid-template-columns:1fr;}
   .nav-tab{padding:10px 14px;font-size:11px;}
-  .hdr-date{display:none;}
+  .hdr-date{font-size:9px;}
 }
 </style>
 
@@ -263,7 +263,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
       <div class="hdr-sub">Caixa · Março 2026</div>
     </div>
   </div>
-  <div class="hdr-right">
+  <div class="hdr-right" style="flex-direction:column;align-items:flex-end;gap:4px">
     <span class="badge-season">⚠ ALTA TEMPORADA
       <span class="season-tip"><strong>Dados de alta temporada.</strong> Março é período de pico turístico em Natal/RN. Os resultados deste mês podem não refletir a performance média anual do negócio. Compare com meses fora de temporada antes de tomar decisões estruturais baseadas nestes números.</span>
     </span>
@@ -292,18 +292,19 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
   <div class="hoje-hero au">
     <div class="hoje-top">
       <div class="hoje-live"><div class="hoje-dot"></div><span class="hoje-live-txt">Previsão para hoje</span></div>
-      <div class="hoje-day-tag">Segunda-feira · 23/03</div>
+      <div class="hoje-day-tag"><span id="hoje-dia-label">Carregando...</span></div>
     </div>
     <div class="hoje-grid">
       <div class="hoje-card">
-        <div class="hoje-lbl">Faturamento Esperado</div>
-        <div class="hoje-val"><sup>R$</sup>425<sub>reais</sub></div>
+        <div class="hoje-lbl" id="hoje-fat-lbl">Resultado · 23/03</div>
+        <div class="hoje-val"><sup>R$</sup><span id="prev-fat">328</span><sub>reais</sub></div>
         <div class="hoje-range">
-          <span class="hoje-pill hi">02/03 · R$495</span>
-          <span class="hoje-pill mid">09/03 · R$440</span>
-          <span class="hoje-pill lo">16/03 · R$340</span>
+          <span id="prev-pills"></span>
+          <span class="hoje-pill mid"><span id="dr-pior-dia">03/03</span> · R$<span id="dr-pior-val">144</span></span>
+          <span class="hoje-pill hi">10/03 · R$505</span>
+          <span class="hoje-pill mid">17/03 · R$335</span>
         </div>
-        <div class="hoje-warn">⚠ Amplitude R$340–R$495 — média pode enganar</div>
+        <div class="hoje-warn">⚠ Amplitude R$<span id="prev-min">144</span>–R$<span id="prev-max">505</span> · dia mais fraco foi atípico</div>
         <div class="hoje-conf">
           <span class="conf-txt">Confiança</span>
           <div class="conf-bar"><div class="conf-fill" style="width:45%"></div></div>
@@ -311,31 +312,27 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
         </div>
         <div class="btn-expand" onclick="toggleDrawer('d-hoje-fat',this)"><span class="arr">›</span> Como foi calculado</div>
         <div class="drawer" id="d-hoje-fat">
-          <div class="drawer-title">Base de cálculo</div>
-          <div class="drawer-row"><span>Média das 3 segundas</span><span>R$ 425</span></div>
-          <div class="drawer-row"><span>Menor segunda registrada</span><span>R$ 340</span></div>
-          <div class="drawer-row"><span>Maior segunda registrada</span><span>R$ 495</span></div>
-          <div class="drawer-row"><span>Desvio entre os dias</span><span>±R$ 78</span></div>
-          <div class="drawer-insight">⚠ Com apenas 3 semanas de histórico, a confiabilidade é limitada. A segunda de 16/03 teve despesa variável alta (R$375) que pode ter afetado a operação — não é representativa do volume de vendas típico.</div>
+<div id="prev-drawer-content"></div>
         </div>
       </div>
       <div class="hoje-card">
-        <div class="hoje-lbl">Sorvetes Estimados</div>
-        <div class="hoje-val">~27<sub>sorv.</sub></div>
+        <div class="hoje-lbl" id="hoje-sorv-lbl">Sorvetes · 23/03</div>
+        <div class="hoje-val"><span id="prev-sorv">~21</span><sub>sorv.</sub></div>
         <div class="hoje-range">
           <span class="hoje-pill mid">Fórmula: (Fat − Extras) ÷ R$15</span>
         </div>
-        <div class="hoje-warn">⚠ Estimativa — preço único de R$15 assumido</div>
+        <div class="hoje-warn">⚠ Estimativa baseada nas 3 terças anteriores</div>
         <div class="hoje-conf">
           <span class="conf-txt">Precisão</span>
-          <div class="conf-bar"><div class="conf-fill" style="width:35%"></div></div>
-          <span class="conf-txt" style="color:var(--red);font-weight:700">Estimada</span>
+          <div class="conf-bar"><div class="conf-fill" style="width:40%"></div></div>
+          <span class="conf-txt" style="color:var(--amber);font-weight:700">Estimada</span>
         </div>
         <div class="btn-expand" onclick="toggleDrawer('d-hoje-sorv',this)"><span class="arr">›</span> Limitações</div>
         <div class="drawer" id="d-hoje-sorv">
           <div class="drawer-title">Sobre esta estimativa</div>
           <div class="drawer-row"><span>Fórmula usada</span><span>(Fat − Extras) ÷ 15</span></div>
-          <div class="drawer-row"><span>Média mês completo</span><span>~32 sorv./dia</span></div>
+          <div class="drawer-row"><span>Média mês completo</span><span>~<span id="kpi-media-sorv">32</span> sorv./dia</span></div>
+          <div class="drawer-row"><span>Média terças</span><span>~21 sorv.</span></div>
           <div class="drawer-row"><span>Variação real (mín–máx)</span><span>9 – 50 sorv.</span></div>
           <div class="drawer-insight">Esta não é uma contagem real. Assume que todo faturamento não-extra é sorvete a R$15. Se houver variação de preço, combos ou adicionais embutidos, o número muda. Registrar a contagem real seria a melhoria mais impactante para esta métrica.</div>
         </div>
@@ -349,49 +346,9 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
   <div class="alert-card warn au2">
     <div class="alert-title">🟡 Atenção para hoje</div>
     <div class="alert-items">
-      <div class="alert-item"><span class="ai-txt">Segunda-feira é historicamente o <strong>3º pior dia da semana</strong> (média R$425 vs. R$677 no sábado). Prepare-se para volume menor.</span></div>
+      <div class="alert-item"><span class="ai-txt"><span id="alerta-dia-txt">Terça-feira é historicamente o <strong>pior dia da semana</strong> (média R$<span id="alerta-media-dia">328</span> vs. R$677 no sábado). Prepare-se para volume reduzido.</span></span></div>
       <div class="alert-item"><span class="ai-txt">Nova tarifa de maquininha vigente desde 20/03. Estimativa de custo por dia: <strong>~R$8–12</strong> (vs. ~R$2 antes). Monitorar.</span></div>
-      <div class="alert-item"><span class="ai-txt">Estoque de Nutella comprado em bulk em 16/03 (6 unidades). Verificar se ainda há disponível para hoje.</span></div>
-    </div>
-  <!-- SALDOS FINANCEIROS -->
-  <div class="slbl au3">Posição Financeira · Planilha</div>
-  <div style="background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:16px;margin-bottom:8px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div style="background:rgba(28,201,168,.08);border:1px solid rgba(28,201,168,.15);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(28,201,168,.7);margin-bottom:6px">🏦 Baú (cofre)</div>
-        <div style="font-size:22px;font-weight:800;color:#1CC9A8;letter-spacing:-1px">R$8.000</div>
-        <div style="font-size:10px;color:var(--t3);margin-top:3px">Caixa físico / reserva</div>
-      </div>
-      <div style="background:rgba(155,109,255,.08);border:1px solid rgba(155,109,255,.15);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(155,109,255,.7);margin-bottom:6px">🏛 Saldo Conta</div>
-        <div style="font-size:22px;font-weight:800;color:#9B6DFF;letter-spacing:-1px">R$3.979</div>
-        <div style="font-size:10px;color:var(--t3);margin-top:3px">Conta bancária</div>
-      </div>
-      <div style="background:rgba(232,64,64,.07);border:1px solid rgba(232,64,64,.15);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(232,64,64,.7);margin-bottom:6px">💳 Fatura Cartão</div>
-        <div style="font-size:22px;font-weight:800;color:var(--red);letter-spacing:-1px">R$2.730</div>
-        <div style="font-size:10px;color:var(--t3);margin-top:3px">A pagar</div>
-      </div>
-      <div style="background:rgba(240,160,32,.08);border:1px solid rgba(240,160,32,.15);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(240,160,32,.7);margin-bottom:6px">💵 Caixa</div>
-        <div style="font-size:22px;font-weight:800;color:var(--amber);letter-spacing:-1px">R$200</div>
-        <div style="font-size:10px;color:var(--t3);margin-top:3px">Troco / dinheiro em caixa</div>
-      </div>
-    </div>
-    <div style="margin-top:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">🗂 Envelope</div>
-        <div style="font-size:22px;font-weight:800;color:var(--t1);letter-spacing:-1px">R$1.455</div>
-        <div style="font-size:10px;color:var(--t3);margin-top:3px">Dinheiro separado / reserva</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal);margin-bottom:4px">Patrimônio líquido</div>
-        <div style="font-size:18px;font-weight:800;color:var(--teal)">R$13.904</div>
-        <div style="font-size:10px;color:var(--t3)">(Baú + Conta + Caixa + Env. − Fatura)</div>
-      </div>
-    </div>
-    <div style="margin-top:10px;background:rgba(240,160,32,.08);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:8px 12px;font-size:11px;color:var(--t2)">
-      ⚠ <strong style="color:var(--amber)">Informação não atualizada</strong> — conforme indicado na planilha. Os saldos acima refletem o último registro manual feito.
+      <div class="alert-item"><span class="ai-txt">Verificar estoque de insumos antes de abrir — especialmente toppings de alta rotatividade (Nutella, Morango, MMs).</span></div>
     </div>
   </div>
 
@@ -414,12 +371,12 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="meta-top">
       <div>
         <div class="meta-title">Meta de Faturamento — R$ 10.000</div>
-        <div style="font-size:11px;color:var(--t3);margin-top:2px">Atingida em 22/03 — R$596 acima · 8 dias restantes 🎉</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:2px">Meta atingida — R$<span id="meta-excesso">836</span> acima · <span id="kpi-dias">22</span> dias registrados 🎉</div>
       </div>
-      <div class="meta-pct">106%</div>
+      <div class="meta-pct"><span id="meta-pct">108,4%</span></div>
     </div>
     <div class="meta-track"><div class="meta-fill" style="width:100%"></div></div>
-    <div class="meta-legs"><span>R$0</span><span><strong>R$10.596</strong> faturados</span><span>Meta: R$10.000</span></div>
+    <div class="meta-legs"><span>R$0</span><span><strong>R$<span id="meta-fat-val">10.836</span></strong> faturados · <span id="meta-dias">22</span> dias</span><span>Meta: R$10.000</span></div>
   </div>
 
   <!-- KPIs PRINCIPAIS -->
@@ -429,14 +386,14 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="kpi expandable" onclick="toggleDrawer('d-fat',this)">
       <div class="kpi-accent" style="background:var(--teal)"></div>
       <div class="kpi-lbl">Faturamento</div>
-      <div class="kpi-val green">R$10.596</div>
-      <div class="kpi-sub">Meta atingida (+6%) ✅</div>
+      <div class="kpi-val green">R$10.836</div>
+      <div class="kpi-sub">Meta atingida (+<span id="kpi-meta-pct">8,4</span>%) ✅</div>
       <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
       <div class="drawer" id="d-fat">
         <div class="drawer-title">Composição do Faturamento</div>
-        <div class="drawer-row"><span>Faturamento total</span><span><strong>R$10.596</strong></span></div>
-        <div class="drawer-row"><span>Média diária</span><span>R$505 (±R$151)</span></div>
-        <div class="drawer-row"><span>Melhor dia</span><span>21/03 · R$775</span></div>
+        <div class="drawer-row"><span>Faturamento total</span><span><strong>R$<span id="dr-fat-total">10.836</span></strong></span></div>
+        <div class="drawer-row"><span>Média diária</span><span>R$<span id="dr-media2">493</span> (±R$<span id="kpi-dp">161</span>)</span></div>
+        <div class="drawer-row"><span>Melhor dia</span><span><span id="dr-melhor-dia">21/03</span> · R$<span id="dr-melhor-val">775</span></span></div>
         <div class="drawer-row"><span>Pior dia</span><span>03/03 · R$144</span></div>
         <div class="drawer-row" style="opacity:.55"><span>ℹ Extras no mês (já incluídos)</span><span>R$379 — só informativo</span></div>
         <div class="drawer-insight">Os extras (R$379) já estão dentro do faturamento total — são registrados separadamente apenas para entender o mix de receita. Alta volatilidade: o negócio oscilou entre R$144 e R$775 — variação de 438%.</div>
@@ -445,20 +402,20 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="kpi expandable" onclick="toggleDrawer('d-lucro',this)">
       <div class="kpi-accent" style="background:var(--coral)"></div>
       <div class="kpi-lbl">Lucro Líquido</div>
-      <div class="kpi-val coral">R$4.405</div>
-      <div class="kpi-sub">41,6% de margem</div>
+      <div class="kpi-val coral"><span id="kpi-luc">R$6.346</span></div>
+      <div class="kpi-sub"><span id="kpi-margem">58,6%</span> de margem</div>
       <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
       <div class="drawer" id="d-lucro">
         <div class="drawer-title">Composição do Lucro (planilha)</div>
-        <div class="drawer-row"><span>Faturamento</span><span>R$10.596</span></div>
-        <div class="drawer-row"><span>Despesas variáveis (insumos)</span><span>−R$2.631</span></div>
-        <div class="drawer-row"><span>Diárias</span><span>−R$1.657</span></div>
-        <div class="drawer-row"><span>Taxa maquininha</span><span>−R$96</span></div>
+        <div class="drawer-row"><span>Faturamento</span><span>R$10.836</span></div>
+        <div class="drawer-row"><span>Despesas variáveis (insumos)</span><span>−R$2.855</span></div>
+        <div class="drawer-row"><span>Diárias</span><span>−R$<span id="dr-diarias">1.778</span></span></div>
+        <div class="drawer-row"><span>Taxa maquininha</span><span>−R$<span id="dr-maq-total">73,90</span></span></div>
         <div class="drawer-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:4px;padding-top:8px"><span>🏠 Aluguel (11 e 18/03)</span><span>−R$1.560</span></div>
         <div class="drawer-row"><span>Potes e embalagens (outros)</span><span>−R$304,68</span></div>
         <div class="drawer-row"><span>Demais lançamentos em "Outros"</span><span>−R$31,00</span></div>
         <div class="drawer-row"><span>Ajuste de saldo (−R$60)</span><span>+R$60</span></div>
-        <div class="drawer-row" style="margin-top:4px"><span><strong>Lucro registrado</strong></span><span><strong>R$4.405</strong></span></div>
+        <div class="drawer-row" style="margin-top:4px"><span><strong>Lucro registrado</strong></span><span><strong>R$<span id="dr-luc">6.346</span></strong></span></div>
         <div class="drawer-insight">⚠ O aluguel (R$780/semana, toda quarta) aparece em "Outros" na planilha. Nos dias 11 e 18/03 foram registrados R$1.560 no total — restam 2 pagamentos de março (05 e 26/03) que podem não ter sido lançados ainda.</div>
       </div>
     </div>
@@ -468,8 +425,8 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="kpi expandable" onclick="toggleDrawer('d-desp',this)">
       <div class="kpi-accent" style="background:var(--amber)"></div>
       <div class="kpi-lbl">Despesas</div>
-      <div class="kpi-val amber">R$6.191</div>
-      <div class="kpi-sub">58,4% do faturamento</div>
+      <div class="kpi-val amber"><span id="kpi-desp">R$4.490</span></div>
+      <div class="kpi-sub"><span id="kpi-desp-pct">41,4%</span> do faturamento</div>
       <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
       <div class="drawer" id="d-desp">
         <div class="drawer-title">Composição das Despesas</div>
@@ -479,7 +436,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
         <div class="drawer-row"><span>Potes e embalagens (Outros)</span><span>R$304,68</span></div>
         <div class="drawer-row"><span>Taxa maquininha</span><span>R$96</span></div>
         <div class="drawer-row"><span>Demais lançamentos</span><span>R$31</span></div>
-        <div class="drawer-row" style="margin-top:4px"><span><strong>Total despesas</strong></span><span><strong>R$6.191</strong></span></div>
+        <div class="drawer-row" style="margin-top:4px"><span><strong>Total despesas</strong></span><span><strong>R$4.490</strong></span></div>
         <div class="drawer-insight">⚠ Apenas 2 pagamentos de aluguel (11 e 18/03) estão registrados. Os pagamentos de 05 e 26/03 (R$1.560) podem estar faltando — o que significa que o lucro real pode ser R$1.560 menor do que o registrado.</div>
       </div>
     </div>
@@ -492,8 +449,8 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="kpi">
       <div class="kpi-accent" style="background:var(--teal)"></div>
       <div class="kpi-lbl">Fat. Médio/Dia</div>
-      <div class="kpi-val green">R$505</div>
-      <div class="kpi-sub">DP ±R$151</div>
+      <div class="kpi-val green"><span id="kpi-media">R$493</span></div>
+      <div class="kpi-sub">DP ±R$161</div>
     </div>
   </div>
 
@@ -501,8 +458,8 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="kpi">
       <div class="kpi-accent" style="background:var(--coral)"></div>
       <div class="kpi-lbl">Melhor Dia</div>
-      <div class="kpi-val coral">R$775</div>
-      <div class="kpi-sub">21/03 · Sábado</div>
+      <div class="kpi-val coral"><span id="kpi-melhor-val">R$775</span></div>
+      <div class="kpi-sub"><span id="kpi-melhor-dia">21/03 · Sábado</span></div>
     </div>
     <div class="kpi expandable" onclick="toggleDrawer('d-lucroreal',this)">
       <div class="kpi-accent" style="background:var(--red)"></div>
@@ -536,9 +493,9 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <canvas id="cFat" height="160"></canvas>
     <div class="stat-strip">
       <div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$775</div><div class="stat-l">Maior</div></div>
-      <div class="stat-item"><div class="stat-v">R$505</div><div class="stat-l">Média</div></div>
+      <div class="stat-item"><div class="stat-v">R$493</div><div class="stat-l">Média</div></div>
       <div class="stat-item"><div class="stat-v" style="color:var(--red)">R$144</div><div class="stat-l">Menor</div></div>
-      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$151</div><div class="stat-l">Desvio P.</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$161</div><div class="stat-l">Desvio P.</div></div>
     </div>
   </div>
 
@@ -568,7 +525,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
         <div class="chart-title" style="margin:0">Média por Dia da Semana</div>
         <div class="chart-sub" style="margin:3px 0 0">3 semanas · 3 dias cada — cuidado com generalizações</div>
       </div>
-      <span style="background:rgba(28,201,168,.12);color:var(--teal);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(28,201,168,.2)">Média: R$505</span>
+      <span style="background:rgba(28,201,168,.12);color:var(--teal);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(28,201,168,.2)">Média: R$493</span>
     </div>
     <div class="wd-grid" id="wdGrid"></div>
     <div style="font-size:10px;color:var(--t3);margin-top:10px;display:flex;gap:12px;flex-wrap:wrap">
@@ -605,8 +562,8 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="kpi">
       <div class="kpi-accent" style="background:var(--purple)"></div>
       <div class="kpi-lbl">Custo/Sorvete</div>
-      <div class="kpi-val purple">R$4,02</div>
-      <div class="kpi-sub">Insumos ÷ 681 sorv.</div>
+      <div class="kpi-val purple"><span id="kpi-custo-sorv">R$4,11</span></div>
+      <div class="kpi-sub">Insumos ÷ <span id="kpi-totalsorv">694</span> sorv.</div>
     </div>
     <div class="kpi">
       <div class="kpi-accent" style="background:var(--teal)"></div>
@@ -653,20 +610,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
   <!-- ALERTAS CUSTO -->
 
   <div class="slbl au4">Alertas de Custo</div>
-  <div class="alert-card warn au4">
-    <div class="alert-title">🟡 Nutella — 17,9% do custo total</div>
-    <div class="alert-items">
-      <div class="alert-item"><span class="ai-date">Total</span><span class="ai-val" style="color:var(--amber)">R$489,57</span><span class="ai-txt">Comprada 5x no mês. Maior custo único de topping. Verificar se está gerando retorno proporcional em extras ou atraindo clientes específicos.</span></div>
-      <div class="alert-item"><span class="ai-date">16/03</span><span class="ai-val" style="color:var(--amber)">R$319,92</span><span class="ai-txt">6 unidades de uma vez — R$53,32/un. Preço coerente com compras individuais (~R$40–45). Não é erro.</span></div>
-    </div>
-  </div>
-  <div class="alert-card warn au5" style="margin-top:10px">
-    <div class="alert-title">🟡 Embalagens — 26% do custo operacional</div>
-    <div class="alert-items">
-      <div class="alert-item"><span class="ai-date">Potes</span><span class="ai-val" style="color:var(--amber)">R$309,66</span><span class="ai-txt">Comprado 3x no mês (07, 13, 18/03). Possível oportunidade de compra em maior volume com desconto.</span></div>
-      <div class="alert-item"><span class="ai-date">Colher</span><span class="ai-val" style="color:var(--amber)">R$107,14</span><span class="ai-txt">Comprada 2x (08 e 22/03). Valor alto — quantas unidades por compra?</span></div>
-    </div>
-  </div>
+  <div id="alertas-custo-container"></div>
 
   <!-- TABELA COMPRAS -->
 
@@ -700,6 +644,49 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 
 <div class="pg" id="tab-gestao">
   <div style="height:16px"></div>
+
+  <!-- POSIÇÃO FINANCEIRA -->
+
+  <div class="slbl au">Posição Financeira · Planilha</div>
+  <div style="background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:16px;margin-bottom:16px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:rgba(28,201,168,.08);border:1px solid rgba(28,201,168,.15);border-radius:10px;padding:12px 14px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(28,201,168,.7);margin-bottom:6px">🏦 Baú (cofre)</div>
+        <div style="font-size:22px;font-weight:800;color:#1CC9A8;letter-spacing:-1px">R$<span id="fin-bau">8.000</span></div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">Caixa físico / reserva</div>
+      </div>
+      <div style="background:rgba(155,109,255,.08);border:1px solid rgba(155,109,255,.15);border-radius:10px;padding:12px 14px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(155,109,255,.7);margin-bottom:6px">🏛 Saldo Conta</div>
+        <div style="font-size:22px;font-weight:800;color:#9B6DFF;letter-spacing:-1px">R$<span id="fin-conta">5.270</span></div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">Conta bancária</div>
+      </div>
+      <div style="background:rgba(232,64,64,.07);border:1px solid rgba(232,64,64,.15);border-radius:10px;padding:12px 14px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(232,64,64,.7);margin-bottom:6px">💳 Fatura Cartão</div>
+        <div style="font-size:22px;font-weight:800;color:var(--red);letter-spacing:-1px">R$<span id="fin-fatura">2.898</span></div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">A pagar</div>
+      </div>
+      <div style="background:rgba(240,160,32,.08);border:1px solid rgba(240,160,32,.15);border-radius:10px;padding:12px 14px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(240,160,32,.7);margin-bottom:6px">💵 Caixa</div>
+        <div style="font-size:22px;font-weight:800;color:var(--amber);letter-spacing:-1px">R$<span id="fin-caixa">200</span></div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">Troco / dinheiro em caixa</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">🗂 Envelope</div>
+        <div style="font-size:22px;font-weight:800;color:var(--t1);letter-spacing:-1px">R$<span id="fin-envelope">379,25</span></div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">Dinheiro separado / reserva</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal);margin-bottom:4px">Patrimônio líquido</div>
+        <div style="font-size:22px;font-weight:800;color:var(--teal);letter-spacing:-1px"><span id="fin-patrimonio">10.951</span></div>
+        <div style="font-size:10px;color:var(--t3)">(Baú + Conta + Caixa + Env. − Fatura)</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:rgba(240,160,32,.08);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:8px 12px;font-size:11px;color:var(--t2)">
+      ⚠ <strong style="color:var(--amber)">Informação não atualizada</strong> — conforme indicado na planilha. Os saldos acima refletem o último registro manual feito.
+    </div>
+  </div>
 
   <!-- CONTEXTO CORRIGIDO -->
 
@@ -778,7 +765,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
       <div class="tbl-title">Registro de Caixa</div>
       <div style="display:flex;gap:8px;align-items:center">
         <span style="font-size:10px;color:var(--t3)">🏠 aluguel &nbsp;🟡 nova tarifa &nbsp;🔴 prejuízo real</span>
-        <div class="tbl-cnt" id="tcnt-v">21 registros</div>
+        <div class="tbl-cnt" id="tcnt-v">22 registros</div>
       </div>
     </div>
     <div class="srch-wrap"><span style="color:var(--t3)">🔍</span><input id="srch-v" placeholder="Data ou observação…"></div>
@@ -1061,6 +1048,10 @@ document.querySelectorAll('.nav-tab').forEach(t=>{
     document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
     t.classList.add('on');
     document.getElementById('tab-'+t.dataset.tab).classList.add('on');
+    // Reinicializar gráficos quando abas são abertas
+    if(t.dataset.tab==='custos' && typeof renderCustos==='function') renderCustos();
+    if(t.dataset.tab==='graficos' && typeof renderGraficos==='function') renderGraficos();
+    if(t.dataset.tab==='horarios' && typeof renderHorarios==='function') renderHorarios();
   });
 });
 
@@ -1075,7 +1066,7 @@ function toggleDrawer(id, btn){
 
 // ── DATA ──────────────────────────────────────────────────────────────
 const WN=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
-const TW=0;
+const TW=1;
 const vendas=[
   {d:'02/03',wd:0,fat:495, ext:0,  dv:null,  maq:2.47, dia:90, luc:402.53, out:null,   obs:''},
   {d:'03/03',wd:1,fat:144, ext:9,  dv:173.98,maq:0.85, dia:80, luc:-110.83,out:null,   obs:''},
@@ -1098,6 +1089,7 @@ const vendas=[
   {d:'20/03',wd:4,fat:510, ext:15, dv:179.90,maq:9.10, dia:73, luc:248.00, out:null,   obs:'Empréstimo'},
   {d:'21/03',wd:5,fat:775, ext:50, dv:60.13, maq:11.88,dia:80, luc:622.99, out:null,   obs:''},
   {d:'22/03',wd:6,fat:670, ext:15, dv:117.46,maq:9.78, dia:73, luc:469.76, out:null,   obs:''},
+  {d:'23/03',wd:0,fat:240, ext:30, dv:115.54,maq:3.02, dia:76, luc:45.44,  out:null,   obs:''},
 ];
 vendas.forEach(r=>{
   r.sorv = Math.round((r.fat-r.ext)/15);
@@ -1183,6 +1175,13 @@ const compras=[
   {d:'22/03',item:'Frutas Vermelhas',cat:'Topping',val:22.99,tipo:''},
   {d:'22/03',item:'Leite moça',cat:'Insumo',val:5.99,tipo:''},
   {d:'22/03',item:'Oreo',cat:'Topping',val:5.34,tipo:''},
+  {d:'23/03',item:'Cereal Micro Ball',cat:'Topping',val:15.99,tipo:''},
+  {d:'23/03',item:'Cobertura Caramelo Ster Bom',cat:'Topping',val:14.49,tipo:''},
+  {d:'23/03',item:'Cobertura Chocolate Ster Bom',cat:'Topping',val:17.49,tipo:''},
+  {d:'23/03',item:'Leite Condensado Moça Semi Desnat',cat:'Insumo',val:6.99,tipo:''},
+  {d:'23/03',item:'Marsh Docile Twist Baunilha',cat:'Topping',val:9.69,tipo:''},
+  {d:'23/03',item:'Frutas Vermelhas',cat:'Topping',val:22.99,tipo:''},
+  {d:'23/03',item:'Açúcar Triturado 10un',cat:'Insumo',val:27.90,tipo:''},
 ];
 
 // ── CHART DEFAULTS ────────────────────────────────────────────────────
@@ -1193,17 +1192,21 @@ const tck={color:T,font:{size:10}};
 const grd={color:G};
 
 // FAT
-new Chart('cFat',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.fat),backgroundColor:vendas.map(r=>r.fat>=600?'rgba(28,201,168,.5)':r.fat<300?'rgba(232,64,64,.5)':'rgba(255,255,255,.15)'),borderColor:vendas.map(r=>r.fat>=600?'#1CC9A8':r.fat<300?'#E84040':'rgba(255,255,255,.3)'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw}`},backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+function renderGraficos(){
+if(window._chartFat){window._chartFat.destroy();}  window._chartFat=new Chart('cFat',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.fat),backgroundColor:vendas.map(r=>r.fat>=600?'rgba(28,201,168,.5)':r.fat<300?'rgba(232,64,64,.5)':'rgba(255,255,255,.15)'),borderColor:vendas.map(r=>r.fat>=600?'#1CC9A8':r.fat<300?'#E84040':'rgba(255,255,255,.3)'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw}`},backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
 
 // SORV
-new Chart('cSorv',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.sorv),backgroundColor:'rgba(155,109,255,.35)',borderColor:'#9B6DFF',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw} sorv.`},backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{ticks:tck,grid:grd},y:{ticks:tck,grid:grd}}}});
+if(window._chartSorv){window._chartSorv.destroy();}  window._chartSorv=new Chart('cSorv',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.sorv),backgroundColor:'rgba(155,109,255,.35)',borderColor:'#9B6DFF',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw} sorv.`},backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{ticks:tck,grid:grd},y:{ticks:tck,grid:grd}}}});
 
 // ACUMULADO
 let acc=0;
-new Chart('cAcum',{type:'line',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>{acc+=r.fat;return Math.round(acc);}),borderColor:'#F26040',backgroundColor:'rgba(242,96,64,.08)',borderWidth:2.5,fill:true,tension:0.35,pointRadius:3,pointBackgroundColor:'#F26040'}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw}`},backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+if(window._chartAcum){window._chartAcum.destroy();}  window._chartAcum=new Chart('cAcum',{type:'line',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>{acc+=r.fat;return Math.round(acc);}),borderColor:'#F26040',backgroundColor:'rgba(242,96,64,.08)',borderWidth:2.5,fill:true,tension:0.35,pointRadius:3,pointBackgroundColor:'#F26040'}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw}`},backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
 
 // MAQ
-new Chart('cMaq',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.maq),backgroundColor:vendas.map(r=>r.maq>5?'rgba(232,64,64,.4)':'rgba(240,160,32,.3)'),borderColor:vendas.map(r=>r.maq>5?'#E84040':'#F0A020'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw?.toFixed(2)}`},backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+if(window._chartMaq){window._chartMaq.destroy();}  window._chartMaq=new Chart('cMaq',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.maq),backgroundColor:vendas.map(r=>r.maq>5?'rgba(232,64,64,.4)':'rgba(240,160,32,.3)'),borderColor:vendas.map(r=>r.maq>5?'#E84040':'#F0A020'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` R$ ${c.raw?.toFixed(2)}`},backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+
+}
+renderGraficos();
 
 // WEEKDAY
 const wdS=Array(7).fill(0),wdC=Array(7).fill(0),wdSv=Array(7).fill(0);
@@ -1218,25 +1221,9 @@ document.getElementById('wdGrid').innerHTML=WN.map((n,i)=>{
   return `<div class="wd-col"><div class="wd-name">${n}${today?' 📍':''}</div><div class="wd-bw"><div class="wd-b ${cls}${today?' today':''}" style="height:${empty?4:Math.max(pct*.76,5)}px"></div></div><div class="wd-v">${c>0?'R$'+a:'—'}</div><div class="wd-s">${c}d</div><div class="wd-sv">${c>0?'~'+s+'🍦':''}</div></div>`;
 }).join('');
 
-// CATS DONUT
-new Chart('cCats',{type:'doughnut',data:{labels:['Topping/Cobertura','Insumo Base','Embalagem','Limpeza','Outros'],datasets:[{data:[1394.86,575.46,721.48,28.73,19.45],backgroundColor:['#F26040','#1CC9A8','#9B6DFF','#F0A020','#6A5840'],borderWidth:0,hoverOffset:8}]},options:{responsive:true,cutout:'58%',plugins:{legend:{position:'bottom',labels:{font:{size:10},color:'#A89880',padding:10,usePointStyle:true}},tooltip:{backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1,callbacks:{label:c=>` R$ ${c.raw.toFixed(0)} (${(c.raw/2739.98*100).toFixed(1)}%)`}}}}});
+// CATS DONUT — dinâmico via calcCompras()
 
-// BAR LIST
-const topItems=[
-  {n:'Nutella',v:489.57,cnt:5,c:'#F26040'},{n:'Potes/Depósitos',v:455.14,cnt:5,c:'#9B6DFF'},
-  {n:'Leite 200g',v:369.93,cnt:2,c:'#1CC9A8'},{n:'Morango',v:223.93,cnt:8,c:'#F26040'},
-  {n:'Ouro Branco',v:134.55,cnt:3,c:'#F0A020'},{n:'Colher',v:107.14,cnt:2,c:'#9B6DFF'},
-  {n:'KitKat',v:104.69,cnt:5,c:'#F26040'},{n:'MMs',v:89.44,cnt:3,c:'#F26040'},
-  {n:'Ovomaltine',v:83.40,cnt:2,c:'#1CC9A8'},{n:'Choco Power',v:46.92,cnt:2,c:'#F0A020'},
-];
-const maxV=topItems[0].v;
-document.getElementById('barList').innerHTML=topItems.map(item=>`
-  <div class="bar-item">
-    <div class="bar-lbl">${item.n}</div>
-    <div class="bar-track"><div class="bar-fill" style="width:${item.v/maxV*100}%;background:${item.c}66;border:1px solid ${item.c}44"></div></div>
-    <div class="bar-val">R$${item.v.toFixed(0)}</div>
-    <div class="bar-cnt">${item.cnt}×</div>
-  </div>`).join('');
+// BAR LIST — dinâmico via calcCompras()
 
 // ── TABELAS ───────────────────────────────────────────────────────────
 const fv=v=>v==null?`<span style="color:var(--t3)">—</span>`:'R$\u00A0'+v.toFixed(2);
@@ -1323,16 +1310,182 @@ function pC(){
 function gC(p){const t=Math.ceil(cF.length/15);if(p<1||p>t)return;cP=p;rC();}
 rC();
 
-// ── ÚLTIMA ATUALIZAÇÃO ───────────────────────────────────────────────
-(function(){
-  const el = document.getElementById('lastUpdated');
-  if(!el) return;
-  // Data fixa da última atualização dos dados (23/03/2026)
-  // + hora atual do acesso para mostrar "visualizado agora"
-  const dataBase = '23/03/2026';
+// ══════════════════════════════════════════════════════════════
+// MOTOR DE CÁLCULO AUTOMÁTICO
+// Tudo deriva do array vendas[] — só atualize os dados lá
+// ══════════════════════════════════════════════════════════════
+(function calcularTudo(){
+  const WN_PT = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+  const WN_SHORT = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const META = 10000;
+  const PRECO_SORV = 15;
+  const ALUGUEL_DIA = (780 * 4) / 30; // R$104/dia
+
+  // ── CALCULAR MÉTRICAS DO MÊS ──────────────────────────────
+  const totalFat   = vendas.reduce((s,r) => s + r.fat, 0);
+  const totalLuc   = vendas.reduce((s,r) => s + r.luc, 0);
+  const totalDesp  = +(totalFat - totalLuc).toFixed(2);
+  const totalSorv  = vendas.reduce((s,r) => s + r.sorv, 0);
+  const totalDV    = vendas.reduce((s,r) => s + (r.dv || 0), 0);
+  const totalDia   = vendas.reduce((s,r) => s + (r.dia || 0), 0);
+  const totalMaq   = vendas.reduce((s,r) => s + (r.maq || 0), 0);
+  const n          = vendas.length;
+  const mediaFat   = Math.round(totalFat / n);
+  const margem     = (totalLuc / totalFat * 100).toFixed(1);
+  const metaPct    = (totalFat / META * 100).toFixed(1);
+  const excesso    = Math.round(totalFat - META);
+  const custSorv   = totalSorv > 0 ? (totalDV / totalSorv).toFixed(2) : '—';
+  const mediaSorv  = Math.round(totalSorv / n);
+  const melhor     = vendas.reduce((a,b) => b.fat > a.fat ? b : a);
+
+  // Desvio padrão
+  const dp = Math.round(Math.sqrt(vendas.reduce((s,r) => s + Math.pow(r.fat - mediaFat, 2), 0) / n));
+
+  // ── PREVISÃO HOJE ──────────────────────────────────────────
   const now = new Date();
-  const hm = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-  el.innerHTML = `Dados: ${dataBase} &nbsp;·&nbsp; Aberto: ${hm}`;
+  const wdHoje = now.getDay(); // 0=Dom ... 6=Sáb
+  const ddHoje = now.getDate().toString().padStart(2,'0');
+  const mmHoje = (now.getMonth()+1).toString().padStart(2,'0');
+  const diaNome = WN_PT[wdHoje];
+  const diaNomeShort = WN_SHORT[wdHoje];
+
+  // Filtrar dias do mesmo dia da semana
+  const mesmoDia = vendas.filter(r => r.wd === (wdHoje === 0 ? 6 : wdHoje - 1));
+  // Nota: wd no array: 0=Seg,1=Ter,...,6=Dom — converter
+  // getDay(): 0=Dom,1=Seg,...,6=Sáb
+  // wd no array: 0=Seg,1=Ter,2=Qua,3=Qui,4=Sex,5=Sáb,6=Dom
+  const wdArray = wdHoje === 0 ? 6 : wdHoje - 1;
+  const diasSemana = vendas.filter(r => r.wd === wdArray);
+
+  let prevFat = 0, prevSorv = 0, minFat = 0, maxFat = 0;
+  let pillsHTML = '', drawerHTML = '';
+  const nDiasBase = diasSemana.length;
+
+  if (nDiasBase > 0) {
+    prevFat  = Math.round(diasSemana.reduce((s,r) => s + r.fat, 0) / nDiasBase);
+    prevSorv = Math.round(diasSemana.reduce((s,r) => s + r.sorv, 0) / nDiasBase);
+    minFat   = Math.min(...diasSemana.map(r => r.fat));
+    maxFat   = Math.max(...diasSemana.map(r => r.fat));
+
+    // Pills
+    pillsHTML = diasSemana.map(r => {
+      const cls = r.fat === maxFat ? 'hi' : r.fat === minFat ? 'lo' : 'mid';
+      return `<span class="hoje-pill ${cls}">${r.d} · R$${r.fat}</span>`;
+    }).join('\n          ');
+
+    // Drawer
+    const sorted = [...diasSemana].sort((a,b) => a.fat - b.fat);
+    const recente = diasSemana[diasSemana.length - 1];
+    drawerHTML = `
+      <div class="drawer-title">Base de cálculo — ${diaNome}s</div>
+      <div class="drawer-row"><span>Média das ${nDiasBase} ${diaNomeShort}s</span><span>R$${prevFat}</span></div>
+      <div class="drawer-row"><span>Menor registrada</span><span>R$${sorted[0].fat} · ${sorted[0].d}</span></div>
+      <div class="drawer-row"><span>Maior registrada</span><span>R$${sorted[sorted.length-1].fat} · ${sorted[sorted.length-1].d}</span></div>
+      <div class="drawer-row"><span>Mais recente</span><span>R$${recente.fat} · ${recente.d}</span></div>
+      <div class="drawer-insight">⚠ Previsão baseada em ${nDiasBase} ${diaNomeShort}${nDiasBase>1?'s':''} registradas. Quanto mais dados, maior a confiabilidade.</div>`;
+  } else {
+    prevFat = mediaFat;
+    prevSorv = mediaSorv;
+    pillsHTML = '<span class="hoje-pill mid">Sem dados para este dia da semana</span>';
+    drawerHTML = `<div class="drawer-insight">⚠ Nenhum ${diaNomeShort} registrado ainda. Usando média geral (R$${mediaFat}).</div>`;
+  }
+
+  // Ranking dia da semana para alerta
+  const wdAvg = Array(7).fill(null).map((_,i) => {
+    const dias = vendas.filter(r => r.wd === i);
+    return dias.length > 0 ? Math.round(dias.reduce((s,r) => s + r.fat, 0) / dias.length) : null;
+  });
+  const wdComDados = wdAvg.filter(v => v !== null);
+  const rankHoje = wdComDados.filter(v => v !== null && wdAvg[wdArray] !== null && v > wdAvg[wdArray]).length + 1;
+  const ordinals = ['','melhor','2º melhor','3º melhor','4º','5º','6º','pior'];
+  const rankLabel = ordinals[rankHoje] || `${rankHoje}º`;
+
+  const WN_ARRAY = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+  const melhorDiaNome = wdAvg.indexOf(Math.max(...wdAvg.filter(v=>v))) ;
+  const melhorDiaFat  = Math.max(...wdAvg.filter(v=>v));
+
+  // ── INJETAR NO HTML ────────────────────────────────────────
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
+  const fmt = v => v.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0});
+  const fmtDec = (v,d=2) => v.toFixed(d).replace('.',',');
+
+  // KPIs mês
+  set('kpi-fat',       'R$' + fmt(totalFat));
+  set('kpi-luc',       'R$' + fmt(Math.round(totalLuc)));
+  set('kpi-desp',      'R$' + fmt(Math.round(totalDesp)));
+  set('kpi-media',     'R$' + fmt(mediaFat));
+  set('kpi-margem',    margem + '%');
+  set('kpi-desp-pct',  (100 - parseFloat(margem)).toFixed(1) + '%');
+  set('kpi-dias',      n);
+  set('kpi-dp',        dp);
+  set('kpi-totalsorv', totalSorv);
+  set('kpi-melhor-val','R$' + fmt(melhor.fat));
+  set('kpi-melhor-dia', melhor.d + ' · ' + WN_ARRAY[melhor.wd]);
+  set('kpi-media-sorv', '~' + mediaSorv);
+  set('kpi-custo-sorv', 'R$' + fmtDec(parseFloat(custSorv)));
+  set('kpi-meta-pct',  (parseFloat(metaPct) - 100).toFixed(1));
+
+  // Meta bar
+  set('meta-pct',      metaPct + '%');
+  set('meta-fat-val',  fmt(totalFat));
+  set('meta-excesso',  fmt(excesso));
+  set('meta-dias',     n);
+
+  // Hoje hero
+  set('prev-fat',      prevFat);
+  set('prev-sorv',     '~' + prevSorv);
+  set('prev-min',      minFat || mediaFat);
+  set('prev-max',      maxFat || mediaFat);
+  set('prev-pills',    pillsHTML);
+  set('prev-drawer-content', drawerHTML);
+
+  // Alerta dia
+  const alertaTxt = nDiasBase > 0
+    ? `${diaNome} tem média histórica de <strong>R$${prevFat}</strong> (${rankLabel} da semana). ${prevFat < mediaFat ? 'Prepare-se para volume menor.' : 'Dia acima da média geral.'}`
+    : `Primeiro ${diaNomeShort} registrado. Sem histórico para comparação.`;
+  set('alerta-dia-txt', alertaTxt);
+  set('alerta-media-dia', prevFat);
+
+  // Drawers
+  set('dr-fat-total',  fmt(totalFat));
+  set('dr-media',      'R$' + mediaFat);
+  set('dr-media2',     mediaFat);
+  set('dr-dp',         dp);
+  set('dr-pior-dia',   vendas.reduce((a,b) => b.fat < a.fat ? b : a).d);
+  set('dr-pior-val',   Math.min(...vendas.map(r=>r.fat)));
+  set('dr-melhor-dia', melhor.d);
+  set('dr-melhor-val', melhor.fat);
+  set('dr-diarias',    fmt(Math.round(totalDia)));
+  set('dr-maq-total',  fmtDec(totalMaq));
+  set('dr-luc',        fmt(Math.round(totalLuc)));
+
+  // Tabela
+  set('tbl-cnt',       n);
+
+  // TW dinâmico para weekday chart
+  if(typeof renderWD === 'function') renderWD(wdArray);
+
+})();
+
+
+// ── ÚLTIMA ATUALIZAÇÃO + DIA ATUAL ──────────────────────────────────
+(function(){
+  const diasSemana = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+  const now = new Date();
+  const dd = now.getDate().toString().padStart(2,'0');
+  const mm = (now.getMonth()+1).toString().padStart(2,'0');
+  const yyyy = now.getFullYear();
+  const hh = now.getHours().toString().padStart(2,'0');
+  const mi = now.getMinutes().toString().padStart(2,'0');
+  const diaNome = diasSemana[now.getDay()];
+
+  // Header
+  const el = document.getElementById('lastUpdated');
+  if(el) el.innerHTML = `🕐 ${dd}/${mm}/${yyyy} · ${hh}:${mi}`;
+
+  // Label dia no hero
+  const diaLabel = document.getElementById('hoje-dia-label');
+  if(diaLabel) diaLabel.textContent = `${diaNome} · ${dd}/${mm}`;
 })();
 const horasData=[
   {h:'13h',fat:1,   v:1},  {h:'17h',fat:45,  v:2},
@@ -1397,8 +1550,9 @@ const opDiaria=[
 
 const TO={backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1};
 
-// Chart por hora
-new Chart('cHoras',{type:'bar',data:{
+function renderHorarios(){
+  // Chart por hora
+if(window._chartHoras){window._chartHoras.destroy();}  window._chartHoras=new Chart('cHoras',{type:'bar',data:{
   labels:horasData.map(h=>h.h),
   datasets:[
     {label:'Faturamento',data:horasData.map(h=>h.fat),
@@ -1419,7 +1573,7 @@ new Chart('cHoras',{type:'bar',data:{
 }}});
 
 // Chart faixas 30min
-new Chart('cFaixas',{type:'bar',data:{
+if(window._chartFaixas){window._chartFaixas.destroy();}  window._chartFaixas=new Chart('cFaixas',{type:'bar',data:{
   labels:faixasData.map(f=>f.f),
   datasets:[{
     data:faixasData.map(f=>f.fat),
@@ -1432,7 +1586,7 @@ new Chart('cFaixas',{type:'bar',data:{
 },scales:{x:{ticks:{...tck,maxRotation:45},grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
 
 // Chart preços
-new Chart('cPrecos',{type:'bar',data:{
+if(window._chartPrecos){window._chartPrecos.destroy();}  window._chartPrecos=new Chart('cPrecos',{type:'bar',data:{
   labels:precosData.map(p=>p.v),
   datasets:[{
     data:precosData.map(p=>p.n),
@@ -1446,7 +1600,7 @@ new Chart('cPrecos',{type:'bar',data:{
 
 // Chart dinheiro vs maquininha empilhado
 if(document.getElementById('cDinheiro')){
-new Chart('cDinheiro',{type:'bar',data:{
+if(window._chartDinheiro){window._chartDinheiro.destroy();}  window._chartDinheiro=new Chart('cDinheiro',{type:'bar',data:{
   labels:dinheiroDia.map(d=>d.d),
   datasets:[
     {label:'Maquininha',data:dinheiroDia.map(d=>d.maq),backgroundColor:'rgba(28,201,168,.5)',borderColor:'#1CC9A8',borderWidth:1,borderRadius:0},
@@ -1473,6 +1627,198 @@ document.getElementById('tbody-op').innerHTML=opDiaria.map(r=>{
     <td style="font-weight:700;color:${bestFph?'var(--teal)':piorFph?'var(--red)':'var(--t1)'}">R$${r.fph}</td>
   </tr>`;
 }).join('');
+}
+renderHorarios();
+
+
+// ══════════════════════════════════════════════════════════════
+// MOTOR DE COMPRAS — tudo calculado do array compras[]
+// Atualiza automaticamente quando compras[] é atualizado
+// ══════════════════════════════════════════════════════════════
+function renderCustos(){
+
+  const SALDOS = {
+    bau:     8000.00,
+    conta:   5269.55,
+    fatura:  2898.26,
+    caixa:    200.00,
+    envelope: 379.25,
+  };
+  const patrimonio = SALDOS.bau + SALDOS.conta + SALDOS.caixa + SALDOS.envelope - SALDOS.fatura;
+
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
+  const fmtBR = v => (+v).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+  const fmtInt = v => Math.round(+v).toLocaleString('pt-BR');
+
+  set('fin-bau',        fmtInt(SALDOS.bau));
+  set('fin-conta',      fmtBR(SALDOS.conta));
+  set('fin-fatura',     fmtBR(SALDOS.fatura));
+  set('fin-caixa',      fmtInt(SALDOS.caixa));
+  set('fin-envelope',   fmtBR(SALDOS.envelope));
+  set('fin-patrimonio', fmtInt(patrimonio));
+
+  function normalizarItem(item, tipo) {
+    const n = item.toLowerCase();
+    if (tipo === 'equip')  return { grupo: item, cat: 'Equipamento' };
+    if (tipo === 'ajuste') return { grupo: 'Ajuste de Saldo', cat: 'Ajuste' };
+    if (n.includes('dep\u00f3sito') || n.includes('deposito')) return { grupo: 'Dep\u00f3sito Pl\u00e1stico', cat: 'Equipamento' };
+    if (n.includes('pote'))           return { grupo: 'Potes', cat: 'Embalagem' };
+    if (n.includes('colher'))         return { grupo: 'Colher', cat: 'Embalagem' };
+    if (n.includes('garrafas'))       return { grupo: 'Garrafas', cat: 'Equipamento' };
+    if (n.includes('faca'))           return { grupo: 'Faca', cat: 'Equipamento' };
+    if (n.includes('nutella'))        return { grupo: 'Nutella', cat: 'Topping' };
+    if (n.includes('cobertura'))      return { grupo: 'Coberturas', cat: 'Topping' };
+    if (n.includes('morango'))        return { grupo: 'Morango', cat: 'Topping' };
+    if (n.includes('kitkat')||n.includes('kit kat')) return { grupo: 'KitKat', cat: 'Topping' };
+    if (n.includes('mms')||n.includes('m&m')) return { grupo: 'MMs', cat: 'Topping' };
+    if (n.includes('ouro branco'))    return { grupo: 'Ouro Branco', cat: 'Topping' };
+    if (n.includes('ovomaltine'))     return { grupo: 'Ovomaltine', cat: 'Topping' };
+    if (n.includes('bis'))            return { grupo: 'Bis', cat: 'Topping' };
+    if (n.includes('oreo'))           return { grupo: 'Oreo', cat: 'Topping' };
+    if (n.includes('choco power'))    return { grupo: 'Choco Power', cat: 'Topping' };
+    if (n.includes('frutas vermelhas')) return { grupo: 'Frutas Vermelhas', cat: 'Topping' };
+    if (n.includes('nesquik'))        return { grupo: 'Nesquik', cat: 'Topping' };
+    if (n.includes('pa\u00e7oquinha')||n.includes('pacoquinha')) return { grupo: 'Pa\u00e7oquinha', cat: 'Topping' };
+    if (n.includes('coco ralado'))    return { grupo: 'Coco Ralado', cat: 'Topping' };
+    if (n.includes('chocolate granulado')) return { grupo: 'Choc. Granulado', cat: 'Topping' };
+    if (n.includes('cereal micro'))   return { grupo: 'Cereal Micro Ball', cat: 'Topping' };
+    if (n.includes('marsh'))          return { grupo: 'Marsh Docile', cat: 'Topping' };
+    if (n.includes('leite 200'))      return { grupo: 'Leite 200g', cat: 'Insumo' };
+    if (n.includes('leite mo'))       return { grupo: 'Leite Mo\u00e7a', cat: 'Insumo' };
+    if (n.includes('leite condensado')) return { grupo: 'Leite Condensado', cat: 'Insumo' };
+    if (n.includes('a\u00e7u')||n.includes('acucar')||n.includes('a\u00e7\u00facar')) return { grupo: 'A\u00e7\u00facar', cat: 'Insumo' };
+    if (n.includes('emulsificante'))  return { grupo: 'Emulsificante', cat: 'Insumo' };
+    if (n.includes('liga super'))     return { grupo: 'Liga Super Neutra', cat: 'Insumo' };
+    if (n.includes('blue ice'))       return { grupo: 'Blue Ice', cat: 'Insumo' };
+    if (n.includes('max cream'))      return { grupo: 'Max Cream', cat: 'Insumo' };
+    if (n.includes('papel toalha'))   return { grupo: 'Papel Toalha', cat: 'Limpeza' };
+    if (n.includes('saco de lixo'))   return { grupo: 'Saco de Lixo', cat: 'Limpeza' };
+    if (n.includes('pano'))           return { grupo: 'Pano', cat: 'Limpeza' };
+    if (n.includes('sanit'))          return { grupo: '\u00c1gua Sanit\u00e1ria', cat: 'Limpeza' };
+    if (n.includes('luva'))           return { grupo: 'Luva', cat: 'Limpeza' };
+    if (n.includes('mineral'))        return { grupo: '\u00c1gua Mineral', cat: 'Outros' };
+    return { grupo: item, cat: 'Outros' };
+  }
+
+  const grupos = {};
+  compras.forEach(c => {
+    const { grupo, cat } = normalizarItem(c.item, c.tipo);
+    if (!grupos[grupo]) grupos[grupo] = { total: 0, cnt: 0, cat, lista: [] };
+    grupos[grupo].total += c.val;
+    grupos[grupo].cnt++;
+    grupos[grupo].lista.push(c);
+  });
+
+  let totalOp = 0, totalEquip = 0, totalAjuste = 0;
+  Object.values(grupos).forEach(g => {
+    if (g.cat === 'Equipamento') totalEquip += g.total;
+    else if (g.cat === 'Ajuste') totalAjuste += g.total;
+    else totalOp += g.total;
+  });
+
+  const cats = {};
+  Object.values(grupos).forEach(g => {
+    if (g.cat === 'Equipamento' || g.cat === 'Ajuste') return;
+    cats[g.cat] = (cats[g.cat] || 0) + g.total;
+  });
+
+  const catCores = { 'Topping':'#F26040','Insumo':'#1CC9A8','Embalagem':'#9B6DFF','Limpeza':'#F0A020','Outros':'#6A5840' };
+  const top10 = Object.entries(grupos)
+    .filter(([,g]) => g.cat !== 'Equipamento' && g.cat !== 'Ajuste')
+    .sort((a,b) => b[1].total - a[1].total).slice(0,10);
+
+  const barEl = document.getElementById('barList');
+  if (barEl && top10.length) {
+    const maxV = top10[0][1].total;
+    barEl.innerHTML = top10.map(([nome, g]) => {
+      const cor = catCores[g.cat] || '#888';
+      return `<div class="bar-item">
+        <div class="bar-lbl">${nome}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${g.total/maxV*100}%;background:${cor}66;border:1px solid ${cor}44"></div></div>
+        <div class="bar-val">R$${fmtBR(g.total)}</div>
+        <div class="bar-cnt">${g.cnt}\u00d7</div>
+      </div>`;
+    }).join('');
+  }
+
+  const catOrdem = ['Topping','Insumo','Embalagem','Limpeza','Outros'];
+  const catVals  = catOrdem.map(c => +(cats[c]||0).toFixed(2));
+  if (window._chartCats) window._chartCats.destroy();
+  const ctxCats = document.getElementById('cCats');
+  if (ctxCats) {
+    window._chartCats = new Chart(ctxCats, {
+      type:'doughnut',
+      data:{ labels:catOrdem, datasets:[{ data:catVals, backgroundColor:Object.values(catCores), borderWidth:0, hoverOffset:8 }] },
+      options:{ responsive:true, cutout:'58%', plugins:{
+        legend:{ position:'bottom', labels:{ font:{size:10}, color:'#A89880', padding:10, usePointStyle:true }},
+        tooltip:{ backgroundColor:'#1C160D', borderColor:'rgba(255,255,255,.1)', borderWidth:1,
+          callbacks:{ label: c => ` R$ ${fmtBR(c.raw)} (${(c.raw/totalOp*100).toFixed(1)}%)` }}
+      }}
+    });
+  }
+
+  // KPI custo sorvete
+  const totalSorvEl = document.getElementById('kpi-totalsorv');
+  const nSorv = totalSorvEl ? parseInt(totalSorvEl.textContent.replace(/\D/g,'')) : 694;
+  if (nSorv > 0) set('kpi-custo-sorv', 'R$' + (totalOp/nSorv).toFixed(2).replace('.',','));
+
+  // Alertas
+  const alertasEl = document.getElementById('alertas-custo-container');
+  if (!alertasEl) return;
+  const alertas = [];
+
+  top10.forEach(([nome, g]) => {
+    const pct = g.total / totalOp * 100;
+    if (pct >= 15) alertas.push({
+      tipo:'warn',
+      titulo:`\uD83D\uDFE1 ${nome} \u2014 ${pct.toFixed(1)}% do custo operacional`,
+      itens:[
+        { label:'Total', val:`R$${fmtBR(g.total)}`, txt:`Comprado ${g.cnt}\u00d7 no m\u00eas` },
+        { label:'\u00daltima compra', val:`R$${fmtBR(g.lista[g.lista.length-1].val)}`, txt:g.lista[g.lista.length-1].d }
+      ]
+    });
+  });
+
+  Object.entries(grupos).filter(([,g])=>g.cnt>=4&&g.cat!=='Equipamento'&&g.cat!=='Ajuste')
+    .sort((a,b)=>b[1].cnt-a[1].cnt).slice(0,3)
+    .forEach(([nome,g]) => {
+      if (g.total/totalOp*100 < 15) alertas.push({
+        tipo:'warn',
+        titulo:`\uD83D\uDFE1 ${nome} \u2014 alta frequ\u00eancia (${g.cnt}\u00d7)`,
+        itens:[{ label:'Total', val:`R$${fmtBR(g.total)}`, txt:`M\u00e9dia R$${fmtBR(g.total/g.cnt)}/compra` }]
+      });
+    });
+
+  const equips = Object.entries(grupos).filter(([,g])=>g.cat==='Equipamento');
+  if (equips.length) alertas.push({
+    tipo:'info',
+    titulo:'\uD83D\uDD35 Equipamentos \u2014 n\u00e3o recorrentes',
+    itens: equips.map(([nome,g])=>({ label:nome, val:`R$${fmtBR(g.total)}`, txt:'Compra \u00fanica \u2014 n\u00e3o entra no custo do sorvete' }))
+  });
+
+  const ajG = grupos['Ajuste de Saldo'];
+  if (ajG && ajG.total > 0) alertas.push({
+    tipo:'danger',
+    titulo:'\uD83D\uDD34 Ajustes de saldo \u2014 a verificar',
+    itens: ajG.lista.map(c=>({ label:c.d, val:`R$${fmtBR(c.val)}`, txt:'Diferen\u00e7a entre notas e planilha' }))
+  });
+
+  alertasEl.innerHTML = alertas.map(a=>`
+    <div class="alert-card ${a.tipo}" style="margin-bottom:10px">
+      <div class="alert-title">${a.titulo}</div>
+      <div class="alert-items">${a.itens.map(i=>`
+        <div class="alert-item">
+          <span class="ai-date">${i.label}</span>
+          <span class="ai-val" style="color:var(--amber)">${i.val}</span>
+          <span class="ai-txt">${i.txt}</span>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+renderCustos();
+
+
+
 </script>
 
 </body>
