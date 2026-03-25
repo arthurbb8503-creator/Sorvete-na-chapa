@@ -267,7 +267,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <span class="badge-season">⚠ ALTA TEMPORADA
       <span class="season-tip"><strong>Dados de alta temporada.</strong> Março é período de pico turístico em Natal/RN. Os resultados deste mês podem não refletir a performance média anual do negócio. Compare com meses fora de temporada antes de tomar decisões estruturais baseadas nestes números.</span>
     </span>
-    <span class="hdr-date" id="lastUpdated">🕐 Dados: 23/03/2026 · Atualizado: 25/03/2026 00:05</span>
+    <span class="hdr-date" id="lastUpdated">🕐 Dados: 24/03/2026 · Atualizado: 25/03/2026 00:07</span>
   </div>
 </div>
 
@@ -1089,7 +1089,8 @@ const vendas=[
   {d:'20/03',wd:4,fat:510,ext:15,dv:179.89999999999998,maq:9.1,dia:73,luc:248.00000000000003,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
   {d:'21/03',wd:5,fat:775,ext:50,dv:60.13,maq:11.88,dia:80,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
   {d:'22/03',wd:6,fat:670,ext:15,dv:117.46,maq:9.78,dia:73,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
-  {d:'23/03',wd:0,fat:240,ext:30,dv:115.53999999999999,maq:3.02,dia:126,luc:-4.559999999999992,out:null,obs:'',sorv:14,lucro_real:-49.3}
+  {d:'23/03',wd:0,fat:240,ext:30,dv:115.53999999999999,maq:3.02,dia:126,luc:-4.559999999999992,out:null,obs:'',sorv:14,lucro_real:-49.3},
+  {d:'24/03',wd:1,fat:480,ext:0,dv:22.5,maq:0,dia:0,luc:457.5,out:null,obs:'',sorv:32,lucro_real:247.36}
 ];
 vendas.forEach(r=>{
   // sorv e lucro_real já vêm pré-calculados do array
@@ -1645,7 +1646,7 @@ renderHorarios();
 // ══════════════════════════════════════════════════════════════
 function renderCustos(){
 
-  const SALDOS = {"bau":8000,"conta":5197,"fatura":2898.2599999999998,"caixa":200,"envelope":326.2999999999993};
+  const SALDOS = {"bau":8000,"conta":5197,"fatura":2898.2599999999998,"caixa":200,"envelope":806.2999999999993};
   const patrimonio = SALDOS.bau + SALDOS.conta + SALDOS.caixa + SALDOS.envelope - SALDOS.fatura;
 
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
