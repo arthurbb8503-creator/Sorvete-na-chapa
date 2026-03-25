@@ -222,7 +222,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <span class="badge-season">⚠ ALTA TEMPORADA
       <span class="season-tip"><strong>Dados de alta temporada.</strong> Março é período de pico turístico em Natal/RN. Os resultados deste mês podem não refletir a performance média anual do negócio.</span>
     </span>
-    <span class="hdr-date" id="lastUpdated">🕐 Dados: 24/03/2026 · Atualizado: 25/03/2026 04:47</span>
+    <span class="hdr-date" id="lastUpdated">🕐 Carregando...</span>
   </div>
 </div>
 
@@ -239,48 +239,40 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 
 <div class="pg on" id="tab-operacional">
   <div style="height:16px"></div>
-  <div class="hoje-hero au">
-    <div class="hoje-top">
-      <div class="hoje-live"><div class="hoje-dot"></div><span class="hoje-live-txt">Previsão para hoje</span></div>
-      <div class="hoje-day-tag"><span id="hoje-dia-label">Carregando...</span></div>
-    </div>
-    <div class="hoje-grid">
-      <div class="hoje-card">
-        <div class="hoje-lbl">Faturamento previsto</div>
-        <div class="hoje-val"><sup>R$</sup><span id="prev-fat">—</span><sub>reais</sub></div>
-        <div class="hoje-range" id="prev-pills"></div>
-        <div class="hoje-warn">⚠ Amplitude R$<span id="prev-min">—</span>–R$<span id="prev-max">—</span></div>
-        <div class="hoje-conf">
-          <span class="conf-txt">Confiança</span>
-          <div class="conf-bar"><div class="conf-fill" id="conf-fill" style="width:45%"></div></div>
-          <span class="conf-txt" style="color:var(--amber);font-weight:700" id="conf-txt">—</span>
-        </div>
-        <div class="btn-expand" onclick="toggleDrawer('d-hoje-fat',this)"><span class="arr">›</span> Como foi calculado</div>
-        <div class="drawer" id="d-hoje-fat"><div id="prev-drawer-content"></div></div>
-      </div>
-      <div class="hoje-card">
-        <div class="hoje-lbl">Sorvetes previstos</div>
-        <div class="hoje-val"><span id="prev-sorv">—</span><sub>sorv.</sub></div>
-        <div class="hoje-range"><span class="hoje-pill mid">Fórmula: (Fat − Extras) ÷ R$15</span></div>
-        <div class="hoje-warn">⚠ Estimativa baseada no histórico do dia da semana</div>
-        <div class="hoje-conf">
-          <span class="conf-txt">Precisão</span>
-          <div class="conf-bar"><div class="conf-fill" style="width:40%"></div></div>
-          <span class="conf-txt" style="color:var(--amber);font-weight:700">Estimada</span>
-        </div>
-        <div class="btn-expand" onclick="toggleDrawer('d-hoje-sorv',this)"><span class="arr">›</span> Limitações</div>
-        <div class="drawer" id="d-hoje-sorv">
-          <div class="drawer-title">Sobre esta estimativa</div>
-          <div class="drawer-row"><span>Fórmula usada</span><span>(Fat − Extras) ÷ 15</span></div>
-          <div class="drawer-row"><span>Média mês</span><span>~<span id="kpi-media-sorv">—</span> sorv./dia</span></div>
-          <div class="drawer-insight">Não é contagem real. Assume preço base R$15. Se houver combos ou adicionais embutidos, o número muda.</div>
-        </div>
-      </div>
-    </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0 4px;flex-wrap:wrap;gap:8px">
+    <div class="hoje-live"><div class="hoje-dot"></div><span class="hoje-live-txt" id="hoje-dia-label">Carregando...</span></div>
   </div>
 
-  <div class="slbl au2">Alertas Operacionais</div>
-  <div class="alert-card warn au2">
+  <div class="slbl au2">Semana Atual</div>
+  <div id="semana-wrap" class="au2"></div>
+
+  <div class="slbl au3">Previsão de Faturamento</div>
+  <div class="hoje-hero au3" style="margin-bottom:10px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+      <div class="hoje-live"><div class="hoje-dot"></div><span class="hoje-live-txt">Baseado no histórico do dia</span></div>
+      <div id="prev-pills"></div>
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:14px">
+      <div>
+        <div class="hoje-lbl">Faturamento médio previsto</div>
+        <div class="hoje-val"><sup>R$</sup><span id="prev-fat">—</span><sub>reais</sub></div>
+      </div>
+      <div style="flex:1;min-width:120px">
+        <div style="font-size:10px;color:var(--t3);margin-bottom:4px">Amplitude histórica</div>
+        <div style="font-size:12px;color:var(--t2)">Min: <strong style="color:var(--red)">R$<span id="prev-min">—</span></strong> &nbsp;·&nbsp; Máx: <strong style="color:var(--teal)">R$<span id="prev-max">—</span></strong></div>
+      </div>
+    </div>
+    <div class="hoje-conf" style="margin-bottom:10px">
+      <span class="conf-txt">Confiança</span>
+      <div class="conf-bar"><div class="conf-fill" id="conf-fill" style="width:45%"></div></div>
+      <span class="conf-txt" style="color:var(--amber);font-weight:700" id="conf-txt">—</span>
+    </div>
+    <div class="btn-expand" onclick="toggleDrawer('d-hoje-fat',this)"><span class="arr">›</span> Como foi calculado</div>
+    <div class="drawer" id="d-hoje-fat"><div id="prev-drawer-content"></div></div>
+  </div>
+
+  <div class="slbl au4">Alertas Operacionais</div>
+  <div class="alert-card warn au4">
     <div class="alert-title">🟡 Atenção para hoje</div>
     <div class="alert-items">
       <div class="alert-item"><span class="ai-txt" id="alerta-dia-txt">Carregando...</span></div>
@@ -498,7 +490,44 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="kpi"><div class="kpi-accent" style="background:var(--purple)"></div><div class="kpi-lbl">Custo/Sorvete</div><div class="kpi-val purple" id="kpi-custo-sorv">—</div><div class="kpi-sub" id="kpi-custo-sorv-sub">—</div></div>
     <div class="kpi"><div class="kpi-accent" style="background:var(--teal)"></div><div class="kpi-lbl">Equipamentos</div><div class="kpi-val amber" id="c-equip">—</div><div class="kpi-sub">Não recorrente</div><span class="kpi-flag">Não repete</span></div>
   </div>
-  <div class="slbl au2">Top Gastos</div>
+  <div class="slbl au2">Outros Custos Fixos</div>
+  <div class="kpi-grid cols3 au2">
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--amber)"></div>
+      <div class="kpi-lbl">🏠 Aluguel</div>
+      <div class="kpi-val amber" id="c-aluguel">—</div>
+      <div class="kpi-sub" id="c-aluguel-sub">—</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--purple)"></div>
+      <div class="kpi-lbl">💳 Empréstimo</div>
+      <div class="kpi-val purple" id="c-emprestimo">R$0</div>
+      <div class="kpi-sub">Parcela — próx. mês</div>
+    </div>
+    <div class="kpi" onclick="toggleDrawer('d-outros-h',this)">
+      <div class="kpi-accent" style="background:var(--teal)"></div>
+      <div class="kpi-lbl">📦 Outros (col H)</div>
+      <div class="kpi-val green" id="c-outros-h">—</div>
+      <div class="kpi-sub" id="c-outros-h-sub">—</div>
+      <div class="btn-expand"><span class="arr">›</span> Ver itens</div>
+      <div class="drawer" id="d-outros-h">
+        <div class="drawer-title">Lançamentos em Outros (H)</div>
+        <div id="d-outros-h-itens"></div>
+        <div class="drawer-insight">Col H da planilha — aluguel, potes, filtro e demais lançamentos avulsos que não entram em DV, Maq ou Diária.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-grid au2" style="margin-bottom:16px">
+    <div class="kpi" style="grid-column:1/-1;background:rgba(28,201,168,.06);border-color:rgba(28,201,168,.2)">
+      <div class="kpi-accent" style="background:var(--teal)"></div>
+      <div class="kpi-lbl">∑ Total Geral de Despesas (D+E+F+H)</div>
+      <div class="kpi-val green" id="c-total-geral">—</div>
+      <div class="kpi-sub" id="c-total-geral-sub">—</div>
+    </div>
+  </div>
+
+  <div class="slbl au3">Top Gastos</div>
   <div class="chart-card au2"><div class="chart-title">🏆 Por Item</div><div class="chart-sub">Excluindo equipamentos e ajustes</div><div class="bar-list" id="barList" style="margin-top:8px"></div></div>
   <div class="chart-card au3"><div class="chart-title">🥧 Por Categoria</div><div class="chart-sub">Distribuição do custo operacional</div><canvas id="cCats" height="180"></canvas></div>
   <div class="slbl au4">Alertas de Custo</div>
@@ -556,27 +585,27 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 // ══════════════════════════════════════════════════════
 const vendas=[
   {d:'02/03',wd:0,fat:495,ext:0,dv:null,maq:2.47,dia:90,luc:402.53,out:null,obs:'',sorv:33,lucro_real:165.87},
-  {d:'03/03',wd:1,fat:144,ext:9,dv:173.98,maq:0.85,dia:80,luc:-110.82999999999998,out:null,obs:'',sorv:9,lucro_real:-77.03},
-  {d:'04/03',wd:2,fat:447,ext:0,dv:355.67,maq:2.33,dia:80,luc:8.999999999999984,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
+  {d:'03/03',wd:1,fat:144,ext:9,dv:173.98,maq:0.85,dia:80,luc:-110.83,out:null,obs:'',sorv:9,lucro_real:-77.03},
+  {d:'04/03',wd:2,fat:447,ext:0,dv:355.67,maq:2.33,dia:80,luc:9,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
   {d:'05/03',wd:3,fat:330,ext:15,dv:50.82,maq:1.56,dia:80,luc:197.62,out:null,obs:'',sorv:21,lucro_real:60.02},
-  {d:'06/03',wd:4,fat:747,ext:0,dv:101.21000000000001,maq:2,dia:80,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360},
+  {d:'06/03',wd:4,fat:747,ext:0,dv:101.21,maq:2,dia:80,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360},
   {d:'07/03',wd:5,fat:615,ext:0,dv:257.68,maq:2.7,dia:80,luc:274.62,out:null,obs:'',sorv:41,lucro_real:263.48},
   {d:'08/03',wd:6,fat:408,ext:0,dv:73.94,maq:1.93,dia:110,luc:222.13,out:78.9,obs:'Potes',sorv:27,lucro_real:83.53},
   {d:'09/03',wd:0,fat:440,ext:5,dv:154.3,maq:1.78,dia:80,luc:203.92,out:null,obs:'',sorv:29,lucro_real:137.64},
-  {d:'10/03',wd:1,fat:505,ext:10,dv:27.84,maq:3.38,dia:90,luc:383.78000000000003,out:-7,obs:'Ajuste saldo',sorv:33,lucro_real:174.96},
+  {d:'10/03',wd:1,fat:505,ext:10,dv:27.84,maq:3.38,dia:90,luc:383.78,out:-7,obs:'Ajuste saldo',sorv:33,lucro_real:174.96},
   {d:'11/03',wd:2,fat:575,ext:0,dv:74.85,maq:3.39,dia:70,luc:426.76,out:780,obs:'Aluguel',sorv:38,lucro_real:244.85},
   {d:'12/03',wd:3,fat:730,ext:65,dv:46.36,maq:3.02,dia:83,luc:597.62,out:null,obs:'',sorv:44,lucro_real:363.1},
-  {d:'13/03',wd:4,fat:520,ext:25,dv:197.71,maq:2.6,dia:80,luc:239.68999999999997,out:91,obs:'Filtro',sorv:33,lucro_real:200.74},
+  {d:'13/03',wd:4,fat:520,ext:25,dv:197.71,maq:2.6,dia:80,luc:239.69,out:91,obs:'Filtro',sorv:33,lucro_real:200.74},
   {d:'14/03',wd:5,fat:640,ext:35,dv:24.58,maq:2.54,dia:77,luc:535.88,out:null,obs:'',sorv:40,lucro_real:295.66},
-  {d:'15/03',wd:6,fat:500,ext:20,dv:20.89,maq:2.33,dia:74,luc:402.78000000000003,out:null,obs:'',sorv:32,lucro_real:191.03},
-  {d:'16/03',wd:0,fat:340,ext:55,dv:375.11,maq:1.91,dia:81,luc:-118.02000000000001,out:null,obs:'',sorv:19,lucro_real:76.71},
-  {d:'17/03',wd:1,fat:335,ext:5,dv:46.739999999999995,maq:1.53,dia:90,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
-  {d:'18/03',wd:2,fat:525,ext:30,dv:111.49000000000001,maq:2.32,dia:76,luc:335.19,out:780,obs:'Aluguel',sorv:33,lucro_real:210.02},
-  {d:'19/03',wd:3,fat:345,ext:25,dv:71.68,maq:1.48,dia:75,luc:196.84,out:225.77999999999997,obs:'Potes',sorv:21,lucro_real:80.1},
-  {d:'20/03',wd:4,fat:510,ext:15,dv:179.89999999999998,maq:9.1,dia:73,luc:248.00000000000003,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
+  {d:'15/03',wd:6,fat:500,ext:20,dv:20.89,maq:2.33,dia:74,luc:402.78,out:null,obs:'',sorv:32,lucro_real:191.03},
+  {d:'16/03',wd:0,fat:340,ext:55,dv:375.11,maq:1.91,dia:81,luc:-118.02,out:null,obs:'',sorv:19,lucro_real:76.71},
+  {d:'17/03',wd:1,fat:335,ext:5,dv:46.74,maq:1.53,dia:90,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
+  {d:'18/03',wd:2,fat:525,ext:30,dv:111.49,maq:2.32,dia:76,luc:335.19,out:780,obs:'Aluguel',sorv:33,lucro_real:210.02},
+  {d:'19/03',wd:3,fat:345,ext:25,dv:71.68,maq:1.48,dia:75,luc:196.84,out:225.78,obs:'Potes',sorv:21,lucro_real:80.1},
+  {d:'20/03',wd:4,fat:510,ext:15,dv:179.9,maq:9.1,dia:73,luc:248,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
   {d:'21/03',wd:5,fat:775,ext:50,dv:60.13,maq:11.88,dia:80,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
   {d:'22/03',wd:6,fat:670,ext:15,dv:117.46,maq:9.78,dia:73,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
-  {d:'23/03',wd:0,fat:240,ext:30,dv:115.53999999999999,maq:3.02,dia:126,luc:-4.559999999999992,out:null,obs:'',sorv:14,lucro_real:-49.3},
+  {d:'23/03',wd:0,fat:240,ext:30,dv:115.54,maq:3.02,dia:126,luc:-4.56,out:null,obs:'',sorv:14,lucro_real:-49.3},
   {d:'24/03',wd:1,fat:480,ext:0,dv:22.5,maq:6.43,dia:90,luc:361.07,out:null,obs:'',sorv:32,lucro_real:150.93}
 ];
 
@@ -670,7 +699,7 @@ const compras=[
   {d:'24/03',item:'morango',cat:'Topping',val:22.5,tipo:''}
 ];
 
-const SALDOS = {"bau":8000,"conta":4872.62,"fatura":2898.2599999999998,"caixa":200,"envelope":254.25000000000182};
+const SALDOS = {"bau":8000,"conta":5197,"fatura":2898.26,"caixa":200,"envelope":326.3};
 
 // ══════════════════════════════════════════════════════
 // TABS
@@ -841,7 +870,116 @@ function toggleDrawer(id,btn){
   // Fat stats
   set('fat-stats',`<div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$${fmt(melhor.fat)}</div><div class="stat-l">Maior</div></div><div class="stat-item"><div class="stat-v">R$${fmt(mediaFat)}</div><div class="stat-l">Média</div></div><div class="stat-item"><div class="stat-v" style="color:var(--red)">R$${fmt(pior.fat)}</div><div class="stat-l">Menor</div></div><div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$${dp}</div><div class="stat-l">Desvio P.</div></div>`);
 
-  // ── SALDOS FINANCEIROS ───────────────────────────────
+  // ── RESUMO DA SEMANA (aba hoje) ──────────────────────
+  (function renderSemana(){
+    const WN_FULL=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+    const WN_SHORT=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+    // Semana atual = últimos 7 dias a contar de hoje (Seg a Dom)
+    // Calcular início da semana (segunda-feira)
+    const hoje = new Date();
+    const diaSemana = hoje.getDay(); // 0=Dom,1=Seg,...,6=Sáb
+    const diffSeg = diaSemana===0?-6:1-diaSemana; // dias até segunda
+    const seg = new Date(hoje); seg.setDate(hoje.getDate()+diffSeg);
+
+    // Custo por sorvete dinâmico = total insumos operacionais ÷ total sorvetes
+    // (mesmo cálculo do motor de custos)
+    const _totalDVCalc = vendas.reduce((s,r)=>s+(r.dv||0),0);
+    const _totalSorvCalc = vendas.reduce((s,r)=>s+r.sorv,0);
+    const custoPorSorv = _totalSorvCalc>0 ? +(_totalDVCalc/_totalSorvCalc).toFixed(2) : 4.02;
+
+    // Mapear vendas por data
+    const vendasMap={};
+    vendas.forEach(r=>{vendasMap[r.d]=r;});
+
+    // Gerar os 7 dias da semana (Seg a Dom)
+    const dias=[];
+    for(let i=0;i<7;i++){
+      const d=new Date(seg); d.setDate(seg.getDate()+i);
+      const dd=d.getDate().toString().padStart(2,'0');
+      const mm=(d.getMonth()+1).toString().padStart(2,'0');
+      const key=dd+'/'+mm;
+      const r=vendasMap[key]||null;
+      const isHoje=i===(diaSemana===0?6:diaSemana-1);
+      const isOntem=i===(diaSemana===0?5:diaSemana-2);
+      dias.push({key,wd:i,nome:WN_FULL[i],short:WN_SHORT[i],r,isHoje,isOntem,d});
+    }
+
+    const fatSemana=dias.filter(d=>d.r).reduce((s,d)=>s+d.r.fat,0);
+    const diasComDados=dias.filter(d=>d.r).length;
+    const melhorSemana=dias.filter(d=>d.r).reduce((a,b)=>!a||b.r.fat>a.r.fat?b:a,null);
+    const ontem=dias.find(d=>d.isOntem);
+
+    let html='';
+
+    // Ontem — destaque
+    if(ontem&&ontem.r){
+      const r=ontem.r;
+      const cor=r.fat>=600?'var(--teal)':r.fat<300?'var(--red)':'var(--amber)';
+      const vs=wdAvg[ontem.wd]>0?Math.round((r.fat/wdAvg[ontem.wd]-1)*100):null;
+      // Fórmula: Fat - (sorv × custo/sorv) - tx maq
+      const despProd=+(r.sorv*custoPorSorv).toFixed(2);
+      const lucroOntem=+(r.fat-despProd-r.maq).toFixed(2);
+      const lucroCorOntem=lucroOntem>=0?'var(--teal)':'var(--red)';
+      const cpsFmt=custoPorSorv.toFixed(2).replace('.',',');
+      html+=`<div style="background:rgba(255,255,255,.04);border:1px solid var(--bor2);border-radius:12px;padding:14px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3)">📅 Ontem · ${ontem.nome} ${ontem.key}</div>
+          ${vs!==null?`<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;background:${vs>=0?'rgba(28,201,168,.12)':'rgba(232,64,64,.12)'};color:${vs>=0?'var(--teal)':'var(--red)'};">${vs>=0?'+':''}${vs}% vs média histórica</span>`:''}
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+          <div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Faturamento</div><div style="font-size:28px;font-weight:800;color:${cor};font-family:var(--fntD);letter-spacing:-1px">R$${r.fat}</div></div>
+          <div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Sorvetes</div><div style="font-size:28px;font-weight:800;color:var(--purple);font-family:var(--fntD);letter-spacing:-1px">~${r.sorv}</div></div>
+          <div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Lucro produção</div><div style="font-size:28px;font-weight:800;color:${lucroCorOntem};font-family:var(--fntD);letter-spacing:-1px">R$${lucroOntem}</div></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--bor);border-radius:8px;padding:10px 12px;font-size:11px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px">Despesa de Produção · ${ontem.key}</div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">Faturamento</span><span style="font-weight:600">R$${r.fat}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">− Prod. (~${r.sorv} sorv × R$${cpsFmt}/sorv)</span><span style="font-weight:600;color:var(--amber)">−R$${despProd.toFixed(2).replace('.',',')}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">− Tx Maquininha</span><span style="font-weight:600;color:${r.maq>5?'var(--red)':'var(--amber)'}">−R$${r.maq.toFixed(2).replace('.',',')}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0 2px;margin-top:4px;border-top:1px solid rgba(255,255,255,.08)"><span style="font-weight:700">= Lucro de produção</span><span style="font-weight:800;color:${lucroCorOntem}">R$${lucroOntem}</span></div>
+          <div style="margin-top:8px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px;font-size:10px;color:var(--t3);line-height:1.6">Custo/sorv = DV total ÷ sorv. do mês = R$${_totalDVCalc.toFixed(0)} ÷ ${_totalSorvCalc} = <strong style="color:var(--t2)">R$${cpsFmt}</strong>. Não inclui diária, aluguel ou outros fixos.</div>
+        </div>
+        ${r.obs?`<div style="margin-top:8px;font-size:10px;color:var(--amber)">📌 ${r.obs}</div>`:''}
+      </div>`;
+} else if(ontem&&!ontem.r){
+      html+=`<div style="background:rgba(255,255,255,.03);border:1px dashed var(--bor);border-radius:12px;padding:12px;margin-bottom:10px;text-align:center;font-size:11px;color:var(--t3)">📅 Ontem (${ontem.nome} ${ontem.key}) — sem registro na planilha</div>`;
+    }
+
+    // Semana completa — grid
+    html+=`<div style="background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div style="font-size:11px;font-weight:600">Semana · ${dias[0].key} a ${dias[6].key}</div>
+        <div style="font-size:11px;color:var(--teal);font-weight:700">${diasComDados>0?'R$'+fatSemana.toLocaleString('pt-BR')+' · '+diasComDados+' dia'+( diasComDados!==1?'s':''):'Sem dados esta semana'}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+        ${dias.map(d=>{
+          const fat=d.r?d.r.fat:null;
+          const maxF=Math.max(...dias.filter(x=>x.r).map(x=>x.r.fat),1);
+          const pct=fat?Math.max(fat/maxF*100,8):0;
+          const cor=fat>=600?'var(--teal)':fat>=300?'var(--coral)':'var(--red)';
+          const bg=d.isHoje?'rgba(240,160,32,.15)':d.isOntem?'rgba(255,255,255,.06)':'rgba(255,255,255,.03)';
+          const bor=d.isHoje?'1px solid rgba(240,160,32,.4)':d.isOntem?'1px solid var(--bor2)':'1px solid var(--bor)';
+          return `<div style="background:${bg};border:${bor};border-radius:8px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:${d.isHoje?'var(--amber)':d.isOntem?'var(--t2)':'var(--t3)'};letter-spacing:.5px;margin-bottom:4px">${d.short}${d.isHoje?' 📍':d.isOntem?' ←':''}</div>
+            <div style="height:40px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:4px">
+              ${fat?`<div style="width:60%;border-radius:3px 3px 0 0;height:${pct}%;background:${cor};min-height:4px"></div>`:`<div style="width:60%;height:4px;border-radius:2px;background:var(--bg3)"></div>`}
+            </div>
+            <div style="font-size:9px;font-weight:700;color:${fat?cor:'var(--t3)'}">${fat?'R$'+fat:'—'}</div>
+            <div style="font-size:8px;color:var(--t3)">${d.key}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      ${melhorSemana&&diasComDados>1?`<div style="margin-top:10px;font-size:10px;color:var(--t3)">🏆 Melhor dia da semana: <strong style="color:var(--t1)">${melhorSemana.nome}</strong> · R$${melhorSemana.r.fat}</div>`:''}
+    </div>`;
+
+    const el=document.getElementById('semana-wrap');
+    if(el) el.innerHTML=html;
+
+    // Expor wdAvg para usar no ranking
+    window._wdAvg=wdAvg;
+  })();
+
+
   const fmtBR=v=>(+v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
   const fmtInt=v=>Math.round(+v).toLocaleString('pt-BR');
   const pat=SALDOS.bau+SALDOS.conta+SALDOS.caixa+SALDOS.envelope-SALDOS.fatura;
@@ -1026,8 +1164,22 @@ function renderCustos(){
   const fmtBR=v=>(+v).toFixed(2).replace('.',',');
   const fmt=v=>Math.round(v).toLocaleString('pt-BR');
   const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
-  // KPIs custos (dinâmicos)
+  // KPIs custos — aluguel, empréstimo, outros, total geral
   const totalSorv=vendas.reduce((s,r)=>s+r.sorv,0);
+  // Aluguel = lançamentos em col H com obs 'Aluguel'
+  const totalAluguel=vendas.filter(r=>r.obs&&r.obs.includes('Aluguel')&&r.out>0).reduce((s,r)=>s+(r.out||0),0);
+  // Empréstimo = lançamentos em col H com obs 'Empréstimo'
+  const totalEmprestimo=vendas.filter(r=>r.obs&&r.obs.toLowerCase().includes('empr')&&r.out>0).reduce((s,r)=>s+(r.out||0),0);
+  // Outros H = total col H excluindo aluguel e empréstimo
+  const totalOutH=vendas.filter(r=>r.out!=null).reduce((s,r)=>s+(r.out||0),0);
+  const totalOutrosH=totalOutH-totalAluguel-totalEmprestimo;
+  // Totais para o quadro geral
+  const totalDV2=vendas.reduce((s,r)=>s+(r.dv||0),0);
+  const totalMaq2=vendas.reduce((s,r)=>s+(r.maq||0),0);
+  const totalDia2=vendas.reduce((s,r)=>s+(r.dia||0),0);
+  const totalGeral=+(totalDV2+totalMaq2+totalDia2+totalOutH).toFixed(2);
+  const totalFat2=vendas.reduce((s,r)=>s+r.fat,0);
+
   set('c-op',     'R$'+fmt(totalOp));
   set('c-op-dr',  'R$'+fmt(totalOp));
   set('c-total',  'R$'+fmtBR(totalComp));
@@ -1036,6 +1188,18 @@ function renderCustos(){
   set('c-ajuste-dr','±R$'+fmtBR(Math.abs(totalAjuste)));
   set('kpi-custo-sorv', totalSorv>0?'R$'+(totalOp/totalSorv).toFixed(2).replace('.',','):'—');
   set('kpi-custo-sorv-sub', 'Insumos ÷ '+totalSorv+' sorv.');
+  // Novos KPIs
+  set('c-aluguel',     totalAluguel>0?'R$'+fmt(totalAluguel):'R$0');
+  set('c-aluguel-sub', totalAluguel>0?vendas.filter(r=>r.obs&&r.obs.includes('Aluguel')&&r.out>0).length+' pagamentos registrados':'Nenhum pagamento registrado');
+  set('c-emprestimo',  totalEmprestimo>0?'R$'+fmt(totalEmprestimo):'R$0');
+  set('c-outros-h',    'R$'+fmtBR(totalOutrosH));
+  set('c-outros-h-sub', 'Potes, filtro e demais');
+  set('c-total-geral', 'R$'+fmt(totalGeral));
+  set('c-total-geral-sub', (totalGeral/totalFat2*100).toFixed(1)+'% do faturamento · D+E+F+H');
+  // Itens do drawer Outros H
+  const outItens=vendas.filter(r=>r.out!=null&&!r.obs?.includes('Aluguel')&&!r.obs?.toLowerCase().includes('empr'));
+  const outHTML=outItens.map(r=>`<div class="drawer-row"><span>${r.d} · ${r.obs||'—'}</span><span style="color:${r.out<0?'var(--red)':'var(--t1)'}">${r.out<0?'':''}R$${r.out?.toFixed(2).replace('.',',')}</span></div>`).join('');
+  set('d-outros-h-itens', outHTML||'<div style="color:var(--t3);font-size:11px">Nenhum lançamento avulso</div>');
   // Barras top 10
   const top=Object.entries(grupos).filter(([,g])=>g.cat!=='Equipamento'&&g.cat!=='Ajuste').sort((a,b)=>b[1].total-a[1].total).slice(0,10);
   const maxV=top[0]?.[1].total||1;
