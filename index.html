@@ -222,7 +222,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <span class="badge-season">⚠ ALTA TEMPORADA
       <span class="season-tip"><strong>Dados de alta temporada.</strong> Março é período de pico turístico em Natal/RN. Os resultados deste mês podem não refletir a performance média anual do negócio.</span>
     </span>
-    <span class="hdr-date" id="lastUpdated">🕐 Dados: 24/03/2026 · Atualizado: 25/03/2026 16:04</span>
+    <span class="hdr-date" id="lastUpdated">🕐 Carregando...</span>
   </div>
 </div>
 
@@ -444,15 +444,15 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
   <div style="height:16px"></div>
   <div class="slbl au">Visão Geral · Maquininha</div>
   <div class="kpi-grid cols3 au">
-    <div class="kpi"><div class="kpi-accent" style="background:var(--teal)"></div><div class="kpi-lbl">Fat. Maquininha</div><div class="kpi-val green">R$9.095</div><div class="kpi-sub">455 transações</div></div>
-    <div class="kpi"><div class="kpi-accent" style="background:var(--amber)"></div><div class="kpi-lbl">Dinheiro</div><div class="kpi-val amber">R$1.501</div><div class="kpi-sub">14,2% do total</div></div>
+    <div class="kpi"><div class="kpi-accent" style="background:var(--teal)"></div><div class="kpi-lbl">Fat. Maquininha</div><div class="kpi-val green" id="maq-total">—</div><div class="kpi-sub" id="maq-cnt">—</div></div>
+    <div class="kpi"><div class="kpi-accent" style="background:var(--amber)"></div><div class="kpi-lbl">Dinheiro</div><div class="kpi-val amber" id="maq-din">—</div><div class="kpi-sub" id="maq-din-pct">—</div></div>
     <div class="kpi" onclick="toggleDrawer('d-ticket',this)"><div class="kpi-accent" style="background:var(--purple)"></div><div class="kpi-lbl">Ticket Médio</div><div class="kpi-val purple">R$20,00</div><div class="kpi-sub">Maquininha · 455 vendas</div>
       <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
       <div class="drawer" id="d-ticket"><div class="drawer-title">Ticket por Método</div><div class="drawer-row"><span>Débito</span><span>R$20,48</span></div><div class="drawer-row"><span>Crédito</span><span>R$20,21</span></div><div class="drawer-row"><span>Pix</span><span>R$19,14</span></div></div>
     </div>
   </div>
   <div class="kpi-grid au2">
-    <div class="kpi"><div class="kpi-accent" style="background:var(--coral)"></div><div class="kpi-lbl">Pico de Vendas</div><div class="kpi-val coral">20h–21h</div><div class="kpi-sub">60,1% do faturamento</div></div>
+    <div class="kpi"><div class="kpi-accent" style="background:var(--coral)"></div><div class="kpi-lbl">Pico de Vendas</div><div class="kpi-val coral" id="maq-pico">—</div><div class="kpi-sub" id="maq-pico-pct">—</div></div>
     <div class="kpi"><div class="kpi-accent" style="background:var(--teal)"></div><div class="kpi-lbl">Eficiência Média</div><div class="kpi-val green">R$120/h</div><div class="kpi-sub">Melhor: R$167/h em 21/03</div></div>
   </div>
   <div class="slbl au2">Top 10 Horas Mais Produtivas</div>
@@ -476,10 +476,10 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <canvas id="cFaixas" height="155"></canvas>
   </div>
   <div class="slbl au4">Mix de Pagamento</div>
-  <div class="kpi-grid cols3 au4">
-    <div class="kpi" onclick="toggleDrawer('d-debito',this)"><div class="kpi-accent" style="background:var(--teal)"></div><div class="kpi-lbl">Débito</div><div class="kpi-val green">38,7%</div><div class="kpi-sub">172 trans · taxa ~0,92%</div><div class="btn-expand"><span class="arr">›</span> Detalhar</div><div class="drawer" id="d-debito"><div class="drawer-title">Débito</div><div class="drawer-row"><span>Transações</span><span>172</span></div><div class="drawer-row"><span>Faturamento</span><span>R$3.523</span></div><div class="drawer-row"><span>Ticket</span><span>R$20,48</span></div><div class="drawer-row"><span>Taxa total</span><span>~R$32,41</span></div></div></div>
-    <div class="kpi" onclick="toggleDrawer('d-credito',this)"><div class="kpi-accent" style="background:var(--amber)"></div><div class="kpi-lbl">Crédito</div><div class="kpi-val amber">32,4%</div><div class="kpi-sub">146 trans · taxa ~1,30%</div><div class="btn-expand"><span class="arr">›</span> Detalhar</div><div class="drawer" id="d-credito"><div class="drawer-title">Crédito</div><div class="drawer-row"><span>Transações</span><span>146</span></div><div class="drawer-row"><span>Faturamento</span><span>R$2.950</span></div><div class="drawer-row"><span>Ticket</span><span>R$20,21</span></div><div class="drawer-row"><span>Taxa total</span><span>~R$38,35</span></div><div class="drawer-insight">⚠ Nova tarifa vigente desde 20/03. Monitorar crescimento desta proporção.</div></div></div>
-    <div class="kpi" onclick="toggleDrawer('d-pix',this)"><div class="kpi-accent" style="background:var(--purple)"></div><div class="kpi-lbl">Pix</div><div class="kpi-val purple">28,8%</div><div class="kpi-sub">137 trans · taxa 0%</div><div class="btn-expand"><span class="arr">›</span> Detalhar</div><div class="drawer" id="d-pix"><div class="drawer-title">Pix</div><div class="drawer-row"><span>Transações</span><span>137</span></div><div class="drawer-row"><span>Faturamento</span><span>R$2.622</span></div><div class="drawer-row"><span>Taxa</span><span>R$0 — zero</span></div><div class="drawer-insight">💡 Incentivar Pix pode economizar ~R$34–50/mês em taxas.</div></div></div>
+  <div class="kpi-grid cols3 au4" id="mix-pag-grid">
+    <div class="kpi" onclick="toggleDrawer('d-debito',this)"><div class="kpi-accent" style="background:var(--teal)"></div><div class="kpi-lbl">Débito</div><div class="kpi-val green" id="mix-deb-pct">—</div><div class="kpi-sub" id="mix-deb-sub">—</div><div class="btn-expand"><span class="arr">›</span> Detalhar</div><div class="drawer" id="d-debito"></div></div>
+    <div class="kpi" onclick="toggleDrawer('d-credito',this)"><div class="kpi-accent" style="background:var(--amber)"></div><div class="kpi-lbl">Crédito</div><div class="kpi-val amber" id="mix-cred-pct">—</div><div class="kpi-sub" id="mix-cred-sub">—</div><div class="btn-expand"><span class="arr">›</span> Detalhar</div><div class="drawer" id="d-credito"></div></div>
+    <div class="kpi" onclick="toggleDrawer('d-pix',this)"><div class="kpi-accent" style="background:var(--purple)"></div><div class="kpi-lbl">Pix</div><div class="kpi-val purple" id="mix-pix-pct">—</div><div class="kpi-sub" id="mix-pix-sub">—</div><div class="btn-expand"><span class="arr">›</span> Detalhar</div><div class="drawer" id="d-pix"></div></div>
   </div>
 </div>
 
@@ -487,10 +487,10 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 
 <div class="pg" id="tab-custos">
   <div style="height:16px"></div>
-  <div class="kpi-grid cols3 au">
+  <div class="kpi-grid au">
     <div class="kpi" onclick="toggleDrawer('d-custo-sorv',this)">
       <div class="kpi-accent" style="background:var(--teal)"></div>
-      <div class="kpi-lbl">Custo do Sorvete</div>
+      <div class="kpi-lbl">Custo do Produto</div>
       <div class="kpi-val green" id="kpi-custo-sorv">—</div>
       <div class="kpi-sub" id="kpi-custo-sorv-sub">—</div>
       <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
@@ -500,54 +500,28 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
       <div class="kpi-accent" style="background:var(--amber)"></div>
       <div class="kpi-lbl">Manutenção</div>
       <div class="kpi-val amber" id="c-manut">—</div>
+      <div class="kpi-sub">Não entra no custo</div>
+      <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
+      <div class="drawer" id="d-manutencao"></div>
+    </div>
+  </div>
+  <div class="kpi-grid au2" style="margin-bottom:16px">
+    <div class="kpi" style="grid-column:1/-1;background:rgba(28,201,168,.06);border-color:rgba(28,201,168,.2)">
+      <div class="kpi-accent" style="background:var(--teal)"></div>
+      <div class="kpi-lbl">∑ Total Geral (Produto + Manutenção)</div>
+      <div class="kpi-val green" id="c-total-geral">—</div>
+      <div class="kpi-sub" id="c-total-geral-sub">—</div>
+    </div>
+  </div>
+    <div class="kpi" onclick="toggleDrawer('d-manutencao',this)">
+      <div class="kpi-accent" style="background:var(--amber)"></div>
+      <div class="kpi-lbl">Manutenção</div>
+      <div class="kpi-val amber" id="c-manut">—</div>
       <div class="kpi-sub">Limpeza e conservação</div>
       <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
       <div class="drawer" id="d-manutencao"></div>
     </div>
-    <div class="kpi" onclick="toggleDrawer('d-equip',this)">
-      <div class="kpi-accent" style="background:var(--purple)"></div>
-      <div class="kpi-lbl">Equipamentos</div>
-      <div class="kpi-val purple" id="c-equip">—</div>
-      <div class="kpi-sub">Compra única</div>
-      <div class="btn-expand"><span class="arr">›</span> Detalhar</div>
-      <div class="drawer" id="d-equip"></div>
-    </div>
-  </div>
-  <div class="slbl au2">Outros Custos Fixos</div>
-  <div class="kpi-grid cols3 au2">
-    <div class="kpi">
-      <div class="kpi-accent" style="background:var(--amber)"></div>
-      <div class="kpi-lbl">🏠 Aluguel</div>
-      <div class="kpi-val amber" id="c-aluguel">—</div>
-      <div class="kpi-sub" id="c-aluguel-sub">—</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-accent" style="background:var(--purple)"></div>
-      <div class="kpi-lbl">💳 Empréstimo</div>
-      <div class="kpi-val purple" id="c-emprestimo">R$0</div>
-      <div class="kpi-sub">Parcela — próx. mês</div>
-    </div>
-    <div class="kpi" onclick="toggleDrawer('d-outros-h',this)">
-      <div class="kpi-accent" style="background:var(--teal)"></div>
-      <div class="kpi-lbl">📦 Outros (col H)</div>
-      <div class="kpi-val green" id="c-outros-h">—</div>
-      <div class="kpi-sub" id="c-outros-h-sub">—</div>
-      <div class="btn-expand"><span class="arr">›</span> Ver itens</div>
-      <div class="drawer" id="d-outros-h">
-        <div class="drawer-title">Lançamentos em Outros (H)</div>
-        <div id="d-outros-h-itens"></div>
-        <div class="drawer-insight">Col H da planilha — aluguel, potes, filtro e demais lançamentos avulsos que não entram em DV, Maq ou Diária.</div>
-      </div>
-    </div>
-  </div>
 
-  <div class="kpi-grid au2" style="margin-bottom:16px">
-    <div class="kpi" style="grid-column:1/-1;background:rgba(28,201,168,.06);border-color:rgba(28,201,168,.2)">
-      <div class="kpi-accent" style="background:var(--teal)"></div>
-      <div class="kpi-lbl">∑ Total Geral de Despesas (D+E+F+H)</div>
-      <div class="kpi-val green" id="c-total-geral">—</div>
-      <div class="kpi-sub" id="c-total-geral-sub">—</div>
-    </div>
   </div>
 
   <div class="slbl au3">Top Gastos</div>
@@ -562,7 +536,6 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
     <div class="tbl-scroll"><table><thead><tr><th data-tbl="c" data-c="0">Data ↕</th><th data-tbl="c" data-c="1">Item ↕</th><th data-tbl="c" data-c="2">Categoria</th><th data-tbl="c" data-c="3">Valor ↕</th><th>Obs.</th></tr></thead><tbody id="tbody-c"></tbody></table></div>
     <div class="pag" id="pag-c"></div>
   </div>
-</div>
 
 <!-- ══ ABA: GESTÃO ══ -->
 
@@ -607,118 +580,118 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 // DADOS — atualizados automaticamente pelo Apps Script
 // ══════════════════════════════════════════════════════
 const vendas=[
-  {d:'02/03',wd:0,fat:495,ext:0,dv:null,maq:2.47,dia:90,luc:402.53,out:null,obs:'',sorv:33,lucro_real:165.87},
-  {d:'03/03',wd:1,fat:144,ext:9,dv:173.98,maq:0.85,dia:80,luc:-110.82999999999998,out:null,obs:'',sorv:9,lucro_real:-77.03},
-  {d:'04/03',wd:2,fat:447,ext:0,dv:355.67,maq:2.33,dia:80,luc:8.999999999999984,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
-  {d:'05/03',wd:3,fat:330,ext:15,dv:50.82,maq:1.56,dia:80,luc:197.62,out:null,obs:'',sorv:21,lucro_real:60.02},
-  {d:'06/03',wd:4,fat:747,ext:0,dv:101.21,maq:2,dia:80,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360},
-  {d:'07/03',wd:5,fat:615,ext:0,dv:257.68,maq:2.7,dia:80,luc:274.62,out:null,obs:'',sorv:41,lucro_real:263.48},
-  {d:'08/03',wd:6,fat:408,ext:0,dv:152.84,maq:1.93,dia:110,luc:143.23,out:null,obs:'',sorv:27,lucro_real:83.53},
-  {d:'09/03',wd:0,fat:440,ext:5,dv:204.29999999999998,maq:1.78,dia:80,luc:153.92000000000002,out:null,obs:'',sorv:29,lucro_real:137.64},
-  {d:'10/03',wd:1,fat:505,ext:10,dv:27.84,maq:3.38,dia:90,luc:383.78000000000003,out:null,obs:'',sorv:33,lucro_real:174.96},
-  {d:'11/03',wd:2,fat:575,ext:0,dv:31.6,maq:3.39,dia:70,luc:470.01,out:780,obs:'Aluguel',sorv:38,lucro_real:244.85},
-  {d:'12/03',wd:3,fat:730,ext:65,dv:69.85000000000001,maq:3.02,dia:83,luc:574.13,out:null,obs:'',sorv:44,lucro_real:363.1},
-  {d:'13/03',wd:4,fat:520,ext:25,dv:254.82999999999998,maq:2.6,dia:80,luc:182.57000000000002,out:null,obs:'',sorv:33,lucro_real:200.74},
-  {d:'14/03',wd:5,fat:640,ext:35,dv:24.58,maq:2.54,dia:77,luc:535.88,out:null,obs:'',sorv:40,lucro_real:295.66},
-  {d:'15/03',wd:6,fat:500,ext:20,dv:20.89,maq:2.33,dia:74,luc:402.78000000000003,out:null,obs:'',sorv:32,lucro_real:191.03},
-  {d:'16/03',wd:0,fat:340,ext:55,dv:375.11,maq:1.91,dia:81,luc:-118.02000000000001,out:null,obs:'',sorv:19,lucro_real:76.71},
-  {d:'17/03',wd:1,fat:335,ext:5,dv:46.739999999999995,maq:1.53,dia:90,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
-  {d:'18/03',wd:2,fat:525,ext:30,dv:111.49000000000001,maq:2.32,dia:76,luc:335.19,out:780,obs:'Aluguel',sorv:33,lucro_real:210.02},
-  {d:'19/03',wd:3,fat:345,ext:25,dv:297.46,maq:1.48,dia:75,luc:-28.93999999999998,out:null,obs:'',sorv:21,lucro_real:80.1},
-  {d:'20/03',wd:4,fat:510,ext:15,dv:179.89999999999998,maq:9.1,dia:73,luc:248.00000000000003,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
-  {d:'21/03',wd:5,fat:775,ext:50,dv:60.13,maq:11.88,dia:80,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
-  {d:'22/03',wd:6,fat:670,ext:15,dv:117.46,maq:9.78,dia:73,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
-  {d:'23/03',wd:0,fat:240,ext:30,dv:115.53999999999999,maq:3.02,dia:126,luc:-4.559999999999992,out:null,obs:'',sorv:14,lucro_real:-49.3},
-  {d:'24/03',wd:1,fat:510,ext:0,dv:null,maq:6.43,dia:90,luc:413.57,out:null,obs:'',sorv:34,lucro_real:172.89}
+  {d:'02/03',wd:6,fat:495.0,ext:0.0,dv:null,maq:2.47,dia:90.0,luc:402.53,out:null,obs:'',sorv:33,lucro_real:165.87},
+  {d:'03/03',wd:0,fat:144.0,ext:9.0,dv:173.98,maq:0.85,dia:80.0,luc:-110.83,out:null,obs:'',sorv:9,lucro_real:-77.03},
+  {d:'04/03',wd:1,fat:447.0,ext:0.0,dv:355.67,maq:2.33,dia:80.0,luc:9.0,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
+  {d:'05/03',wd:2,fat:330.0,ext:15.0,dv:50.82,maq:1.56,dia:80.0,luc:197.62,out:null,obs:'',sorv:21,lucro_real:60.02},
+  {d:'06/03',wd:3,fat:747.0,ext:0.0,dv:101.21,maq:2.0,dia:80.0,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360.0},
+  {d:'07/03',wd:4,fat:615.0,ext:0.0,dv:257.68,maq:2.7,dia:80.0,luc:274.62,out:null,obs:'',sorv:41,lucro_real:263.48},
+  {d:'08/03',wd:5,fat:408.0,ext:0.0,dv:152.84,maq:1.93,dia:110.0,luc:143.23,out:null,obs:'',sorv:27,lucro_real:83.53},
+  {d:'09/03',wd:6,fat:440.0,ext:5.0,dv:204.3,maq:1.78,dia:80.0,luc:153.92,out:null,obs:'',sorv:29,lucro_real:137.64},
+  {d:'10/03',wd:0,fat:505.0,ext:10.0,dv:27.84,maq:3.38,dia:90.0,luc:383.78,out:null,obs:'',sorv:33,lucro_real:174.96},
+  {d:'11/03',wd:1,fat:575.0,ext:0.0,dv:31.6,maq:3.39,dia:70.0,luc:470.01,out:780.0,obs:'Aluguel',sorv:38,lucro_real:244.85},
+  {d:'12/03',wd:2,fat:730.0,ext:65.0,dv:69.85,maq:3.02,dia:83.0,luc:574.13,out:null,obs:'',sorv:44,lucro_real:363.1},
+  {d:'13/03',wd:3,fat:520.0,ext:25.0,dv:254.83,maq:2.6,dia:80.0,luc:182.57,out:null,obs:'',sorv:33,lucro_real:200.74},
+  {d:'14/03',wd:4,fat:640.0,ext:35.0,dv:24.58,maq:2.54,dia:77.0,luc:535.88,out:null,obs:'',sorv:40,lucro_real:295.66},
+  {d:'15/03',wd:5,fat:500.0,ext:20.0,dv:20.89,maq:2.33,dia:74.0,luc:402.78,out:null,obs:'',sorv:32,lucro_real:191.03},
+  {d:'16/03',wd:6,fat:340.0,ext:55.0,dv:375.11,maq:1.91,dia:81.0,luc:-118.02,out:null,obs:'',sorv:19,lucro_real:76.71},
+  {d:'17/03',wd:0,fat:335.0,ext:5.0,dv:46.74,maq:1.53,dia:90.0,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
+  {d:'18/03',wd:1,fat:525.0,ext:30.0,dv:111.49,maq:2.32,dia:76.0,luc:335.19,out:780.0,obs:'Aluguel',sorv:33,lucro_real:210.02},
+  {d:'19/03',wd:2,fat:345.0,ext:25.0,dv:297.46,maq:1.48,dia:75.0,luc:-28.94,out:null,obs:'',sorv:21,lucro_real:80.1},
+  {d:'20/03',wd:3,fat:510.0,ext:15.0,dv:179.9,maq:9.1,dia:73.0,luc:248.0,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
+  {d:'21/03',wd:4,fat:775.0,ext:50.0,dv:60.13,maq:11.88,dia:80.0,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
+  {d:'22/03',wd:5,fat:670.0,ext:15.0,dv:117.46,maq:9.78,dia:73.0,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
+  {d:'23/03',wd:6,fat:240.0,ext:30.0,dv:115.54,maq:3.02,dia:126.0,luc:-4.56,out:null,obs:'',sorv:14,lucro_real:-49.3},
+  {d:'24/03',wd:0,fat:510.0,ext:0.0,dv:null,maq:6.43,dia:90.0,luc:413.57,out:null,obs:'',sorv:34,lucro_real:172.89}
 ];
 
 const compras=[
-  {d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:18.79,tipo:'1'},
-  {d:'03/03',item:'Cobertura Morango 1,3kg',cat:'Insumo',val:17.59,tipo:'1'},
-  {d:'03/03',item:'Leite 200g',cat:'Insumo',val:51.92,tipo:'8'},
-  {d:'03/03',item:'Papel Toalha',cat:'Manutenção',val:3.99,tipo:'1'},
-  {d:'03/03',item:'Cobertura Caramelo 300g',cat:'Insumo',val:7.79,tipo:'1'},
-  {d:'03/03',item:'Açúcar',cat:'Insumo',val:28.9,tipo:'10'},
-  {d:'03/03',item:'morango',cat:'Insumo',val:45,tipo:'4'},
-  {d:'04/03',item:'Saco de lixo',cat:'Manutenção',val:9.58,tipo:'2'},
-  {d:'04/03',item:'Pano',cat:'Manutenção',val:8.99,tipo:'1'},
-  {d:'04/03',item:'Leite moça',cat:'Insumo',val:7.19,tipo:'1'},
-  {d:'04/03',item:'Faca',cat:'Manutenção',val:11.9,tipo:'1'},
-  {d:'04/03',item:'Leite 200g',cat:'Insumo',val:318.01,tipo:'49'},
-  {d:'05/03',item:'Nutella',cat:'Insumo',val:44.87,tipo:'1'},
-  {d:'05/03',item:'Outros',cat:'Insumo',val:5.95,tipo:'1'},
-  {d:'06/03',item:'Água sanitária',cat:'Manutenção',val:2.09,tipo:'1'},
-  {d:'06/03',item:'Água mineral',cat:'Insumo',val:13.5,tipo:'6'},
-  {d:'06/03',item:'Frutas Vermelhas',cat:'Insumo',val:42.63,tipo:'1'},
-  {d:'06/03',item:'Nesquik',cat:'Insumo',val:22.99,tipo:'1'},
-  {d:'06/03',item:'Ouro Branco',cat:'Insumo',val:20,tipo:'12'},
-  {d:'07/03',item:'Potes',cat:'Embalagem',val:183.34,tipo:'200'},
-  {d:'07/03',item:'Banana',cat:'Insumo',val:2.9,tipo:'1'},
-  {d:'07/03',item:'Ouro Branco',cat:'Insumo',val:61.95,tipo:'50'},
-  {d:'07/03',item:'Bis',cat:'Insumo',val:9.49,tipo:'1'},
-  {d:'08/03',item:'Colher',cat:'Embalagem',val:41.59,tipo:'500'},
-  {d:'08/03',item:'Pote plástico',cat:'Manutenção',val:78.9,tipo:'6'},
-  {d:'08/03',item:'MMs',cat:'Insumo',val:32.35,tipo:'1'},
-  {d:'09/03',item:'Ovomaltine',cat:'Insumo',val:41.7,tipo:'1'},
-  {d:'09/03',item:'Choco Power',cat:'Insumo',val:23.46,tipo:'1'},
-  {d:'09/03',item:'Max Cream',cat:'Insumo',val:34.99,tipo:'1'},
-  {d:'09/03',item:'Emulsificante',cat:'Insumo',val:23.5,tipo:'1'},
-  {d:'09/03',item:'Liga Super Neutra',cat:'Insumo',val:22.48,tipo:'1'},
-  {d:'09/03',item:'Blue Ice',cat:'Insumo',val:8.17,tipo:'1'},
-  {d:'10/03',item:'Leite moça',cat:'Insumo',val:7.19,tipo:'1'},
-  {d:'10/03',item:'Coco ralado',cat:'Insumo',val:5.86,tipo:'1'},
-  {d:'10/03',item:'Morango',cat:'Insumo',val:14.79,tipo:'1'},
-  {d:'11/03',item:'Paçoquinha',cat:'Insumo',val:9.1,tipo:'1'},
-  {d:'09/03',item:'Cardapio',cat:'Manutenção',val:50,tipo:'1'},
-  {d:'11/03',item:'morango',cat:'insumo',val:22.5,tipo:'2'},
-  {d:'12/03',item:'Nutella',cat:'Insumo',val:39.99,tipo:'1'},
-  {d:'12/03',item:'Luva',cat:'Manutenção',val:3.88,tipo:'2'},
-  {d:'12/03',item:'KitKat',cat:'Insumo',val:25.98,tipo:'8'},
-  {d:'13/03',item:'Potes',cat:'Embalagem',val:64,tipo:'100'},
-  {d:'13/03',item:'Morango',cat:'Insumo',val:45,tipo:'4'},
-  {d:'13/03',item:'Bis',cat:'Insumo',val:6.99,tipo:'1'},
-  {d:'13/03',item:'Oreo',cat:'Insumo',val:8.85,tipo:'3'},
-  {d:'13/03',item:'Nutella',cat:'Insumo',val:39.99,tipo:'1'},
-  {d:'13/03',item:'filtro',cat:'Manutenção',val:90,tipo:'1'},
-  {d:'14/03',item:'KitKat',cat:'Insumo',val:19.79,tipo:'7'},
-  {d:'14/03',item:'Chocolate Granulado',cat:'Insumo',val:4.79,tipo:'1'},
-  {d:'15/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:20.89,tipo:'1'},
-  {d:'16/03',item:'Choco Power',cat:'Insumo',val:23.46,tipo:'1'},
-  {d:'16/03',item:'MMs',cat:'Insumo',val:24.74,tipo:'1'},
-  {d:'16/03',item:'Nutella',cat:'Insumo',val:319.92,tipo:'8'},
-  {d:'16/03',item:'Leite moça',cat:'Insumo',val:6.99,tipo:'1'},
-  {d:'17/03',item:'Cobertura morango 300g',cat:'Insumo',val:8.52,tipo:'1'},
-  {d:'17/03',item:'Coco ralado',cat:'Insumo',val:5.97,tipo:'1'},
-  {d:'17/03',item:'Morango',cat:'Insumo',val:22.5,tipo:'2'},
-  {d:'17/03',item:'KitKat',cat:'Topping',val:9.75,tipo:'3'},
-  {d:'18/03',item:'Potes',cat:'Insumos',val:62.32,tipo:'400'},
-  {d:'18/03',item:'KitKat',cat:'Insumo',val:25.19,tipo:'1'},
-  {d:'18/03',item:'KitKat',cat:'Insumos',val:23.98,tipo:'8'},
-  {d:'19/03',item:'Pote plástico',cat:'Manutenção',val:66.58,tipo:'1'},
-  {d:'19/03',item:'Morango',cat:'Insumo',val:29.98,tipo:'2'},
-  {d:'19/03',item:'Ovomaltine',cat:'insumo',val:41.7,tipo:'1'},
-  {d:'19/03',item:'Garrafas',cat:'Manutenção',val:159.2,tipo:'8'},
-  {d:'20/03',item:'Granulado',cat:'Insumo',val:26.99,tipo:'8'},
-  {d:'20/03',item:'MMs',cat:'insumo',val:32.35,tipo:'1'},
-  {d:'20/03',item:'Ouro Branco',cat:'Topping',val:52.6,tipo:'50'},
-  {d:'20/03',item:'Morango',cat:'Topping',val:67.96,tipo:'4'},
-  {d:'21/03',item:'Max Cream',cat:'Insumo',val:36.63,tipo:'1'},
-  {d:'21/03',item:'Emulsificante',cat:'Insumo',val:23.5,tipo:'1'},
-  {d:'22/03',item:'colher',cat:'insumo',val:65.55,tipo:'1000'},
-  {d:'22/03',item:'Cobertura morango',cat:'insumo',val:17.59,tipo:'1'},
-  {d:'22/03',item:'Geleia morango',cat:'insumo',val:22.99,tipo:'1'},
-  {d:'22/03',item:'Leite moça',cat:'insumo',val:5.99,tipo:'1'},
-  {d:'22/03',item:'oreo',cat:'insumo',val:5.34,tipo:'3'},
-  {d:'23/03',item:'Micro Ball',cat:'insumo',val:15.99,tipo:'1'},
-  {d:'23/03',item:'Cobertura Caramelo',cat:'insumo',val:14.49,tipo:'1'},
-  {d:'23/03',item:'Cobertura Chocolate 1,3kg',cat:'insumo',val:17.49,tipo:'1'},
-  {d:'23/03',item:'Leite moça',cat:'insumo',val:6.99,tipo:'1'},
-  {d:'23/03',item:'Marsh',cat:'insumo',val:9.69,tipo:'1'},
-  {d:'23/03',item:'Frutas Vermelhas',cat:'insumo',val:22.99,tipo:'1'},
-  {d:'23/03',item:'Açucar',cat:'insumo',val:27.9,tipo:'10'}
+  {d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:18.79,qty:1.0},
+  {d:'03/03',item:'Cobertura Morango 1,3kg',cat:'Insumo',val:17.59,qty:1.0},
+  {d:'03/03',item:'Leite 200g',cat:'Insumo',val:51.92,qty:8.0},
+  {d:'03/03',item:'Papel Toalha',cat:'Manutenção',val:3.99,qty:1.0},
+  {d:'03/03',item:'Cobertura Caramelo 300g',cat:'Insumo',val:7.79,qty:1.0},
+  {d:'03/03',item:'Açúcar',cat:'Insumo',val:28.9,qty:10.0},
+  {d:'03/03',item:'morango',cat:'Insumo',val:45.0,qty:4.0},
+  {d:'04/03',item:'Saco de lixo',cat:'Manutenção',val:9.58,qty:2.0},
+  {d:'04/03',item:'Pano',cat:'Manutenção',val:8.99,qty:1.0},
+  {d:'04/03',item:'Leite moça',cat:'Insumo',val:7.19,qty:1.0},
+  {d:'04/03',item:'Faca',cat:'Manutenção',val:11.9,qty:1.0},
+  {d:'04/03',item:'Leite 200g',cat:'Insumo',val:318.01,qty:49.0},
+  {d:'05/03',item:'Nutella',cat:'Insumo',val:44.87,qty:1.0},
+  {d:'05/03',item:'Outros',cat:'Insumo',val:5.95,qty:1.0},
+  {d:'06/03',item:'Água sanitária',cat:'Manutenção',val:2.09,qty:1.0},
+  {d:'06/03',item:'Água mineral',cat:'Insumo',val:13.5,qty:6.0},
+  {d:'06/03',item:'Frutas Vermelhas',cat:'Insumo',val:42.63,qty:1.0},
+  {d:'06/03',item:'Nesquik',cat:'Insumo',val:22.99,qty:1.0},
+  {d:'06/03',item:'Ouro Branco',cat:'Insumo',val:20.0,qty:12.0},
+  {d:'07/03',item:'Potes',cat:'Insumo',val:183.34,qty:200.0},
+  {d:'07/03',item:'Banana',cat:'Insumo',val:2.9,qty:1.0},
+  {d:'07/03',item:'Ouro Branco',cat:'Insumo',val:61.95,qty:50.0},
+  {d:'07/03',item:'Bis',cat:'Insumo',val:9.49,qty:1.0},
+  {d:'08/03',item:'Colher',cat:'Insumo',val:41.59,qty:500.0},
+  {d:'08/03',item:'Pote plástico',cat:'Manutenção',val:78.9,qty:6.0},
+  {d:'08/03',item:'MMs',cat:'Insumo',val:32.35,qty:1.0},
+  {d:'09/03',item:'Ovomaltine',cat:'Insumo',val:41.7,qty:1.0},
+  {d:'09/03',item:'Choco Power',cat:'Insumo',val:23.46,qty:1.0},
+  {d:'09/03',item:'Max Cream',cat:'Insumo',val:34.99,qty:1.0},
+  {d:'09/03',item:'Emulsificante',cat:'Insumo',val:23.5,qty:1.0},
+  {d:'09/03',item:'Liga Super Neutra',cat:'Insumo',val:22.48,qty:1.0},
+  {d:'09/03',item:'Blue Ice',cat:'Insumo',val:8.17,qty:1.0},
+  {d:'10/03',item:'Leite moça',cat:'Insumo',val:7.19,qty:1.0},
+  {d:'10/03',item:'Coco ralado',cat:'Insumo',val:5.86,qty:1.0},
+  {d:'10/03',item:'Morango',cat:'Insumo',val:14.79,qty:1.0},
+  {d:'11/03',item:'Paçoquinha',cat:'Insumo',val:9.1,qty:1.0},
+  {d:'09/03',item:'Cardapio',cat:'Manutenção',val:50.0,qty:1.0},
+  {d:'11/03',item:'morango',cat:'Insumo',val:22.5,qty:2.0},
+  {d:'12/03',item:'Nutella',cat:'Insumo',val:39.99,qty:1.0},
+  {d:'12/03',item:'Luva',cat:'Manutenção',val:3.88,qty:2.0},
+  {d:'12/03',item:'KitKat',cat:'Insumo',val:25.98,qty:8.0},
+  {d:'13/03',item:'Potes',cat:'Insumo',val:64.0,qty:100.0},
+  {d:'13/03',item:'Morango',cat:'Insumo',val:45.0,qty:4.0},
+  {d:'13/03',item:'Bis',cat:'Insumo',val:6.99,qty:1.0},
+  {d:'13/03',item:'Oreo',cat:'Insumo',val:8.85,qty:3.0},
+  {d:'13/03',item:'Nutella',cat:'Insumo',val:39.99,qty:1.0},
+  {d:'13/03',item:'filtro',cat:'Manutenção',val:90.0,qty:1.0},
+  {d:'14/03',item:'KitKat',cat:'Insumo',val:19.79,qty:7.0},
+  {d:'14/03',item:'Chocolate Granulado',cat:'Insumo',val:4.79,qty:1.0},
+  {d:'15/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:20.89,qty:1.0},
+  {d:'16/03',item:'Choco Power',cat:'Insumo',val:23.46,qty:1.0},
+  {d:'16/03',item:'MMs',cat:'Insumo',val:24.74,qty:1.0},
+  {d:'16/03',item:'Nutella',cat:'Insumo',val:319.92,qty:8.0},
+  {d:'16/03',item:'Leite moça',cat:'Insumo',val:6.99,qty:1.0},
+  {d:'17/03',item:'Cobertura morango 300g',cat:'Insumo',val:8.52,qty:1.0},
+  {d:'17/03',item:'Coco ralado',cat:'Insumo',val:5.97,qty:1.0},
+  {d:'17/03',item:'Morango',cat:'Insumo',val:22.5,qty:2.0},
+  {d:'17/03',item:'KitKat',cat:'Topping',val:9.75,qty:3.0},
+  {d:'18/03',item:'Potes',cat:'Insumo',val:62.32,qty:400.0},
+  {d:'18/03',item:'KitKat',cat:'Insumo',val:25.19,qty:1.0},
+  {d:'18/03',item:'KitKat',cat:'Insumo',val:23.98,qty:8.0},
+  {d:'19/03',item:'Pote plástico',cat:'Manutenção',val:66.58,qty:1.0},
+  {d:'19/03',item:'Morango',cat:'Insumo',val:29.98,qty:2.0},
+  {d:'19/03',item:'Ovomaltine',cat:'Insumo',val:41.7,qty:1.0},
+  {d:'19/03',item:'Garrafas',cat:'Manutenção',val:159.2,qty:8.0},
+  {d:'20/03',item:'Granulado',cat:'Insumo',val:26.99,qty:8.0},
+  {d:'20/03',item:'MMs',cat:'Insumo',val:32.35,qty:1.0},
+  {d:'20/03',item:'Ouro Branco',cat:'Topping',val:52.6,qty:50.0},
+  {d:'20/03',item:'Morango',cat:'Topping',val:67.96,qty:4.0},
+  {d:'21/03',item:'Max Cream',cat:'Insumo',val:36.63,qty:1.0},
+  {d:'21/03',item:'Emulsificante',cat:'Insumo',val:23.5,qty:1.0},
+  {d:'22/03',item:'colher',cat:'Insumo',val:65.55,qty:1000.0},
+  {d:'22/03',item:'Cobertura morango',cat:'Insumo',val:17.59,qty:1.0},
+  {d:'22/03',item:'Geleia morango',cat:'Insumo',val:22.99,qty:1.0},
+  {d:'22/03',item:'Leite moça',cat:'Insumo',val:5.99,qty:1.0},
+  {d:'22/03',item:'oreo',cat:'Insumo',val:5.34,qty:3.0},
+  {d:'23/03',item:'Micro Ball',cat:'Insumo',val:15.99,qty:1.0},
+  {d:'23/03',item:'Cobertura Caramelo',cat:'Insumo',val:14.49,qty:1.0},
+  {d:'23/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:17.49,qty:1.0},
+  {d:'23/03',item:'Leite moça',cat:'Insumo',val:6.99,qty:1.0},
+  {d:'23/03',item:'Marsh',cat:'Insumo',val:9.69,qty:1.0},
+  {d:'23/03',item:'Frutas Vermelhas',cat:'Insumo',val:22.99,qty:1.0},
+  {d:'23/03',item:'Açucar',cat:'Insumo',val:27.9,qty:10.0}
 ];
 
-const SALDOS = {"bau":8000,"conta":4799.76,"fatura":2782.72,"caixa":200,"envelope":350.7099999999991};
+const SALDOS = {"bau":8000.0,"conta":4799.76,"fatura":2782.72,"caixa":200.0,"envelope":350.71};
 
 // ══════════════════════════════════════════════════════
 // TABS
@@ -746,6 +719,41 @@ function toggleDrawer(id,btn){
 // MOTOR PRINCIPAL — Lucro = Fat − D − E − F − H
 // Tudo calculado dos arrays — zero valores estáticos
 // ══════════════════════════════════════════════════════
+const mixPag={
+  debito:  {val:3523.01,cnt:172,pct:38.7},
+  credito: {val:2950.0,cnt:146,pct:32.4},
+  pix:     {val:2622.0,cnt:137,pct:28.8},
+  totalMaq:9095.01,
+  totalCnt:455,
+  totalDinheiro:2250.99
+};
+
+const dinheiroDia=[
+  {d:'02/03',plan:495.0,maq:406.0,din:89.0},
+  {d:'03/03',plan:144.0,maq:94.0,din:50.0},
+  {d:'04/03',plan:447.0,maq:435.0,din:12.0},
+  {d:'05/03',plan:330.0,maq:315.0,din:15.0},
+  {d:'06/03',plan:747.0,maq:567.0,din:180.0},
+  {d:'07/03',plan:615.0,maq:555.0,din:60.0},
+  {d:'08/03',plan:408.0,maq:378.0,din:30.0},
+  {d:'09/03',plan:440.0,maq:350.0,din:90.0},
+  {d:'10/03',plan:505.0,maq:400.0,din:105.0},
+  {d:'11/03',plan:575.0,maq:515.0,din:60.0},
+  {d:'12/03',plan:730.0,maq:635.0,din:95.0},
+  {d:'13/03',plan:520.0,maq:410.0,din:110.0},
+  {d:'14/03',plan:640.0,maq:535.0,din:105.0},
+  {d:'15/03',plan:500.0,maq:455.0,din:45.0},
+  {d:'16/03',plan:340.0,maq:320.0,din:20.0},
+  {d:'17/03',plan:335.0,maq:260.0,din:75.0},
+  {d:'18/03',plan:525.0,maq:490.0,din:35.0},
+  {d:'19/03',plan:345.0,maq:325.0,din:20.0},
+  {d:'20/03',plan:510.0,maq:465.0,din:45.0},
+  {d:'21/03',plan:775.0,maq:685.0,din:90.0},
+  {d:'22/03',plan:670.0,maq:500.0,din:170.0},
+  {d:'23/03',plan:240.0,maq:230.0,din:10.0},
+  {d:'24/03',plan:510.0,maq:510.0,din:0.0}
+];
+
 (function calcularTudo(){
   const WN_PT   = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
   const WN_SHORT= ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
@@ -1051,12 +1059,98 @@ renderGraficos();
 // ══════════════════════════════════════════════════════
 // HORÁRIOS (dados fixos da maquininha de março)
 // ══════════════════════════════════════════════════════
-const horasData=[{h:'13h',fat:1,v:1},{h:'17h',fat:45,v:2},{h:'18h',fat:243,v:14},{h:'19h',fat:1672,v:82},{h:'20h',fat:2820,v:145},{h:'21h',fat:2646,v:127},{h:'22h',fat:1573,v:79},{h:'23h',fat:95,v:5}];
+const horasData=[
+  {h:'13h',fat:1,v:1},
+  {h:'17h',fat:45,v:2},
+  {h:'18h',fat:243,v:14},
+  {h:'19h',fat:1672,v:82},
+  {h:'20h',fat:2820,v:145},
+  {h:'21h',fat:2646,v:127},
+  {h:'22h',fat:1573,v:79},
+  {h:'23h',fat:95,v:5}
+];
 const faixasData=[{f:'13:30',fat:1,v:1},{f:'17:30',fat:45,v:2},{f:'18:00',fat:20,v:1},{f:'18:30',fat:223,v:13},{f:'19:00',fat:490,v:25},{f:'19:30',fat:1182,v:57},{f:'20:00',fat:1492,v:73},{f:'20:30',fat:1328,v:72},{f:'21:00',fat:1600,v:73},{f:'21:30',fat:1046,v:54},{f:'22:00',fat:1118,v:59},{f:'22:30',fat:455,v:20},{f:'23:00',fat:95,v:5}];
 const top10h=[{h:'12/03 20h',fat:225,v:9},{h:'11/03 21h',fat:220,v:7},{h:'06/03 20h',fat:210,v:14},{h:'21/03 20h',fat:195,v:11},{h:'15/03 20h',fat:185,v:9},{h:'16/03 21h',fat:185,v:10},{h:'21/03 21h',fat:180,v:7},{h:'14/03 20h',fat:180,v:10},{h:'22/03 21h',fat:180,v:8},{h:'08/03 20h',fat:168,v:9}];
 
 function renderHorarios(){
   // Top 10
+  // Mix pagamento dinâmico
+  const fmtR2=v=>'R$'+Math.round(v).toLocaleString('pt-BR');
+  const fmtD2=(v,d=2)=>(+v).toFixed(d).replace('.',',');
+  const set2=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
+
+  set2('maq-total', fmtR2(mixPag.totalMaq));
+  set2('maq-cnt',   mixPag.totalCnt+' transações');
+  set2('maq-din',   fmtR2(mixPag.totalDinheiro));
+  set2('maq-din-pct', (mixPag.totalDinheiro/(mixPag.totalMaq+mixPag.totalDinheiro)*100).toFixed(1)+'% em espécie');
+
+  // Pico de vendas
+  const picoH=horasData.reduce((a,b)=>b.fat>a.fat?b:a);
+  const pico2H=horasData.filter(h=>h.fat>horasData.reduce((s,x)=>s+x.fat,0)*0.2);
+  set2('maq-pico', picoH.h+'–'+horasData[horasData.indexOf(picoH)+1]?.h||picoH.h);
+  set2('maq-pico-pct', (picoH.fat/mixPag.totalMaq*100).toFixed(1)+'% do faturamento');
+
+  // Mix pagamento
+  set2('mix-deb-pct', mixPag.debito.pct+'%');
+  set2('mix-deb-sub',  mixPag.debito.cnt+' trans · R$'+fmtD2(mixPag.debito.val,0));
+  set2('mix-cred-pct', mixPag.credito.pct+'%');
+  set2('mix-cred-sub', mixPag.credito.cnt+' trans · R$'+fmtD2(mixPag.credito.val,0));
+  set2('mix-pix-pct',  mixPag.pix.pct+'%');
+  set2('mix-pix-sub',  mixPag.pix.cnt+' trans · taxa 0%');
+
+  // Drawers mix
+  const ticketDeb=(mixPag.debito.val/mixPag.debito.cnt).toFixed(2).replace('.',',');
+  const ticketCred=(mixPag.credito.val/mixPag.credito.cnt).toFixed(2).replace('.',',');
+  const ticketPix=(mixPag.pix.val/mixPag.pix.cnt).toFixed(2).replace('.',',');
+  const taxaDeb=(mixPag.debito.val*0.0092).toFixed(2).replace('.',',');
+  const taxaCred=(mixPag.credito.val*0.013).toFixed(2).replace('.',',');
+  const dDeb=document.getElementById('d-debito');
+  if(dDeb) dDeb.innerHTML=`<div class="drawer-title">Débito</div>
+    <div class="drawer-row"><span>Transações</span><span>${mixPag.debito.cnt}</span></div>
+    <div class="drawer-row"><span>Faturamento</span><span>${fmtR2(mixPag.debito.val)}</span></div>
+    <div class="drawer-row"><span>Ticket médio</span><span>R$${ticketDeb}</span></div>
+    <div class="drawer-row"><span>Taxa estimada</span><span>~R$${taxaDeb}</span></div>`;
+  const dCred=document.getElementById('d-credito');
+  if(dCred) dCred.innerHTML=`<div class="drawer-title">Crédito</div>
+    <div class="drawer-row"><span>Transações</span><span>${mixPag.credito.cnt}</span></div>
+    <div class="drawer-row"><span>Faturamento</span><span>${fmtR2(mixPag.credito.val)}</span></div>
+    <div class="drawer-row"><span>Ticket médio</span><span>R$${ticketCred}</span></div>
+    <div class="drawer-row"><span>Taxa estimada</span><span>~R$${taxaCred}</span></div>
+    <div class="drawer-insight">⚠ Nova tarifa vigente desde 20/03.</div>`;
+  const dPix=document.getElementById('d-pix');
+  if(dPix) dPix.innerHTML=`<div class="drawer-title">Pix</div>
+    <div class="drawer-row"><span>Transações</span><span>${mixPag.pix.cnt}</span></div>
+    <div class="drawer-row"><span>Faturamento</span><span>${fmtR2(mixPag.pix.val)}</span></div>
+    <div class="drawer-row"><span>Ticket médio</span><span>R$${ticketPix}</span></div>
+    <div class="drawer-row"><span>Taxa</span><span>R$0 — zero</span></div>
+    <div class="drawer-insight">💡 Incentivar Pix economiza ~R$${((mixPag.credito.val*0.013)-0).toFixed(0)} em taxas vs crédito.</div>`;
+
+  // Stat strip horas
+  const hEl=document.getElementById('horas-stats');
+  if(hEl){
+    const maxH=horasData.reduce((a,b)=>b.fat>a.fat?b:a);
+    const maxV2=horasData.reduce((a,b)=>b.v>a.v?b:a);
+    const minH=horasData.reduce((a,b)=>b.fat<a.fat?b:a);
+    const totalHFat=horasData.reduce((s,h)=>s+h.fat,0);
+    hEl.innerHTML=`
+      <div class="stat-item"><div class="stat-v" style="color:var(--coral)">${maxH.h}</div><div class="stat-l">Mais R$ (${fmtR2(maxH.fat)})</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--teal)">${maxV2.h}</div><div class="stat-l">Mais vendas (${maxV2.v})</div></div>
+      <div class="stat-item"><div class="stat-v">${(maxV2.fat/maxV2.v).toFixed(2).replace('.',',')}R$</div><div class="stat-l">Ticket ${maxV2.h}</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">${minH.h}</div><div class="stat-l">Menor (${fmtR2(minH.fat)})</div></div>`;
+  }
+
+  // Stat strip dinheiro
+  const dEl=document.getElementById('din-stats');
+  if(dEl){
+    const maxDin=dinheiroDia.reduce((a,b)=>b.din>a.din?b:a,{din:0,d:'—'});
+    const pctDin=(mixPag.totalDinheiro/(mixPag.totalMaq+mixPag.totalDinheiro)*100).toFixed(1);
+    dEl.innerHTML=`
+      <div class="stat-item"><div class="stat-v" style="color:var(--teal)">${fmtR2(mixPag.totalMaq)}</div><div class="stat-l">Maquininha</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">${fmtR2(mixPag.totalDinheiro)}</div><div class="stat-l">Dinheiro</div></div>
+      <div class="stat-item"><div class="stat-v">${pctDin}%</div><div class="stat-l">% em espécie</div></div>
+      <div class="stat-item"><div class="stat-v" style="color:var(--amber)">R$${maxDin.din}</div><div class="stat-l">Maior (${maxDin.d})</div></div>`;
+  }
+
   document.getElementById('top10-horas').innerHTML=top10h.map((r,i)=>`<div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;color:var(--t2);min-width:90px">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'.'} ${r.h}</span><div style="flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden"><div style="height:100%;width:${r.fat/225*100}%;background:${i<3?'linear-gradient(90deg,#F26040,#C8341A)':i<5?'linear-gradient(90deg,#1CC9A8,#0F8A74)':'rgba(155,109,255,.6)'};border-radius:20px"></div></div><span style="font-size:11px;font-weight:700;min-width:42px;text-align:right">R$${r.fat}</span><span style="font-size:10px;color:var(--purple);min-width:36px;text-align:right">${r.v}v</span></div>`).join('');
   if(window._cHoras){window._cHoras.destroy();}
   window._cHoras=new Chart('cHoras',{type:'bar',data:{labels:horasData.map(h=>h.h),datasets:[{label:'Faturamento',data:horasData.map(h=>h.fat),backgroundColor:horasData.map(h=>h.h==='20h'||h.h==='21h'?'rgba(242,96,64,.65)':'rgba(255,255,255,.1)'),borderColor:horasData.map(h=>h.h==='20h'||h.h==='21h'?'#F26040':'rgba(255,255,255,.18)'),borderWidth:1.5,borderRadius:4,yAxisID:'y'},{label:'Nº Vendas',data:horasData.map(h=>h.v),type:'line',borderColor:'#1CC9A8',backgroundColor:'rgba(28,201,168,.08)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#1CC9A8',fill:true,tension:.35,yAxisID:'y1'}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:10},color:'#A89880',usePointStyle:true}},tooltip:{...TO,callbacks:{label:c=>c.datasetIndex===0?` R$${c.raw}`:` ${c.raw} vendas`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd,position:'left'},y1:{ticks:tck,grid:{display:false},position:'right'}}}});
@@ -1139,170 +1233,441 @@ rC();
 // CUSTOS — renderCustos()
 // ══════════════════════════════════════════════════════
 function renderCustos(){
-  function norm(item,tipo){
-    const n=item.toLowerCase();
-    if(tipo==='equip'||n.includes('garrafas')||n.includes('faca')) return {g:item,cat:'Equipamento'};
-    if(tipo==='ajuste') return {g:'Ajuste de Saldo',cat:'Ajuste'};
-    if(n.includes('pote')||n.includes('colher')) return {g:n.includes('colher')?'Colher':'Potes',cat:'Embalagem'};
-    if(n.includes('nutella')) return {g:'Nutella',cat:'Topping'};
-    if(n.includes('cobertura')) return {g:'Coberturas',cat:'Topping'};
-    if(n.includes('morango')) return {g:'Morango',cat:'Topping'};
-    if(n.includes('kitkat')||n.includes('kit kat')) return {g:'KitKat',cat:'Topping'};
-    if(n.includes('mms')||n.includes('m&m')) return {g:'MMs',cat:'Topping'};
-    if(n.includes('ouro branco')) return {g:'Ouro Branco',cat:'Topping'};
-    if(n.includes('ovomaltine')) return {g:'Ovomaltine',cat:'Topping'};
-    if(n.includes('frutas vermelhas')) return {g:'Frutas Vermelhas',cat:'Topping'};
-    if(n.includes('choco power')) return {g:'Choco Power',cat:'Topping'};
-    if(n.includes('bis')) return {g:'Bis',cat:'Topping'};
-    if(n.includes('oreo')) return {g:'Oreo',cat:'Topping'};
-    if(n.includes('leite 200')) return {g:'Leite 200g',cat:'Insumo'};
-    if(n.includes('leite mo')) return {g:'Leite Moça',cat:'Insumo'};
-    if(n.includes('leite condensado')) return {g:'Leite Condensado',cat:'Insumo'};
-    if(n.includes('açu')||n.includes('acucar')) return {g:'Açúcar',cat:'Insumo'};
-    if(n.includes('emulsificante')) return {g:'Emulsificante',cat:'Insumo'};
-    if(n.includes('liga super')) return {g:'Liga Super Neutra',cat:'Insumo'};
-    if(n.includes('blue ice')) return {g:'Blue Ice',cat:'Insumo'};
-    if(n.includes('max cream')) return {g:'Max Cream',cat:'Insumo'};
-    if(n.includes('papel toalha')) return {g:'Papel Toalha',cat:'Limpeza'};
-    if(n.includes('saco de lixo')) return {g:'Saco de Lixo',cat:'Limpeza'};
-    if(n.includes('pano')||n.includes('sanit')||n.includes('luva')) return {g:n.includes('luva')?'Luva':n.includes('sanit')?'Água Sanitária':'Pano',cat:'Limpeza'};
-    if(n.includes('mineral')) return {g:'Água Mineral',cat:'Outros'};
-    return {g:item,cat:'Outros'};
-  }
-  const grupos={};
-  compras.forEach(c=>{
-    const {g,cat}=norm(c.item,c.tipo);
-    if(!grupos[g]) grupos[g]={total:0,cnt:0,cat,lista:[]};
-    grupos[g].total+=c.val;grupos[g].cnt++;grupos[g].lista.push(c);
-  });
-  // Regras:
-  // Custo sorvete = Insumo + Topping + Embalagem
-  // Manutenção = custo operacional separado (não entra no custo/sorvete)
-  // Equipamento = separado, não recorrente
-  const _totalSorv=vendas.reduce((s,r)=>s+r.sorv,0);
-  let totalCustoSorv=0,totalManutencao=0,totalEquip=0,totalAjuste=0,totalOutros=0;
-  Object.values(grupos).forEach(g=>{
-    if(['Insumo','Topping','Embalagem'].includes(g.cat)) totalCustoSorv+=g.total;
-    else if(g.cat==='Manutenção') totalManutencao+=g.total;
-    else if(g.cat==='Equipamento') totalEquip+=g.total;
-    else if(g.cat==='Ajuste') totalAjuste+=g.total;
-    else totalOutros+=g.total;
-  });
-  totalOp = totalCustoSorv + totalManutencao;
-  const totalComp=compras.reduce((s,c)=>s+c.val,0);
-  const fmtBR=v=>(+v).toFixed(2).replace('.',',');
-  const fmt=v=>Math.round(v).toLocaleString('pt-BR');
-  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
-  // KPIs custos — aluguel, empréstimo, outros, total geral
-  const totalSorv=vendas.reduce((s,r)=>s+r.sorv,0);
-  // Aluguel = lançamentos em col H com obs 'Aluguel'
-  const totalAluguel=vendas.filter(r=>r.obs&&r.obs.includes('Aluguel')&&r.out>0).reduce((s,r)=>s+(r.out||0),0);
-  // Empréstimo = lançamentos em col H com obs 'Empréstimo'
-  const totalEmprestimo=vendas.filter(r=>r.obs&&r.obs.toLowerCase().includes('empr')&&r.out>0).reduce((s,r)=>s+(r.out||0),0);
-  // Outros H = total col H excluindo aluguel e empréstimo
-  const totalOutH=vendas.filter(r=>r.out!=null).reduce((s,r)=>s+(r.out||0),0);
-  const totalOutrosH=totalOutH-totalAluguel-totalEmprestimo;
-  // Totais para o quadro geral
-  const totalDV2=vendas.reduce((s,r)=>s+(r.dv||0),0);
-  const totalMaq2=vendas.reduce((s,r)=>s+(r.maq||0),0);
-  const totalDia2=vendas.reduce((s,r)=>s+(r.dia||0),0);
-  const totalGeral=+(totalDV2+totalMaq2+totalDia2+totalOutH).toFixed(2);
-  const totalFat2=vendas.reduce((s,r)=>s+r.fat,0);
-
-  // Totais por categoria para drawers
-  const catTotals={};
-  Object.values(grupos).forEach(g=>{
-    catTotals[g.cat]=(catTotals[g.cat]||0)+g.total;
-  });
-  const catInsumo   = catTotals['Insumo']   ||0;
-  const catTopping  = catTotals['Topping']  ||0;
-  const catEmbalagem= catTotals['Embalagem']||0;
-  const catManut    = catTotals['Manutenção']||0;
-
-  set('c-op',     'R$'+fmt(totalOp));
-  set('c-op-dr',  'R$'+fmt(totalOp));
-  set('c-total',  'R$'+fmtBR(totalComp));
-  set('c-equip',  'R$'+fmt(totalEquip));
-  set('c-equip-dr','R$'+fmt(totalEquip));
-  set('c-ajuste-dr','R$'+fmtBR(Math.abs(totalAjuste)));
-  set('c-manut', 'R$'+fmtBR(totalManutencao));
-  set('kpi-custo-sorv', _totalSorv>0?'R$'+(totalCustoSorv/_totalSorv).toFixed(2).replace('.',','):'—');
-  set('kpi-custo-sorv-sub', 'Ins+Top+Emb ÷ '+_totalSorv+' sorv.');
-
-  // KPI cards novos — detalhe por categoria com drawer
-  const buildCatDrawer=(cat,total,grps)=>{
-    const itensGrupo=Object.entries(grps).filter(([,g])=>g.cat===cat).sort((a,b)=>b[1].total-a[1].total);
-    if(!itensGrupo.length) return '';
-    return itensGrupo.map(([nm,g])=>`<div class="drawer-row"><span>${nm}</span><span style="color:var(--t1)">R$${fmtBR(g.total)} <span style="color:var(--t3);font-size:9px">(${g.cnt}×)</span></span></div>`).join('');
+  // ── Normalização: Insumo/insumo/Insumos/Embalagem → Insumo | Topping | Manutenção
+  const catNorm=c=>{
+    const cl=(c.cat||'').toLowerCase();
+    if(cl.includes('insumo')||cl.includes('embalagem')) return 'Insumo';
+    if(cl.includes('topping')) return 'Topping';
+    return 'Manutenção';
   };
 
-  // Drawer custo sorvete (Insumo + Topping + Embalagem)
-  const dCustoSorv=document.getElementById('d-custo-sorv');
-  if(dCustoSorv) dCustoSorv.innerHTML=`
-    <div class="drawer-title">Custo do Sorvete — Ins+Top+Emb</div>
-    <div class="drawer-row"><span style="font-weight:600">🧪 Insumos</span><span>R$${fmtBR(catInsumo)}</span></div>
-    ${buildCatDrawer('Insumo',catInsumo,grupos)}
-    <div class="drawer-row" style="margin-top:6px"><span style="font-weight:600">🍫 Toppings</span><span>R$${fmtBR(catTopping)}</span></div>
-    ${buildCatDrawer('Topping',catTopping,grupos)}
-    <div class="drawer-row" style="margin-top:6px"><span style="font-weight:600">📦 Embalagens</span><span>R$${fmtBR(catEmbalagem)}</span></div>
-    ${buildCatDrawer('Embalagem',catEmbalagem,grupos)}
-    <div class="drawer-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:8px"><span><strong>Total</strong></span><span><strong>R$${fmtBR(totalCustoSorv)}</strong></span></div>
-    <div class="drawer-row"><span>Custo/sorvete</span><span style="color:var(--teal)">R${_totalSorv>0?(totalCustoSorv/_totalSorv).toFixed(2).replace('.',','):'—'}</span></div>
-    <div class="drawer-insight">Insumo+Topping+Embalagem representam o custo direto de produção. Manutenção e Equipamento ficam fora deste cálculo.</div>`;
+  // Agrupar por item dentro de cada categoria
+  const grupos={Insumo:{},Topping:{},Manutenção:{}};
+  compras.forEach(c=>{
+    const cat=catNorm(c);
+    const key=c.item;
+    if(!grupos[cat][key]) grupos[cat][key]={val:0,qty:0,cnt:0};
+    grupos[cat][key].val+=c.val;
+    grupos[cat][key].qty+=(c.qty||0);
+    grupos[cat][key].cnt+=1;
+  });
 
-  // Drawer manutenção
+  const totalInsumo   = Object.values(grupos['Insumo']).reduce((s,v)=>s+v.val,0);
+  const totalTopping  = Object.values(grupos['Topping']).reduce((s,v)=>s+v.val,0);
+  const totalManut    = Object.values(grupos['Manutenção']).reduce((s,v)=>s+v.val,0);
+  const totalProduto  = totalInsumo + totalTopping;
+  const totalGeral    = totalProduto + totalManut;
+  const totalSorvAll  = vendas.reduce((s,r)=>s+r.sorv,0);
+  const custoPorSorv  = totalSorvAll>0?(totalProduto/totalSorvAll).toFixed(2).replace('.',','):'—';
+
+  const fmt2=v=>Math.round(v).toLocaleString('pt-BR');
+  const fmtD2=v=>(+v).toFixed(2).replace('.',',');
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
+
+  // ── KPIs ─────────────────────────────────────────────────
+  set('kpi-custo-sorv', 'R$'+custoPorSorv+'/sorv.');
+  set('kpi-custo-sorv-sub', 'R$'+fmt2(totalProduto)+' ÷ '+totalSorvAll+' sorv.');
+  set('c-manut',  'R$'+fmtD2(totalManut));
+  set('c-total-geral', 'R$'+fmt2(totalGeral));
+  set('c-total-geral-sub', (totalGeral/vendas.reduce((s,r)=>s+r.fat,0)*100).toFixed(1)+'% do faturamento');
+
+  // ── Helper: lista de itens ordenada ──────────────────────
+  const listaItens=(cat)=>Object.entries(grupos[cat])
+    .sort((a,b)=>b[1].val-a[1].val)
+    .map(([nm,v])=>`<div class="drawer-row">
+      <span>${nm} <span style="color:var(--t3);font-size:9px">${v.cnt}×${v.qty>0?' · '+Math.round(v.qty)+'un':''}</span></span>
+      <span style="font-weight:700">R$${fmtD2(v.val)}</span>
+    </div>`).join('');
+
+  // ── Drawer: Custo do Produto (Insumo + Topping) ──────────
+  const dProd=document.getElementById('d-custo-sorv');
+  if(dProd) dProd.innerHTML=`
+    <div class="drawer-title">Custo do Produto — Insumo + Topping</div>
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bor);margin-bottom:4px">
+      <span style="font-weight:700;color:var(--teal)">🧪 Insumos</span>
+      <span style="font-weight:700;color:var(--teal)">R$${fmt2(totalInsumo)}</span>
+    </div>
+    ${listaItens('Insumo')}
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--bor);border-bottom:1px solid var(--bor);margin-top:4px;margin-bottom:4px">
+      <span style="font-weight:700;color:var(--coral)">🍫 Toppings</span>
+      <span style="font-weight:700;color:var(--coral)">R$${fmt2(totalTopping)}</span>
+    </div>
+    ${listaItens('Topping')}
+    <div style="display:flex;justify-content:space-between;padding:8px 0 4px;border-top:2px solid rgba(255,255,255,.1);margin-top:6px">
+      <span style="font-weight:700;color:var(--t1)">Total custo produto</span>
+      <span style="font-weight:800;color:var(--teal)">R$${fmt2(totalProduto)}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:3px 0">
+      <span style="color:var(--t3);font-size:11px">Custo por sorvete</span>
+      <span style="font-weight:700;color:var(--teal)">R$${custoPorSorv}</span>
+    </div>
+    <div class="drawer-insight">Insumo e Topping = custo direto de produção. Manutenção não entra neste cálculo.</div>`;
+
+  // ── Drawer: Manutenção ───────────────────────────────────
   const dManut=document.getElementById('d-manutencao');
   if(dManut) dManut.innerHTML=`
-    <div class="drawer-title">Manutenção</div>
-    ${buildCatDrawer('Manutenção',catManut,grupos)}
-    <div class="drawer-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:8px"><span><strong>Total</strong></span><span><strong>R$${fmtBR(catManut)}</strong></span></div>
-    <div class="drawer-insight">Itens de limpeza e conservação — não entram no custo do sorvete.</div>`;
+    <div class="drawer-title">Manutenção — não entra no custo</div>
+    ${listaItens('Manutenção')}
+    <div style="display:flex;justify-content:space-between;padding:8px 0 4px;border-top:2px solid rgba(255,255,255,.1);margin-top:6px">
+      <span style="font-weight:700">Total manutenção</span>
+      <span style="font-weight:800;color:var(--amber)">R$${fmtD2(totalManut)}</span>
+    </div>
+    <div class="drawer-insight">Itens de conservação, limpeza e estrutura. Não fazem parte do custo direto do sorvete.</div>`;
 
-  // Drawer equipamentos
-  const dEquip=document.getElementById('d-equip');
-  if(dEquip) dEquip.innerHTML=`
-    <div class="drawer-title">Equipamentos</div>
-    ${buildCatDrawer('Equipamento',totalEquip,grupos)}
-    <div class="drawer-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:8px"><span><strong>Total</strong></span><span><strong>R$${fmtBR(totalEquip)}</strong></span></div>
-    <div class="drawer-insight">Compra única — não entra no custo do sorvete nem se repete mensalmente.</div>`;
-  // Novos KPIs
-  set('c-aluguel',     totalAluguel>0?'R$'+fmt(totalAluguel):'R$0');
-  set('c-aluguel-sub', totalAluguel>0?vendas.filter(r=>r.obs&&r.obs.includes('Aluguel')&&r.out>0).length+' pagamentos registrados':'Nenhum pagamento registrado');
-  set('c-emprestimo',  totalEmprestimo>0?'R$'+fmt(totalEmprestimo):'R$0');
-  set('c-outros-h',    'R$'+fmtBR(totalOutrosH));
-  set('c-outros-h-sub', 'Potes, filtro e demais');
-  set('c-total-geral', 'R$'+fmt(totalGeral));
-  set('c-total-geral-sub', (totalGeral/totalFat2*100).toFixed(1)+'% do faturamento · D+E+F+H');
-  // Itens do drawer Outros H
-  const outItens=vendas.filter(r=>r.out!=null&&!r.obs?.includes('Aluguel')&&!r.obs?.toLowerCase().includes('empr'));
-  const outHTML=outItens.map(r=>`<div class="drawer-row"><span>${r.d} · ${r.obs||'—'}</span><span style="color:${r.out<0?'var(--red)':'var(--t1)'}">${r.out<0?'':''}R$${r.out?.toFixed(2).replace('.',',')}</span></div>`).join('');
-  set('d-outros-h-itens', outHTML||'<div style="color:var(--t3);font-size:11px">Nenhum lançamento avulso</div>');
-  // Barras top 10
-  const top=Object.entries(grupos).filter(([,g])=>g.cat!=='Equipamento'&&g.cat!=='Ajuste').sort((a,b)=>b[1].total-a[1].total).slice(0,10);
-  const maxV=top[0]?.[1].total||1;
-  const catCores={'Topping':'#F26040','Insumo':'#1CC9A8','Embalagem':'#9B6DFF','Limpeza':'#F0A020','Outros':'#6A5840'};
-  document.getElementById('barList').innerHTML=top.map(([nm,g])=>`<div class="bar-item"><div class="bar-lbl">${nm}</div><div class="bar-track"><div class="bar-fill" style="width:${g.total/maxV*100}%;background:${catCores[g.cat]||'#888'}66"></div></div><div class="bar-val">R$${fmtBR(g.total)}</div><div class="bar-cnt">${g.cnt}×</div></div>`).join('');
-  // Donut categorias
-  const cats={};Object.values(grupos).forEach(g=>{if(g.cat==='Equipamento'||g.cat==='Ajuste')return;cats[g.cat]=(cats[g.cat]||0)+g.total;});
-  const catOrdem=['Topping','Insumo','Embalagem','Limpeza','Outros'];
-  const catVals=catOrdem.map(c=>+(cats[c]||0).toFixed(2));
+  // ── Top 10 barras ─────────────────────────────────────────
+  const todosItens=[];
+  ['Insumo','Topping'].forEach(cat=>{
+    Object.entries(grupos[cat]).forEach(([nm,v])=>todosItens.push({nm,val:v.val,cnt:v.cnt,cat}));
+  });
+  todosItens.sort((a,b)=>b.val-a.val);
+  const top10=todosItens.slice(0,10);
+  const maxV=top10[0]?.val||1;
+  const catCores={'Insumo':'#1CC9A8','Topping':'#F26040'};
+  const barEl=document.getElementById('barList');
+  if(barEl) barEl.innerHTML=top10.map(t=>`<div class="bar-item">
+    <div class="bar-lbl">${t.nm}</div>
+    <div class="bar-track"><div class="bar-fill" style="width:${t.val/maxV*100}%;background:${catCores[t.cat]||'#888'}66"></div></div>
+    <div class="bar-val">R$${fmtD2(t.val)}</div>
+    <div class="bar-cnt">${t.cnt}×</div>
+  </div>`).join('');
+
+  // ── Donut ─────────────────────────────────────────────────
   if(window._cCats){window._cCats.destroy();}
   const ctxC=document.getElementById('cCats');
-  if(ctxC) window._cCats=new Chart(ctxC,{type:'doughnut',data:{labels:catOrdem,datasets:[{data:catVals,backgroundColor:Object.values(catCores),borderWidth:0,hoverOffset:8}]},options:{responsive:true,cutout:'58%',plugins:{legend:{position:'bottom',labels:{font:{size:10},color:'#A89880',padding:10,usePointStyle:true}},tooltip:{...TO,callbacks:{label:c=>` R$${c.raw.toFixed(0)} (${(c.raw/totalOp*100).toFixed(1)}%)`}}}}});
-  // Alertas dinâmicos
+  if(ctxC) window._cCats=new Chart(ctxC,{
+    type:'doughnut',
+    data:{
+      labels:['Insumo','Topping','Manutenção'],
+      datasets:[{
+        data:[+totalInsumo.toFixed(2),+totalTopping.toFixed(2),+totalManut.toFixed(2)],
+        backgroundColor:['rgba(28,201,168,.7)','rgba(240,85,48,.7)','rgba(232,154,24,.7)'],
+        borderWidth:0,hoverOffset:8
+      }]
+    },
+    options:{responsive:true,cutout:'58%',plugins:{
+      legend:{position:'bottom',labels:{font:{size:10},color:'#A89880',padding:10,usePointStyle:true}},
+      tooltip:{backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1,
+        callbacks:{label:c=>` R$${c.raw.toFixed(0)} (${(c.raw/totalGeral*100).toFixed(1)}%)`}}
+    }}
+  });
+
+  // ── Alertas de custo ─────────────────────────────────────
   const alertasEl=document.getElementById('alertas-custo-container');
   if(!alertasEl) return;
   const als=[];
-  top.forEach(([nm,g])=>{if(g.total/totalOp*100>=15) als.push({tipo:'warn',titulo:`🟡 ${nm} — ${(g.total/totalOp*100).toFixed(1)}% do custo`,itens:[{l:'Total',v:'R$'+fmtBR(g.total),t:g.cnt+'× no mês'},{l:'Última',v:'R$'+fmtBR(g.lista[g.lista.length-1].val),t:g.lista[g.lista.length-1].d}]});});
-  Object.entries(grupos).filter(([,g])=>g.cnt>=4&&g.cat!=='Equipamento'&&g.cat!=='Ajuste').sort((a,b)=>b[1].cnt-a[1].cnt).slice(0,3).forEach(([nm,g])=>{if(g.total/totalOp*100<15) als.push({tipo:'warn',titulo:`🟡 ${nm} — alta frequência (${g.cnt}×)`,itens:[{l:'Total',v:'R$'+fmtBR(g.total),t:'Média R$'+fmtBR(g.total/g.cnt)+'/compra'}]});});
-  const eqs=Object.entries(grupos).filter(([,g])=>g.cat==='Equipamento');
-  if(eqs.length) als.push({tipo:'info',titulo:'🔵 Equipamentos — não recorrentes',itens:eqs.map(([nm,g])=>({l:nm,v:'R$'+fmtBR(g.total),t:'Compra única'}))});
-  const ajG=grupos['Ajuste de Saldo'];
-  if(ajG&&Math.abs(ajG.total)>0) als.push({tipo:'danger',titulo:'🔴 Ajustes de saldo — verificar',itens:ajG.lista.map(c=>({l:c.d,v:'R$'+fmtBR(c.val),t:'Diferença entre notas e planilha'}))});
-  alertasEl.innerHTML=als.map(a=>`<div class="alert-card ${a.tipo}" style="margin-bottom:10px"><div class="alert-title">${a.titulo}</div><div class="alert-items">${a.itens.map(i=>`<div class="alert-item"><span class="ai-date">${i.l}</span><span class="ai-val" style="color:var(--amber)">${i.v}</span><span class="ai-txt">${i.t}</span></div>`).join('')}</div></div>`).join('');
+  top10.forEach(t=>{
+    const pct=t.val/totalProduto*100;
+    if(pct>=15) als.push({tipo:'warn',titulo:`🟡 ${t.nm} — ${pct.toFixed(1)}% do custo de produto`,
+      itens:[{l:'Total',v:'R$'+fmtD2(t.val),t:t.cnt+'× no mês'}]});
+  });
+  alertasEl.innerHTML=als.map(a=>`<div class="alert-card ${a.tipo}" style="margin-bottom:8px">
+    <div class="alert-title">${a.titulo}</div>
+    <div class="alert-items">${a.itens.map(i=>`<div class="alert-item">
+      <span class="ai-date">${i.l}</span>
+      <span class="ai-val" style="color:var(--amber)">${i.v}</span>
+      <span class="ai-txt">${i.t}</span>
+    </div>`).join('')}</div>
+  </div>`).join('');
+
+  // ── Tabela compras ────────────────────────────────────────
+  rC(); // tabela de compras
 }
 renderCustos();
 
+function toggleDrawer(id,btn){
+  const d=document.getElementById(id);
+  if(!d)return;
+  const open=d.classList.toggle('open');
+  if(btn){btn.classList.toggle('open',open);const a=btn.querySelector('.arr');if(a)a.style.transform=open?'rotate(90deg)':'';}
+}
+
+// ══════════════════════════════════════════════════════
+// MOTOR PRINCIPAL — Lucro = Fat − D − E − F − H
+// Tudo calculado dos arrays — zero valores estáticos
+// ══════════════════════════════════════════════════════
+
+
+(function calcularTudo(){
+  const WN_PT   = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+  const WN_SHORT= ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const WN_ARR  = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+  const META    = 10000;
+
+  // ── MÉTRICAS (fórmulas — não valores fixos) ──────────
+  const totalFat  = vendas.reduce((s,r)=>s+r.fat,0);
+  const totalDV   = vendas.reduce((s,r)=>s+(r.dv||0),0);
+  const totalMaq  = vendas.reduce((s,r)=>s+(r.maq||0),0);
+  const totalDia  = vendas.reduce((s,r)=>s+(r.dia||0),0);
+  const totalOut  = vendas.reduce((s,r)=>s+(r.out||0),0);
+  const totalDesp = +(totalDV+totalMaq+totalDia+totalOut).toFixed(2);
+  const totalLuc  = +(totalFat-totalDesp).toFixed(2);
+  const totalSorv = vendas.reduce((s,r)=>s+r.sorv,0);
+  const totalExt  = vendas.reduce((s,r)=>s+(r.ext||0),0);
+  const n         = vendas.length;
+  const mediaFat  = Math.round(totalFat/n);
+  const margem    = (totalLuc/totalFat*100).toFixed(1);
+  const metaPct   = (totalFat/META*100).toFixed(1);
+  const mediaSorv = Math.round(totalSorv/n);
+  const melhor    = vendas.reduce((a,b)=>b.fat>a.fat?b:a);
+  const pior      = vendas.reduce((a,b)=>b.fat<a.fat?b:a);
+  const dp        = Math.round(Math.sqrt(vendas.reduce((s,r)=>s+Math.pow(r.fat-mediaFat,2),0)/n));
+  const mediaLReal= Math.round(vendas.reduce((s,r)=>s+r.lucro_real,0)/n);
+
+  // ── PREVISÃO HOJE ────────────────────────────────────
+  const now    = new Date();
+  const wdHoje = now.getDay();
+  const wdArr  = wdHoje===0?6:wdHoje-1; // getDay→wd array (0=Seg…6=Dom)
+  const diasSemana = vendas.filter(r=>r.wd===wdArr);
+  const nBase  = diasSemana.length;
+  let prevFat=mediaFat,prevSorv=mediaSorv,minFat=0,maxFat=0;
+  let pillsHTML='',drawerHTML='';
+
+  if(nBase>0){
+    prevFat  = Math.round(diasSemana.reduce((s,r)=>s+r.fat,0)/nBase);
+    prevSorv = Math.round(diasSemana.reduce((s,r)=>s+r.sorv,0)/nBase);
+    minFat   = Math.min(...diasSemana.map(r=>r.fat));
+    maxFat   = Math.max(...diasSemana.map(r=>r.fat));
+    pillsHTML = diasSemana.map(r=>`<span class="hoje-pill ${r.fat===maxFat?'hi':r.fat===minFat?'lo':'mid'}">${r.d} · R$${r.fat}</span>`).join(' ');
+    const sorted=[...diasSemana].sort((a,b)=>a.fat-b.fat);
+    const rec=diasSemana[diasSemana.length-1];
+    drawerHTML=`<div class="drawer-title">Base — ${WN_PT[wdHoje]}s</div>`+
+      `<div class="drawer-row"><span>Média (${nBase} dias)</span><span>R$${prevFat}</span></div>`+
+      `<div class="drawer-row"><span>Mínimo</span><span>R$${sorted[0].fat} · ${sorted[0].d}</span></div>`+
+      `<div class="drawer-row"><span>Máximo</span><span>R$${sorted[sorted.length-1].fat} · ${sorted[sorted.length-1].d}</span></div>`+
+      `<div class="drawer-row"><span>Mais recente</span><span>R$${rec.fat} · ${rec.d}</span></div>`+
+      `<div class="drawer-insight">⚠ Baseado em ${nBase} ${WN_SHORT[wdArr]}${nBase>1?'s':''} registrada${nBase>1?'s':''}. Quanto mais dados, maior a confiabilidade.</div>`;
+  } else {
+    pillsHTML='<span class="hoje-pill mid">Sem dados para este dia — usando média geral</span>';
+    drawerHTML=`<div class="drawer-insight">⚠ Nenhum ${WN_SHORT[wdArr]} registrado ainda. Usando média geral (R$${mediaFat}).</div>`;
+  }
+
+  // Ranking do dia da semana
+  const wdAvg=Array(7).fill(null).map((_,i)=>{const d=vendas.filter(r=>r.wd===i);return d.length>0?Math.round(d.reduce((s,r)=>s+r.fat,0)/d.length):null;});
+  const rankHoje=wdAvg[wdArr]!==null?wdAvg.filter(v=>v!==null&&v>wdAvg[wdArr]).length+1:null;
+  const ordinals=['','melhor','2º melhor','3º melhor','4º','5º','6º','pior'];
+  const rankLabel=rankHoje?(ordinals[rankHoje]||`${rankHoje}º`):'—';
+  const confPct=nBase>=3?75:nBase===2?55:nBase===1?40:25;
+
+  // ── SET HELPERS ──────────────────────────────────────
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
+  const fmt=v=>Math.round(v).toLocaleString('pt-BR');
+  const fmtD=(v,d=2)=>(+v).toFixed(d).replace('.',',');
+
+  // ── INJETAR HOJE ─────────────────────────────────────
+  set('prev-fat',     prevFat);
+  set('prev-sorv',    '~'+prevSorv);
+  set('prev-min',     minFat||mediaFat);
+  set('prev-max',     maxFat||mediaFat);
+  set('prev-pills',   pillsHTML);
+  set('prev-drawer-content', drawerHTML);
+  set('conf-txt',     confPct+'%');
+  const cf=document.getElementById('conf-fill');
+  if(cf) cf.style.width=confPct+'%';
+  set('alerta-dia-txt', `${WN_PT[wdHoje]} tem média de <strong>R$${prevFat}</strong> (${rankLabel} da semana). ${prevFat<mediaFat?'Prepare-se para volume menor que a média.':'Dia acima da média geral — bom sinal.'}`);
+  set('kpi-media-sorv', '~'+mediaSorv);
+
+  // ── INJETAR MÊS ──────────────────────────────────────
+  set('kpi-fat',      'R$'+fmt(totalFat));
+  set('kpi-fat-sub',  'Meta '+metaPct+'%'+(totalFat>=META?' ✅':''));
+  set('kpi-luc',      'R$'+fmt(totalLuc));
+  set('kpi-luc-sub',  margem+'% de margem');
+  set('kpi-desp',     'R$'+fmt(totalDesp));
+  set('kpi-desp-sub', fmtD(100-parseFloat(margem),1)+'% do faturamento');
+  set('kpi-sorv-dia', '~'+mediaSorv);
+  set('kpi-media',    'R$'+fmt(mediaFat));
+  set('kpi-media-sub','±R$'+dp+' desvio');
+  set('kpi-melhor-val','R$'+fmt(melhor.fat));
+  set('kpi-melhor-dia', melhor.d+' · '+WN_ARR[melhor.wd]);
+  set('kpi-lreal',    'R$'+fmt(mediaLReal)+'/dia');
+
+  // Meta bar
+  const pct=Math.min(100,totalFat/META*100);
+  set('meta-pct',     metaPct+'%');
+  set('meta-sub',     totalFat>=META?'Meta atingida — R$'+fmt(totalFat-META)+' acima · '+n+' dias 🎉':'Faltam R$'+fmt(META-totalFat)+' · '+n+' dias');
+  set('meta-legs-mid','<strong>R$'+fmt(totalFat)+'</strong> faturados · '+n+' dias');
+  const mf=document.getElementById('meta-fill');
+  if(mf) setTimeout(()=>mf.style.width=pct+'%',100);
+
+  // Drawers mês — todos dinâmicos
+  set('dr-fat-total',   'R$'+fmt(totalFat));
+  set('dr-media2',      mediaFat);
+  set('dr-dp',          dp);
+  set('dr-melhor',      melhor.d+' · R$'+fmt(melhor.fat));
+  set('dr-pior',        pior.d+' · R$'+fmt(pior.fat));
+  set('dr-extras-total','R$'+fmt(totalExt)+' — só informativo');
+  // Drawer lucro
+  set('dr-luc-fat',     'R$'+fmt(totalFat));
+  set('dr-luc-dv',      '−R$'+fmt(totalDV));
+  set('dr-luc-maq',     '−R$'+fmtD(totalMaq));
+  set('dr-luc-dia',     '−R$'+fmt(totalDia));
+  set('dr-luc-out',     '−R$'+fmtD(totalOut));
+  set('dr-luc-total',   'R$'+fmt(totalLuc));
+  set('dr-luc-marg',    margem+'%');
+  // Drawer despesas
+  set('dr-desp-dv',     'R$'+fmt(totalDV));
+  set('dr-desp-maq',    'R$'+fmtD(totalMaq));
+  set('dr-desp-dia',    'R$'+fmt(totalDia));
+  set('dr-desp-out',    'R$'+fmtD(totalOut));
+  set('dr-desp-total',  'R$'+fmt(totalDesp));
+
+  // ── WEEKDAY CHART ────────────────────────────────────
+  const wdS=Array(7).fill(0),wdC=Array(7).fill(0),wdSv=Array(7).fill(0);
+  vendas.forEach(r=>{wdS[r.wd]+=r.fat;wdC[r.wd]++;wdSv[r.wd]+=r.sorv;});
+  const wdA=wdS.map((s,i)=>wdC[i]>0?Math.round(s/wdC[i]):0);
+  const wdAS=wdSv.map((s,i)=>wdC[i]>0?Math.round(s/wdC[i]):0);
+  const maxA=Math.max(...wdA),minA=Math.min(...wdA.filter(v=>v>0));
+  const WN=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+  document.getElementById('wdGrid').innerHTML=WN.map((nm,i)=>{
+    const a=wdA[i],c=wdC[i],s=wdAS[i],pct=maxA>0?(a/maxA)*100:0;
+    const cls=c===0?'none':a===maxA?'best':a===minA?'worst':'norm';
+    return `<div class="wd-col"><div class="wd-name">${nm}${i===wdArr?' 📍':''}</div><div class="wd-bw"><div class="wd-b ${cls}${i===wdArr?' today':''}" style="height:${c===0?4:Math.max(pct*.76,5)}px"></div></div><div class="wd-v">${c>0?'R$'+a:'—'}</div><div class="wd-s">${c}d</div><div class="wd-sv">${c>0?'~'+s+'🍦':''}</div></div>`;
+  }).join('');
+  set('wd-sub', n+' dias registrados · '+wdC.filter(c=>c>0).length+' dias da semana com dados');
+  const melhorWD=wdA.indexOf(maxA), piorWD=wdA.indexOf(minA);
+  set('wd-media-badge','Média: R$'+fmt(mediaFat));
+  set('wd-legenda',`<span>🟩 Melhor: <strong>${WN[melhorWD]}</strong> R$${maxA}</span><span>🔴 Pior: <strong>${WN[piorWD]}</strong> R$${minA}</span><span>📍 Hoje: <strong>${WN[wdArr]}</strong></span>`);
+
+  // Fat stats
+  set('fat-stats',`<div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$${fmt(melhor.fat)}</div><div class="stat-l">Maior</div></div><div class="stat-item"><div class="stat-v">R$${fmt(mediaFat)}</div><div class="stat-l">Média</div></div><div class="stat-item"><div class="stat-v" style="color:var(--red)">R$${fmt(pior.fat)}</div><div class="stat-l">Menor</div></div><div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$${dp}</div><div class="stat-l">Desvio P.</div></div>`);
+
+  // ── RESUMO DA SEMANA (aba hoje) ──────────────────────
+  (function renderSemana(){
+    const WN_FULL=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+    const WN_SHORT=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+    // Semana atual = últimos 7 dias a contar de hoje (Seg a Dom)
+    // Calcular início da semana (segunda-feira)
+    const hoje = new Date();
+    const diaSemana = hoje.getDay(); // 0=Dom,1=Seg,...,6=Sáb
+    const diffSeg = diaSemana===0?-6:1-diaSemana; // dias até segunda
+    const seg = new Date(hoje); seg.setDate(hoje.getDate()+diffSeg);
+
+    // Custo por sorvete dinâmico = total insumos operacionais ÷ total sorvetes
+    // (mesmo cálculo do motor de custos)
+    // Custo/sorvete = soma de Insumo+Topping ÷ total sorvetes vendidos
+    const _totalSorvCalc = vendas.reduce((s,r)=>s+r.sorv,0);
+    const _totalDVCalc = vendas.reduce((s,r)=>s+(r.dv||0),0);
+    const _custoInsumoTopping = compras.filter(c=>c.cat==='Insumo'||c.cat==='Topping'||c.cat==='Embalagem').reduce((s,c)=>s+c.val,0);
+    const custoPorSorv = _totalSorvCalc>0 ? +(_custoInsumoTopping/_totalSorvCalc).toFixed(2) : 3.14;
+
+    // Mapear vendas por data
+    const vendasMap={};
+    vendas.forEach(r=>{vendasMap[r.d]=r;});
+
+    // Gerar os 7 dias da semana (Seg a Dom)
+    const dias=[];
+    for(let i=0;i<7;i++){
+      const d=new Date(seg); d.setDate(seg.getDate()+i);
+      const dd=d.getDate().toString().padStart(2,'0');
+      const mm=(d.getMonth()+1).toString().padStart(2,'0');
+      const key=dd+'/'+mm;
+      const r=vendasMap[key]||null;
+      const isHoje=i===(diaSemana===0?6:diaSemana-1);
+      const isOntem=i===(diaSemana===0?5:diaSemana-2);
+      dias.push({key,wd:i,nome:WN_FULL[i],short:WN_SHORT[i],r,isHoje,isOntem,d});
+    }
+
+    const fatSemana=dias.filter(d=>d.r).reduce((s,d)=>s+d.r.fat,0);
+    const diasComDados=dias.filter(d=>d.r).length;
+    const melhorSemana=dias.filter(d=>d.r).reduce((a,b)=>!a||b.r.fat>a.r.fat?b:a,null);
+    const ontem=dias.find(d=>d.isOntem);
+
+    let html='';
+
+    // Ontem — destaque
+    if(ontem&&ontem.r){
+      const r=ontem.r;
+      const cor=r.fat>=600?'var(--teal)':r.fat<300?'var(--red)':'var(--amber)';
+      const vs=wdAvg[ontem.wd]>0?Math.round((r.fat/wdAvg[ontem.wd]-1)*100):null;
+      // Fórmula: Fat - (sorv × custo/sorv) - tx maq
+      const despProd=+(r.sorv*custoPorSorv).toFixed(2);
+      const lucroOntem=+(r.fat-despProd-r.maq).toFixed(2);
+      const lucroCorOntem=lucroOntem>=0?'var(--teal)':'var(--red)';
+      const cpsFmt=custoPorSorv.toFixed(2).replace('.',',');
+      html+=`<div style="background:rgba(255,255,255,.04);border:1px solid var(--bor2);border-radius:12px;padding:14px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3)">📅 Ontem · ${ontem.nome} ${ontem.key}</div>
+          ${vs!==null?`<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;background:${vs>=0?'rgba(28,201,168,.12)':'rgba(232,64,64,.12)'};color:${vs>=0?'var(--teal)':'var(--red)'};">${vs>=0?'+':''}${vs}% vs média histórica</span>`:''}
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+          <div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Faturamento</div><div style="font-size:28px;font-weight:800;color:${cor};font-family:var(--fntD);letter-spacing:-1px">R$${r.fat}</div></div>
+          <div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Sorvetes</div><div style="font-size:28px;font-weight:800;color:var(--purple);font-family:var(--fntD);letter-spacing:-1px">~${r.sorv}</div></div>
+          <div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Lucro produção</div><div style="font-size:28px;font-weight:800;color:${lucroCorOntem};font-family:var(--fntD);letter-spacing:-1px">R$${lucroOntem}</div></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--bor);border-radius:8px;padding:10px 12px;font-size:11px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px">Despesa de Produção · ${ontem.key}</div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">Faturamento</span><span style="font-weight:600">R$${r.fat}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">− Prod. (~${r.sorv} sorv × R$${cpsFmt}/sorv)</span><span style="font-weight:600;color:var(--amber)">−R$${despProd.toFixed(2).replace('.',',')}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">− Tx Maquininha</span><span style="font-weight:600;color:${r.maq>5?'var(--red)':'var(--amber)'}">−R$${r.maq.toFixed(2).replace('.',',')}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0 2px;margin-top:4px;border-top:1px solid rgba(255,255,255,.08)"><span style="font-weight:700">= Lucro de produção</span><span style="font-weight:800;color:${lucroCorOntem}">R$${lucroOntem}</span></div>
+          <div style="margin-top:8px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px;font-size:10px;color:var(--t3);line-height:1.6">Custo/sorv = DV total ÷ sorv. do mês = R$${_totalDVCalc.toFixed(0)} ÷ ${_totalSorvCalc} = <strong style="color:var(--t2)">R$${cpsFmt}</strong>. Não inclui diária, aluguel ou outros fixos.</div>
+        </div>
+        ${r.obs?`<div style="margin-top:8px;font-size:10px;color:var(--amber)">📌 ${r.obs}</div>`:''}
+      </div>`;
+} else if(ontem&&!ontem.r){
+      html+=`<div style="background:rgba(255,255,255,.03);border:1px dashed var(--bor);border-radius:12px;padding:12px;margin-bottom:10px;text-align:center;font-size:11px;color:var(--t3)">📅 Ontem (${ontem.nome} ${ontem.key}) — sem registro na planilha</div>`;
+    }
+
+    // Semana completa — grid
+    html+=`<div style="background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div style="font-size:11px;font-weight:600">Semana · ${dias[0].key} a ${dias[6].key}</div>
+        <div style="font-size:11px;color:var(--teal);font-weight:700">${diasComDados>0?'R$'+fatSemana.toLocaleString('pt-BR')+' · '+diasComDados+' dia'+( diasComDados!==1?'s':''):'Sem dados esta semana'}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+        ${dias.map(d=>{
+          const fat=d.r?d.r.fat:null;
+          const maxF=Math.max(...dias.filter(x=>x.r).map(x=>x.r.fat),1);
+          const pct=fat?Math.max(fat/maxF*100,8):0;
+          const cor=fat>=600?'var(--teal)':fat>=300?'var(--coral)':'var(--red)';
+          const bg=d.isHoje?'rgba(240,160,32,.15)':d.isOntem?'rgba(255,255,255,.06)':'rgba(255,255,255,.03)';
+          const bor=d.isHoje?'1px solid rgba(240,160,32,.4)':d.isOntem?'1px solid var(--bor2)':'1px solid var(--bor)';
+          return `<div style="background:${bg};border:${bor};border-radius:8px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:${d.isHoje?'var(--amber)':d.isOntem?'var(--t2)':'var(--t3)'};letter-spacing:.5px;margin-bottom:4px">${d.short}${d.isHoje?' 📍':d.isOntem?' ←':''}</div>
+            <div style="height:40px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:4px">
+              ${fat?`<div style="width:60%;border-radius:3px 3px 0 0;height:${pct}%;background:${cor};min-height:4px"></div>`:`<div style="width:60%;height:4px;border-radius:2px;background:var(--bg3)"></div>`}
+            </div>
+            <div style="font-size:9px;font-weight:700;color:${fat?cor:'var(--t3)'}">${fat?'R$'+fat:'—'}</div>
+            <div style="font-size:8px;color:var(--t3)">${d.key}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      ${melhorSemana&&diasComDados>1?`<div style="margin-top:10px;font-size:10px;color:var(--t3)">🏆 Melhor dia da semana: <strong style="color:var(--t1)">${melhorSemana.nome}</strong> · R$${melhorSemana.r.fat}</div>`:''}
+    </div>`;
+
+    const el=document.getElementById('semana-wrap');
+    if(el) el.innerHTML=html;
+
+    // Expor wdAvg para usar no ranking
+    window._wdAvg=wdAvg;
+  })();
+
+
+  const fmtBR=v=>(+v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const fmtInt=v=>Math.round(+v).toLocaleString('pt-BR');
+  const pat=SALDOS.bau+SALDOS.conta+SALDOS.caixa+SALDOS.envelope-SALDOS.fatura;
+  set('fin-bau',        fmtInt(SALDOS.bau));
+  set('fin-conta',      fmtBR(SALDOS.conta));
+  set('fin-fatura',     fmtBR(SALDOS.fatura));
+  set('fin-caixa',      fmtInt(SALDOS.caixa));
+  set('fin-envelope',   fmtBR(SALDOS.envelope));
+  set('fin-patrimonio', fmtInt(pat));
+
+  // ── HEADER — data do último registro ────────────────
+  const ultimoReg=vendas.length>0?vendas[vendas.length-1].d:'—';
+  const dd=now.getDate().toString().padStart(2,'0');
+  const mm=(now.getMonth()+1).toString().padStart(2,'0');
+  const hh=now.getHours().toString().padStart(2,'0');
+  const mi=now.getMinutes().toString().padStart(2,'0');
+  set('lastUpdated',`🕐 Dados: ${ultimoReg}/2026 · ${dd}/${mm} ${hh}:${mi}`);
+  set('hoje-dia-label',`${WN_PT[wdHoje]} · ${dd}/${mm}`);
+
+})();
+
+// ══════════════════════════════════════════════════════
+// CHART DEFAULTS
+// ══════════════════════════════════════════════════════
+Chart.defaults.font.family="'Plus Jakarta Sans',sans-serif";
+Chart.defaults.color='#6A5840';
 // ══════════════════════════════════════════════════════
 // ALERTA DE ESTOQUE — tela inicial
 // ══════════════════════════════════════════════════════
