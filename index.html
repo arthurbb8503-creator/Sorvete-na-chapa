@@ -320,143 +320,118 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
-const vendas=
-[
-{d:'02/03',wd:0,fat:495.0,ext:0.0,dv:null,maq:2.47,dia:90.0,luc:402.53,out:null,obs:'',sorv:33,lucro_real:165.87},
-{d:'03/03',wd:1,fat:144.0,ext:9.0,dv:173.98,maq:0.85,dia:80.0,luc:-110.83,out:null,obs:'',sorv:9,lucro_real:-77.03},
-{d:'04/03',wd:2,fat:447.0,ext:0.0,dv:355.67,maq:2.33,dia:80.0,luc:9.0,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
-{d:'05/03',wd:3,fat:330.0,ext:15.0,dv:50.82,maq:1.56,dia:80.0,luc:197.62,out:null,obs:'',sorv:21,lucro_real:60.02},
-{d:'06/03',wd:4,fat:747.0,ext:0.0,dv:101.21,maq:2.0,dia:80.0,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360.0},
-{d:'07/03',wd:5,fat:615.0,ext:0.0,dv:257.68,maq:2.7,dia:80.0,luc:274.62,out:null,obs:'',sorv:41,lucro_real:263.48},
-{d:'08/03',wd:6,fat:408.0,ext:0.0,dv:152.84,maq:1.93,dia:110.0,luc:143.23,out:null,obs:'',sorv:27,lucro_real:83.53},
-{d:'09/03',wd:0,fat:440.0,ext:5.0,dv:204.3,maq:1.78,dia:80.0,luc:153.92,out:null,obs:'',sorv:29,lucro_real:137.64},
-{d:'10/03',wd:1,fat:505.0,ext:10.0,dv:27.84,maq:3.38,dia:90.0,luc:383.78,out:null,obs:'',sorv:33,lucro_real:174.96},
-{d:'11/03',wd:2,fat:575.0,ext:0.0,dv:31.6,maq:3.39,dia:70.0,luc:470.01,out:780.0,obs:'Aluguel',sorv:38,lucro_real:244.85},
-{d:'12/03',wd:3,fat:730.0,ext:65.0,dv:69.85,maq:3.02,dia:83.0,luc:574.13,out:null,obs:'',sorv:44,lucro_real:363.1},
-{d:'13/03',wd:4,fat:520.0,ext:25.0,dv:254.83,maq:2.6,dia:80.0,luc:182.57,out:null,obs:'',sorv:33,lucro_real:200.74},
-{d:'14/03',wd:5,fat:640.0,ext:35.0,dv:24.58,maq:2.54,dia:77.0,luc:535.88,out:null,obs:'',sorv:40,lucro_real:295.66},
-{d:'15/03',wd:6,fat:500.0,ext:20.0,dv:20.89,maq:2.33,dia:74.0,luc:402.78,out:null,obs:'',sorv:32,lucro_real:191.03},
-{d:'16/03',wd:0,fat:340.0,ext:55.0,dv:375.11,maq:1.91,dia:81.0,luc:-118.02,out:null,obs:'',sorv:19,lucro_real:76.71},
-{d:'17/03',wd:1,fat:335.0,ext:5.0,dv:46.74,maq:1.53,dia:90.0,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
-{d:'18/03',wd:2,fat:525.0,ext:30.0,dv:111.49,maq:2.32,dia:76.0,luc:335.19,out:780.0,obs:'Aluguel',sorv:33,lucro_real:210.02},
-{d:'19/03',wd:3,fat:345.0,ext:25.0,dv:297.46,maq:1.48,dia:75.0,luc:-28.94,out:null,obs:'',sorv:21,lucro_real:80.1},
-{d:'20/03',wd:4,fat:510.0,ext:15.0,dv:179.9,maq:9.1,dia:73.0,luc:248.0,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
-{d:'21/03',wd:5,fat:775.0,ext:50.0,dv:60.13,maq:11.88,dia:80.0,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
-{d:'22/03',wd:6,fat:670.0,ext:15.0,dv:117.46,maq:9.78,dia:73.0,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
-{d:'23/03',wd:0,fat:240.0,ext:30.0,dv:115.54,maq:3.02,dia:126.0,luc:-4.56,out:null,obs:'',sorv:14,lucro_real:-49.3},
-{d:'24/03',wd:1,fat:510.0,ext:0.0,dv:null,maq:6.43,dia:90.0,luc:413.57,out:null,obs:'',sorv:34,lucro_real:172.89},
-{d:'25/03',wd:2,fat:500.0,ext:20.0,dv:null,maq:6.9,dia:74.0,luc:419.1,out:780.0,obs:'Aluguel',sorv:32,lucro_real:186.46}
+const vendas=[
+  {d:'02/03',wd:0,fat:495.0,ext:0.0,dv:null,maq:2.47,dia:90.0,luc:402.53,out:null,obs:'',sorv:33,lucro_real:165.87},
+  {d:'03/03',wd:1,fat:144.0,ext:9.0,dv:173.98,maq:0.85,dia:80.0,luc:-110.83,out:null,obs:'',sorv:9,lucro_real:-77.03},
+  {d:'04/03',wd:2,fat:447.0,ext:0.0,dv:355.67,maq:2.33,dia:80.0,luc:9.0,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
+  {d:'05/03',wd:3,fat:330.0,ext:15.0,dv:50.82,maq:1.56,dia:80.0,luc:197.62,out:null,obs:'',sorv:21,lucro_real:60.02},
+  {d:'06/03',wd:4,fat:747.0,ext:0.0,dv:101.21,maq:2.0,dia:80.0,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360.0},
+  {d:'07/03',wd:5,fat:615.0,ext:0.0,dv:257.68,maq:2.7,dia:80.0,luc:274.62,out:null,obs:'',sorv:41,lucro_real:263.48},
+  {d:'08/03',wd:6,fat:408.0,ext:0.0,dv:152.84,maq:1.93,dia:110.0,luc:143.23,out:null,obs:'',sorv:27,lucro_real:83.53},
+  {d:'09/03',wd:0,fat:440.0,ext:5.0,dv:204.3,maq:1.78,dia:80.0,luc:153.92,out:null,obs:'',sorv:29,lucro_real:137.64},
+  {d:'10/03',wd:1,fat:505.0,ext:10.0,dv:27.84,maq:3.38,dia:90.0,luc:383.78,out:null,obs:'',sorv:33,lucro_real:174.96},
+  {d:'11/03',wd:2,fat:575.0,ext:0.0,dv:31.6,maq:3.39,dia:70.0,luc:470.01,out:780.0,obs:'Aluguel',sorv:38,lucro_real:244.85},
+  {d:'12/03',wd:3,fat:730.0,ext:65.0,dv:69.85,maq:3.02,dia:83.0,luc:574.13,out:null,obs:'',sorv:44,lucro_real:363.1},
+  {d:'13/03',wd:4,fat:520.0,ext:25.0,dv:254.83,maq:2.6,dia:80.0,luc:182.57,out:null,obs:'',sorv:33,lucro_real:200.74},
+  {d:'14/03',wd:5,fat:640.0,ext:35.0,dv:24.58,maq:2.54,dia:77.0,luc:535.88,out:null,obs:'',sorv:40,lucro_real:295.66},
+  {d:'15/03',wd:6,fat:500.0,ext:20.0,dv:20.89,maq:2.33,dia:74.0,luc:402.78,out:null,obs:'',sorv:32,lucro_real:191.03},
+  {d:'16/03',wd:0,fat:340.0,ext:55.0,dv:375.11,maq:1.91,dia:81.0,luc:-118.02,out:null,obs:'',sorv:19,lucro_real:76.71},
+  {d:'17/03',wd:1,fat:335.0,ext:5.0,dv:46.74,maq:1.53,dia:90.0,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
+  {d:'18/03',wd:2,fat:525.0,ext:30.0,dv:111.49,maq:2.32,dia:76.0,luc:335.19,out:780.0,obs:'Aluguel',sorv:33,lucro_real:210.02},
+  {d:'19/03',wd:3,fat:345.0,ext:25.0,dv:297.46,maq:1.48,dia:75.0,luc:-28.94,out:null,obs:'',sorv:21,lucro_real:80.1},
+  {d:'20/03',wd:4,fat:510.0,ext:15.0,dv:179.9,maq:9.1,dia:73.0,luc:248.0,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
+  {d:'21/03',wd:5,fat:775.0,ext:50.0,dv:60.13,maq:11.88,dia:80.0,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
+  {d:'22/03',wd:6,fat:670.0,ext:15.0,dv:117.46,maq:9.78,dia:73.0,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
+  {d:'23/03',wd:0,fat:240.0,ext:30.0,dv:115.54,maq:3.02,dia:126.0,luc:-4.56,out:null,obs:'',sorv:14,lucro_real:-49.3},
+  {d:'24/03',wd:1,fat:510.0,ext:0.0,dv:null,maq:6.43,dia:90.0,luc:413.57,out:null,obs:'',sorv:34,lucro_real:172.89},
+  {d:'25/03',wd:2,fat:500.0,ext:20.0,dv:null,maq:6.9,dia:74.0,luc:419.1,out:780.0,obs:'Aluguel',sorv:32,lucro_real:186.46}
 ];
 const compras=[
-{d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:18.79,qty:1.0},
-{d:'03/03',item:'Cobertura Morango 1,3kg',cat:'Insumo',val:17.59,qty:1.0},
-{d:'03/03',item:'Leite 200g',cat:'Insumo',val:51.92,qty:8.0},
-{d:'03/03',item:'Papel Toalha',cat:'Manutenção',val:3.99,qty:1.0},
-{d:'03/03',item:'Cobertura Caramelo 300g',cat:'Insumo',val:7.79,qty:1.0},
-{d:'03/03',item:'Açúcar',cat:'Insumo',val:28.9,qty:10.0},
-{d:'03/03',item:'morango',cat:'Insumo',val:45.0,qty:4.0},
-{d:'04/03',item:'Saco de lixo',cat:'Manutenção',val:9.58,qty:2.0},
-{d:'04/03',item:'Pano',cat:'Manutenção',val:8.99,qty:1.0},
-{d:'04/03',item:'Leite moça',cat:'Insumo',val:7.19,qty:1.0},
-{d:'04/03',item:'Faca',cat:'Manutenção',val:11.9,qty:1.0},
-{d:'04/03',item:'Leite 200g',cat:'Insumo',val:318.01,qty:49.0},
-{d:'05/03',item:'Nutella',cat:'Insumo',val:44.87,qty:1.0},
-{d:'05/03',item:'Outros',cat:'Insumo',val:5.95,qty:1.0},
-{d:'06/03',item:'Água sanitária',cat:'Manutenção',val:2.09,qty:1.0},
-{d:'06/03',item:'Água mineral',cat:'Insumo',val:13.5,qty:6.0},
-{d:'06/03',item:'Frutas Vermelhas',cat:'Insumo',val:42.63,qty:1.0},
-{d:'06/03',item:'Nesquik',cat:'Insumo',val:22.99,qty:1.0},
-{d:'06/03',item:'Ouro Branco',cat:'Insumo',val:20.0,qty:12.0},
-{d:'07/03',item:'Potes',cat:'Insumo',val:183.34,qty:200.0},
-{d:'07/03',item:'Banana',cat:'Insumo',val:2.9,qty:1.0},
-{d:'07/03',item:'Ouro Branco',cat:'Insumo',val:61.95,qty:50.0},
-{d:'07/03',item:'Bis',cat:'Insumo',val:9.49,qty:1.0},
-{d:'08/03',item:'Colher',cat:'Insumo',val:41.59,qty:500.0},
-{d:'08/03',item:'Pote plástico',cat:'Manutenção',val:78.9,qty:6.0},
-{d:'08/03',item:'MMs',cat:'Insumo',val:32.35,qty:1.0},
-{d:'09/03',item:'Ovomaltine',cat:'Insumo',val:41.7,qty:1.0},
-{d:'09/03',item:'Choco Power',cat:'Insumo',val:23.46,qty:1.0},
-{d:'09/03',item:'Max Cream',cat:'Insumo',val:34.99,qty:1.0},
-{d:'09/03',item:'Emulsificante',cat:'Insumo',val:23.5,qty:1.0},
-{d:'09/03',item:'Liga Super Neutra',cat:'Insumo',val:22.48,qty:1.0},
-{d:'09/03',item:'Blue Ice',cat:'Insumo',val:8.17,qty:1.0},
-{d:'10/03',item:'Leite moça',cat:'Insumo',val:7.19,qty:1.0},
-{d:'10/03',item:'Coco ralado',cat:'Insumo',val:5.86,qty:1.0},
-{d:'10/03',item:'Morango',cat:'Insumo',val:14.79,qty:1.0},
-{d:'11/03',item:'Paçoquinha',cat:'Insumo',val:9.1,qty:1.0},
-{d:'09/03',item:'Cardapio',cat:'Manutenção',val:50.0,qty:1.0},
-{d:'11/03',item:'morango',cat:'Insumo',val:22.5,qty:2.0},
-{d:'12/03',item:'Nutella',cat:'Insumo',val:39.99,qty:1.0},
-{d:'12/03',item:'Luva',cat:'Manutenção',val:3.88,qty:2.0},
-{d:'12/03',item:'KitKat',cat:'Insumo',val:25.98,qty:8.0},
-{d:'13/03',item:'Potes',cat:'Insumo',val:64.0,qty:100.0},
-{d:'13/03',item:'Morango',cat:'Insumo',val:45.0,qty:4.0},
-{d:'13/03',item:'Bis',cat:'Insumo',val:6.99,qty:1.0},
-{d:'13/03',item:'Oreo',cat:'Insumo',val:8.85,qty:3.0},
-{d:'13/03',item:'Nutella',cat:'Insumo',val:39.99,qty:1.0},
-{d:'13/03',item:'filtro',cat:'Manutenção',val:90.0,qty:1.0},
-{d:'14/03',item:'KitKat',cat:'Insumo',val:19.79,qty:7.0},
-{d:'14/03',item:'Chocolate Granulado',cat:'Insumo',val:4.79,qty:1.0},
-{d:'15/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:20.89,qty:1.0},
-{d:'16/03',item:'Choco Power',cat:'Insumo',val:23.46,qty:1.0},
-{d:'16/03',item:'MMs',cat:'Insumo',val:24.74,qty:1.0},
-{d:'16/03',item:'Nutella',cat:'Insumo',val:319.92,qty:8.0},
-{d:'16/03',item:'Leite moça',cat:'Insumo',val:6.99,qty:1.0},
-{d:'17/03',item:'Cobertura morango 300g',cat:'Insumo',val:8.52,qty:1.0},
-{d:'17/03',item:'Coco ralado',cat:'Insumo',val:5.97,qty:1.0},
-{d:'17/03',item:'Morango',cat:'Insumo',val:22.5,qty:2.0},
-{d:'17/03',item:'KitKat',cat:'Topping',val:9.75,qty:3.0},
-{d:'18/03',item:'Potes',cat:'Insumo',val:62.32,qty:400.0},
-{d:'18/03',item:'KitKat',cat:'Insumo',val:25.19,qty:1.0},
-{d:'18/03',item:'KitKat',cat:'Insumo',val:23.98,qty:8.0},
-{d:'19/03',item:'Pote plástico',cat:'Manutenção',val:66.58,qty:1.0},
-{d:'19/03',item:'Morango',cat:'Insumo',val:29.98,qty:2.0},
-{d:'19/03',item:'Ovomaltine',cat:'Insumo',val:41.7,qty:1.0},
-{d:'19/03',item:'Garrafas',cat:'Manutenção',val:159.2,qty:8.0},
-{d:'20/03',item:'Granulado',cat:'Insumo',val:26.99,qty:8.0},
-{d:'20/03',item:'MMs',cat:'Insumo',val:32.35,qty:1.0},
-{d:'20/03',item:'Ouro Branco',cat:'Topping',val:52.6,qty:50.0},
-{d:'20/03',item:'Morango',cat:'Topping',val:67.96,qty:4.0},
-{d:'21/03',item:'Max Cream',cat:'Insumo',val:36.63,qty:1.0},
-{d:'21/03',item:'Emulsificante',cat:'Insumo',val:23.5,qty:1.0},
-{d:'22/03',item:'colher',cat:'Insumo',val:65.55,qty:1000.0},
-{d:'22/03',item:'Cobertura morango',cat:'Insumo',val:17.59,qty:1.0},
-{d:'22/03',item:'Geleia morango',cat:'Insumo',val:22.99,qty:1.0},
-{d:'22/03',item:'Leite moça',cat:'Insumo',val:5.99,qty:1.0},
-{d:'22/03',item:'oreo',cat:'Insumo',val:5.34,qty:3.0},
-{d:'23/03',item:'Micro Ball',cat:'Insumo',val:15.99,qty:1.0},
-{d:'23/03',item:'Cobertura Caramelo',cat:'Insumo',val:14.49,qty:1.0},
-{d:'23/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:17.49,qty:1.0},
-{d:'23/03',item:'Leite moça',cat:'Insumo',val:6.99,qty:1.0},
-{d:'23/03',item:'Marsh',cat:'Insumo',val:9.69,qty:1.0},
-{d:'23/03',item:'Frutas Vermelhas',cat:'Insumo',val:22.99,qty:1.0},
-{d:'23/03',item:'Açucar',cat:'Insumo',val:27.9,qty:10.0}
+  {d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:18.79,qty:1.0},
+  {d:'03/03',item:'Cobertura Morango 1,3kg',cat:'Insumo',val:17.59,qty:1.0},
+  {d:'03/03',item:'Leite 200g',cat:'Insumo',val:51.92,qty:8.0},
+  {d:'03/03',item:'Papel Toalha',cat:'Manutenção',val:3.99,qty:1.0},
+  {d:'03/03',item:'Cobertura Caramelo 300g',cat:'Insumo',val:7.79,qty:1.0},
+  {d:'03/03',item:'Açúcar',cat:'Insumo',val:28.9,qty:10.0},
+  {d:'03/03',item:'morango',cat:'Insumo',val:45.0,qty:4.0},
+  {d:'04/03',item:'Saco de lixo',cat:'Manutenção',val:9.58,qty:2.0},
+  {d:'04/03',item:'Pano',cat:'Manutenção',val:8.99,qty:1.0},
+  {d:'04/03',item:'Leite moça',cat:'Insumo',val:7.19,qty:1.0},
+  {d:'04/03',item:'Faca',cat:'Manutenção',val:11.9,qty:1.0},
+  {d:'04/03',item:'Leite 200g',cat:'Insumo',val:318.01,qty:49.0},
+  {d:'05/03',item:'Nutella',cat:'Insumo',val:44.87,qty:1.0},
+  {d:'05/03',item:'Outros',cat:'Insumo',val:5.95,qty:1.0},
+  {d:'06/03',item:'Água sanitária',cat:'Manutenção',val:2.09,qty:1.0},
+  {d:'06/03',item:'Água mineral',cat:'Insumo',val:13.5,qty:6.0},
+  {d:'06/03',item:'Frutas Vermelhas',cat:'Insumo',val:42.63,qty:1.0},
+  {d:'06/03',item:'Nesquik',cat:'Insumo',val:22.99,qty:1.0},
+  {d:'06/03',item:'Ouro Branco',cat:'Insumo',val:20.0,qty:12.0},
+  {d:'07/03',item:'Potes',cat:'Insumo',val:183.34,qty:200.0},
+  {d:'07/03',item:'Banana',cat:'Insumo',val:2.9,qty:1.0},
+  {d:'07/03',item:'Ouro Branco',cat:'Insumo',val:61.95,qty:50.0},
+  {d:'07/03',item:'Bis',cat:'Insumo',val:9.49,qty:1.0},
+  {d:'08/03',item:'Colher',cat:'Insumo',val:41.59,qty:500.0},
+  {d:'08/03',item:'Pote plástico',cat:'Manutenção',val:78.9,qty:6.0},
+  {d:'08/03',item:'MMs',cat:'Insumo',val:32.35,qty:1.0},
+  {d:'09/03',item:'Ovomaltine',cat:'Insumo',val:41.7,qty:1.0},
+  {d:'09/03',item:'Choco Power',cat:'Insumo',val:23.46,qty:1.0},
+  {d:'09/03',item:'Max Cream',cat:'Insumo',val:34.99,qty:1.0},
+  {d:'09/03',item:'Emulsificante',cat:'Insumo',val:23.5,qty:1.0},
+  {d:'09/03',item:'Liga Super Neutra',cat:'Insumo',val:22.48,qty:1.0},
+  {d:'09/03',item:'Blue Ice',cat:'Insumo',val:8.17,qty:1.0},
+  {d:'10/03',item:'Leite moça',cat:'Insumo',val:7.19,qty:1.0},
+  {d:'10/03',item:'Coco ralado',cat:'Insumo',val:5.86,qty:1.0},
+  {d:'10/03',item:'Morango',cat:'Insumo',val:14.79,qty:1.0},
+  {d:'11/03',item:'Paçoquinha',cat:'Insumo',val:9.1,qty:1.0},
+  {d:'09/03',item:'Cardapio',cat:'Manutenção',val:50.0,qty:1.0},
+  {d:'11/03',item:'morango',cat:'Insumo',val:22.5,qty:2.0},
+  {d:'12/03',item:'Nutella',cat:'Insumo',val:39.99,qty:1.0},
+  {d:'12/03',item:'Luva',cat:'Manutenção',val:3.88,qty:2.0},
+  {d:'12/03',item:'KitKat',cat:'Insumo',val:25.98,qty:8.0},
+  {d:'13/03',item:'Potes',cat:'Insumo',val:64.0,qty:100.0},
+  {d:'13/03',item:'Morango',cat:'Insumo',val:45.0,qty:4.0},
+  {d:'13/03',item:'Bis',cat:'Insumo',val:6.99,qty:1.0},
+  {d:'13/03',item:'Oreo',cat:'Insumo',val:8.85,qty:3.0},
+  {d:'13/03',item:'Nutella',cat:'Insumo',val:39.99,qty:1.0},
+  {d:'13/03',item:'filtro',cat:'Manutenção',val:90.0,qty:1.0},
+  {d:'14/03',item:'KitKat',cat:'Insumo',val:19.79,qty:7.0},
+  {d:'14/03',item:'Chocolate Granulado',cat:'Insumo',val:4.79,qty:1.0},
+  {d:'15/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:20.89,qty:1.0},
+  {d:'16/03',item:'Choco Power',cat:'Insumo',val:23.46,qty:1.0},
+  {d:'16/03',item:'MMs',cat:'Insumo',val:24.74,qty:1.0},
+  {d:'16/03',item:'Nutella',cat:'Insumo',val:319.92,qty:8.0},
+  {d:'16/03',item:'Leite moça',cat:'Insumo',val:6.99,qty:1.0},
+  {d:'17/03',item:'Cobertura morango 300g',cat:'Insumo',val:8.52,qty:1.0},
+  {d:'17/03',item:'Coco ralado',cat:'Insumo',val:5.97,qty:1.0},
+  {d:'17/03',item:'Morango',cat:'Insumo',val:22.5,qty:2.0},
+  {d:'17/03',item:'KitKat',cat:'Topping',val:9.75,qty:3.0},
+  {d:'18/03',item:'Potes',cat:'Insumo',val:62.32,qty:400.0},
+  {d:'18/03',item:'KitKat',cat:'Insumo',val:25.19,qty:1.0},
+  {d:'18/03',item:'KitKat',cat:'Insumo',val:23.98,qty:8.0},
+  {d:'19/03',item:'Pote plástico',cat:'Manutenção',val:66.58,qty:1.0},
+  {d:'19/03',item:'Morango',cat:'Insumo',val:29.98,qty:2.0},
+  {d:'19/03',item:'Ovomaltine',cat:'Insumo',val:41.7,qty:1.0},
+  {d:'19/03',item:'Garrafas',cat:'Manutenção',val:159.2,qty:8.0},
+  {d:'20/03',item:'Granulado',cat:'Insumo',val:26.99,qty:8.0},
+  {d:'20/03',item:'MMs',cat:'Insumo',val:32.35,qty:1.0},
+  {d:'20/03',item:'Ouro Branco',cat:'Topping',val:52.6,qty:50.0},
+  {d:'20/03',item:'Morango',cat:'Topping',val:67.96,qty:4.0},
+  {d:'21/03',item:'Max Cream',cat:'Insumo',val:36.63,qty:1.0},
+  {d:'21/03',item:'Emulsificante',cat:'Insumo',val:23.5,qty:1.0},
+  {d:'22/03',item:'colher',cat:'Insumo',val:65.55,qty:1000.0},
+  {d:'22/03',item:'Cobertura morango',cat:'Insumo',val:17.59,qty:1.0},
+  {d:'22/03',item:'Geleia morango',cat:'Insumo',val:22.99,qty:1.0},
+  {d:'22/03',item:'Leite moça',cat:'Insumo',val:5.99,qty:1.0},
+  {d:'22/03',item:'oreo',cat:'Insumo',val:5.34,qty:3.0},
+  {d:'23/03',item:'Micro Ball',cat:'Insumo',val:15.99,qty:1.0},
+  {d:'23/03',item:'Cobertura Caramelo',cat:'Insumo',val:14.49,qty:1.0},
+  {d:'23/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:17.49,qty:1.0},
+  {d:'23/03',item:'Leite moça',cat:'Insumo',val:6.99,qty:1.0},
+  {d:'23/03',item:'Marsh',cat:'Insumo',val:9.69,qty:1.0},
+  {d:'23/03',item:'Frutas Vermelhas',cat:'Insumo',val:22.99,qty:1.0},
+  {d:'23/03',item:'Açucar',cat:'Insumo',val:27.9,qty:10.0}
 ];
-const SALDOS = {"bau":8000.0,"conta":5242.85,"fatura":2782.72,"caixa":200.0,"envelope":400.0};
-document.querySelectorAll('.nav-tab').forEach(t=>{
-t.addEventListener('click',()=>{
-document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('on'));
-document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
-t.classList.add('on');
-document.getElementById('tab-'+t.dataset.tab).classList.add('on');
-if(t.dataset.tab==='custos') renderCustos();
-if(t.dataset.tab==='horarios') renderHorarios();
-});
-});
-function toggleDrawer(id,btn){
-const d=document.getElementById(id);
-if(!d)return;
-const open=d.classList.toggle('open');
-if(btn){btn.classList.toggle('open',open);const a=btn.querySelector('.arr');if(a)a.style.transform=open?'rotate(90deg)':'';}
-}
-const mixPag={
-debito:  {val:3523.01,cnt:172,pct:38.7},
-credito: {val:2950.0,cnt:146,pct:32.4},
-pix:     {val:2622.0,cnt:137,pct:28.8},
-totalMaq:9095.01,
-totalCnt:455,
-totalDinheiro:2250.99
-};
+const SALDOS={"bau":8000.0,"conta":5242.85,"fatura":2782.72,"caixa":200.0,"envelope":400.0};
 const dinheiroDia=[
 {d:'02/03',plan:495.0,maq:406.0,din:89.0},
 {d:'03/03',plan:144.0,maq:94.0,din:50.0},
@@ -482,11 +457,54 @@ const dinheiroDia=[
 {d:'23/03',plan:240.0,maq:230.0,din:10.0},
 {d:'24/03',plan:510.0,maq:510.0,din:0.0}
 ];
+const mixPag={
+debito:  {val:3523.01,cnt:172,pct:38.7},
+credito: {val:2950.0,cnt:146,pct:32.4},
+pix:     {val:2622.0,cnt:137,pct:28.8},
+totalMaq:9095.01,
+totalCnt:455,
+totalDinheiro:2250.99
+};
+const horasData=[
+{h:'13h',fat:1,v:1},
+{h:'17h',fat:45,v:2},
+{h:'18h',fat:243,v:14},
+{h:'19h',fat:1672,v:82},
+{h:'20h',fat:2820,v:145},
+{h:'21h',fat:2646,v:127},
+{h:'22h',fat:1573,v:79},
+{h:'23h',fat:95,v:5}
+];
+const faixasData=[{f:'13:30',fat:1,v:1},{f:'17:30',fat:45,v:2},{f:'18:00',fat:20,v:1},{f:'18:30',fat:223,v:13},{f:'19:00',fat:490,v:25},{f:'19:30',fat:1182,v:57},{f:'20:00',fat:1492,v:73},{f:'20:30',fat:1328,v:72},{f:'21:00',fat:1600,v:73},{f:'21:30',fat:1046,v:54},{f:'22:00',fat:1118,v:59},{f:'22:30',fat:455,v:20},{f:'23:00',fat:95,v:5}];
+const top10h=[{h:'12/03 20h',fat:225,v:9},{h:'11/03 21h',fat:220,v:7},{h:'06/03 20h',fat:210,v:14},{h:'21/03 20h',fat:195,v:11},{h:'15/03 20h',fat:185,v:9},{h:'16/03 21h',fat:185,v:10},{h:'21/03 21h',fat:180,v:7},{h:'14/03 20h',fat:180,v:10},{h:'22/03 21h',fat:180,v:8},{h:'08/03 20h',fat:168,v:9}];
+
+var cP=1,cF=[],cSC=0,cSA=true;
+var vP=1,vF=[],vSC=0,vSA=true;
+
 function set(id,v){const e=document.getElementById(id);if(e)e.innerHTML=v;}
+function toggleDrawer(id,btn){
+const d=document.getElementById(id);
+if(!d)return;
+const open=d.classList.toggle(‘open’);
+if(btn){btn.classList.toggle(‘open’,open);const a=btn.querySelector(’.arr’);if(a)a.style.transform=open?‘rotate(90deg)’:’’;}
+}
+
+document.querySelectorAll(’.nav-tab’).forEach(function(t){
+t.addEventListener(‘click’,function(){
+document.querySelectorAll(’.nav-tab’).forEach(function(x){x.classList.remove(‘on’);});
+document.querySelectorAll(’.pg’).forEach(function(x){x.classList.remove(‘on’);});
+t.classList.add(‘on’);
+var el=document.getElementById(‘tab-’+t.dataset.tab);
+if(el) el.classList.add(‘on’);
+if(t.dataset.tab===‘custos’) renderCustos();
+if(t.dataset.tab===‘horarios’) renderHorarios();
+});
+});
+
 (function calcularTudo(){
-const WN_PT   = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
-const WN_SHORT= ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-const WN_ARR  = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+const WN_PT   = [‘Domingo’,‘Segunda-feira’,‘Terça-feira’,‘Quarta-feira’,‘Quinta-feira’,‘Sexta-feira’,‘Sábado’];
+const WN_SHORT= [‘Dom’,‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’];
+const WN_ARR  = [‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
 const META    = 10000;
 const totalFat  = vendas.reduce((s,r)=>s+r.fat,0);
 const totalDV   = vendas.reduce((s,r)=>s+(r.dv||0),0);
@@ -512,14 +530,14 @@ const wdArr  = wdHoje===0?6:wdHoje-1;
 const diasSemana = vendas.filter(r=>r.wd===wdArr);
 const nBase  = diasSemana.length;
 let prevFat=mediaFat,prevSorv=mediaSorv,minFat=0,maxFat=0;
-let pillsHTML='',drawerHTML='';
+let pillsHTML=’’,drawerHTML=’’;
 if(nBase>0){
 prevFat  = Math.round(diasSemana.reduce((s,r)=>s+r.fat,0)/nBase);
 prevSorv = Math.round(diasSemana.reduce((s,r)=>s+r.sorv,0)/nBase);
-minFat   = Math.min(...diasSemana.map(r=>r.fat));
-maxFat   = Math.max(...diasSemana.map(r=>r.fat));
-pillsHTML = diasSemana.map(r=>`<span class="hoje-pill ${r.fat===maxFat?'hi':r.fat===minFat?'lo':'mid'}">${r.d} · R$${r.fat}</span>`).join(' ');
-const sorted=[...diasSemana].sort((a,b)=>a.fat-b.fat);
+minFat   = Math.min(…diasSemana.map(r=>r.fat));
+maxFat   = Math.max(…diasSemana.map(r=>r.fat));
+pillsHTML = diasSemana.map(r=>`<span class="hoje-pill ${r.fat===maxFat?'hi':r.fat===minFat?'lo':'mid'}">${r.d} · R$${r.fat}</span>`).join(’ ‘);
+const sorted=[…diasSemana].sort((a,b)=>a.fat-b.fat);
 const rec=diasSemana[diasSemana.length-1];
 drawerHTML=`<div class="drawer-title">Base — ${WN_PT[wdHoje]}s</div>`+
 `<div class="drawer-row"><span>Média (${nBase} dias)</span><span>R$${prevFat}</span></div>`+
@@ -528,99 +546,100 @@ drawerHTML=`<div class="drawer-title">Base — ${WN_PT[wdHoje]}s</div>`+
 `<div class="drawer-row"><span>Mais recente</span><span>R$${rec.fat} · ${rec.d}</span></div>`+
 `<div class="drawer-insight">⚠ Baseado em ${nBase} ${WN_SHORT[wdArr]}${nBase>1?'s':''} registrada${nBase>1?'s':''}. Quanto mais dados, maior a confiabilidade.</div>`;
 } else {
-pillsHTML='<span class="hoje-pill mid">Sem dados para este dia — usando média geral</span>';
+pillsHTML=’<span class="hoje-pill mid">Sem dados para este dia — usando média geral</span>’;
 drawerHTML=`<div class="drawer-insight">⚠ Nenhum ${WN_SHORT[wdArr]} registrado ainda. Usando média geral (R$${mediaFat}).</div>`;
 }
 const wdAvg=Array(7).fill(null).map((_,i)=>{const d=vendas.filter(r=>r.wd===i);return d.length>0?Math.round(d.reduce((s,r)=>s+r.fat,0)/d.length):null;});
 const rankHoje=wdAvg[wdArr]!==null?wdAvg.filter(v=>v!==null&&v>wdAvg[wdArr]).length+1:null;
-const ordinals=['','melhor','2º melhor','3º melhor','4º','5º','6º','pior'];
-const rankLabel=rankHoje?(ordinals[rankHoje]||`${rankHoje}º`):'—';
+const ordinals=[’’,‘melhor’,‘2º melhor’,‘3º melhor’,‘4º’,‘5º’,‘6º’,‘pior’];
+const rankLabel=rankHoje?(ordinals[rankHoje]||`${rankHoje}º`):’—’;
 const confPct=nBase>=3?75:nBase===2?55:nBase===1?40:25;
 const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
-const fmt=v=>Math.round(v).toLocaleString('pt-BR');
-const fmtD=(v,d=2)=>(+v).toFixed(d).replace('.',',');
-set('prev-fat',     prevFat);
-set('prev-sorv',    '~'+prevSorv);
-set('prev-min',     minFat||mediaFat);
-set('prev-max',     maxFat||mediaFat);
-set('prev-pills',   pillsHTML);
-set('prev-drawer-content', drawerHTML);
-set('conf-txt',     confPct+'%');
-const cf=document.getElementById('conf-fill');
-if(cf) cf.style.width=confPct+'%';
-set('alerta-dia-txt', `${WN_PT[wdHoje]} tem média de <strong>R$${prevFat}</strong> (${rankLabel} da semana). ${prevFat<mediaFat?'Prepare-se para volume menor que a média.':'Dia acima da média geral — bom sinal.'}`);
-set('kpi-media-sorv', '~'+mediaSorv);
-set('kpi-fat',      'R$'+fmt(totalFat));
-set('kpi-fat-sub',  'Meta '+metaPct+'%'+(totalFat>=META?' ✅':''));
-set('kpi-luc',      'R$'+fmt(totalLuc));
-set('kpi-luc-sub',  margem+'% de margem');
-set('kpi-desp',     'R$'+fmt(totalDesp));
-set('kpi-desp-sub', fmtD(100-parseFloat(margem),1)+'% do faturamento');
-set('kpi-sorv-dia', '~'+mediaSorv);
-set('kpi-media',    'R$'+fmt(mediaFat));
-set('kpi-media-sub','±R$'+dp+' desvio');
-set('kpi-melhor-val','R$'+fmt(melhor.fat));
-set('kpi-melhor-dia', melhor.d+' · '+WN_ARR[melhor.wd]);
-set('kpi-lreal',    'R$'+fmt(mediaLReal)+'/dia');
+const fmt=v=>Math.round(v).toLocaleString(‘pt-BR’);
+const fmtD=(v,d=2)=>(+v).toFixed(d).replace(’.’,’,’);
+set(‘prev-fat’,     prevFat);
+set(‘prev-sorv’,    ‘~’+prevSorv);
+set(‘prev-min’,     minFat||mediaFat);
+set(‘prev-max’,     maxFat||mediaFat);
+set(‘prev-pills’,   pillsHTML);
+set(‘prev-drawer-content’, drawerHTML);
+set(‘conf-txt’,     confPct+’%’);
+const cf=document.getElementById(‘conf-fill’);
+if(cf) cf.style.width=confPct+’%’;
+set(‘alerta-dia-txt’, `${WN_PT[wdHoje]} tem média de <strong>R$${prevFat}</strong> (${rankLabel} da semana). ${prevFat<mediaFat?'Prepare-se para volume menor que a média.':'Dia acima da média geral — bom sinal.'}`);
+set(‘kpi-media-sorv’, ’~’+mediaSorv);
+set(‘kpi-fat’,      ‘R$’+fmt(totalFat));
+set(‘kpi-fat-sub’,  ‘Meta ‘+metaPct+’%’+(totalFat>=META?’ ✅’:’’));
+set(‘kpi-luc’,      ‘R$’+fmt(totalLuc));
+set(‘kpi-luc-sub’,  margem+’% de margem’);
+set(‘kpi-desp’,     ‘R$’+fmt(totalDesp));
+set(‘kpi-desp-sub’, fmtD(100-parseFloat(margem),1)+’% do faturamento’);
+set(‘kpi-sorv-dia’, ‘~’+mediaSorv);
+set(‘kpi-media’,    ‘R$’+fmt(mediaFat));
+set(‘kpi-media-sub’,‘±R$’+dp+’ desvio’);
+set(‘kpi-melhor-val’,‘R$’+fmt(melhor.fat));
+set(‘kpi-melhor-dia’, melhor.d+’ · ‘+WN_ARR[melhor.wd]);
+set(‘kpi-lreal’,    ‘R$’+fmt(mediaLReal)+’/dia’);
 const pct=Math.min(100,totalFat/META*100);
-set('meta-pct',     metaPct+'%');
-set('meta-sub',     totalFat>=META?'Meta atingida — R$'+fmt(totalFat-META)+' acima · '+n+' dias 🎉':'Faltam R$'+fmt(META-totalFat)+' · '+n+' dias');
-set('meta-legs-mid','<strong>R$'+fmt(totalFat)+'</strong> faturados · '+n+' dias');
-const mf=document.getElementById('meta-fill');
-if(mf) setTimeout(()=>mf.style.width=pct+'%',100);
-set('dr-fat-total',   'R$'+fmt(totalFat));
-set('dr-media2',      mediaFat);
-set('dr-dp',          dp);
-set('dr-melhor',      melhor.d+' · R$'+fmt(melhor.fat));
-set('dr-pior',        pior.d+' · R$'+fmt(pior.fat));
-set('dr-extras-total','R$'+fmt(totalExt)+' — só informativo');
-set('dr-luc-fat',     'R$'+fmt(totalFat));
-set('dr-luc-dv',      '−R$'+fmt(totalDV));
-set('dr-luc-maq',     '−R$'+fmtD(totalMaq));
-set('dr-luc-dia',     '−R$'+fmt(totalDia));
-set('dr-luc-out',     '−R$'+fmtD(totalOut));
-set('dr-luc-total',   'R$'+fmt(totalLuc));
-set('dr-luc-marg',    margem+'%');
-set('dr-desp-dv',     'R$'+fmt(totalDV));
-set('dr-desp-maq',    'R$'+fmtD(totalMaq));
-set('dr-desp-dia',    'R$'+fmt(totalDia));
-set('dr-desp-out',    'R$'+fmtD(totalOut));
-set('dr-desp-total',  'R$'+fmt(totalDesp));
+set(‘meta-pct’,     metaPct+’%’);
+set(‘meta-sub’,     totalFat>=META?‘Meta atingida — R$’+fmt(totalFat-META)+’ acima · ‘+n+’ dias 🎉’:‘Faltam R$’+fmt(META-totalFat)+’ · ‘+n+’ dias’);
+set(‘meta-legs-mid’,’<strong>R$’+fmt(totalFat)+’</strong> faturados · ‘+n+’ dias’);
+const mf=document.getElementById(‘meta-fill’);
+if(mf) setTimeout(()=>mf.style.width=pct+’%’,100);
+set(‘dr-fat-total’,   ‘R$’+fmt(totalFat));
+set(‘dr-media2’,      mediaFat);
+set(‘dr-dp’,          dp);
+set(‘dr-melhor’,      melhor.d+’ · R$’+fmt(melhor.fat));
+set(‘dr-pior’,        pior.d+’ · R$’+fmt(pior.fat));
+set(‘dr-extras-total’,‘R$’+fmt(totalExt)+’ — só informativo’);
+set(‘dr-luc-fat’,     ‘R$’+fmt(totalFat));
+set(‘dr-luc-dv’,      ‘−R$’+fmt(totalDV));
+set(‘dr-luc-maq’,     ‘−R$’+fmtD(totalMaq));
+set(‘dr-luc-dia’,     ‘−R$’+fmt(totalDia));
+set(‘dr-luc-out’,     ‘−R$’+fmtD(totalOut));
+set(‘dr-luc-total’,   ‘R$’+fmt(totalLuc));
+set(‘dr-luc-marg’,    margem+’%’);
+set(‘dr-desp-dv’,     ‘R$’+fmt(totalDV));
+set(‘dr-desp-maq’,    ‘R$’+fmtD(totalMaq));
+set(‘dr-desp-dia’,    ‘R$’+fmt(totalDia));
+set(‘dr-desp-out’,    ‘R$’+fmtD(totalOut));
+set(‘dr-desp-total’,  ‘R$’+fmt(totalDesp));
 const wdS=Array(7).fill(0),wdC=Array(7).fill(0),wdSv=Array(7).fill(0);
 vendas.forEach(r=>{wdS[r.wd]+=r.fat;wdC[r.wd]++;wdSv[r.wd]+=r.sorv;});
 const wdA=wdS.map((s,i)=>wdC[i]>0?Math.round(s/wdC[i]):0);
 const wdAS=wdSv.map((s,i)=>wdC[i]>0?Math.round(s/wdC[i]):0);
-const maxA=Math.max(...wdA),minA=Math.min(...wdA.filter(v=>v>0));
-const WN=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
-const _wdEl=document.getElementById('wdGrid');if(_wdEl)_wdEl.innerHTML=WN.map((nm,i)=>{
+const maxA=Math.max(…wdA),minA=Math.min(…wdA.filter(v=>v>0));
+const WN=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
+const _wdEl=document.getElementById(‘wdGrid’);if(_wdEl)_wdEl.innerHTML=WN.map((nm,i)=>{
 const a=wdA[i],c=wdC[i],s=wdAS[i],pct=maxA>0?(a/maxA)*100:0;
-const cls=c===0?'none':a===maxA?'best':a===minA?'worst':'norm';
+const cls=c===0?‘none’:a===maxA?‘best’:a===minA?‘worst’:‘norm’;
 return `<div class="wd-col"><div class="wd-name">${nm}${i===wdArr?' 📍':''}</div><div class="wd-bw"><div class="wd-b ${cls}${i===wdArr?' today':''}" style="height:${c===0?4:Math.max(pct*.76,5)}px"></div></div><div class="wd-v">${c>0?'R$'+a:'—'}</div><div class="wd-s">${c}d</div><div class="wd-sv">${c>0?'~'+s+'🍦':''}</div></div>`;
-}).join('');
-set('wd-sub', n+' dias registrados · '+wdC.filter(c=>c>0).length+' dias da semana com dados');
+}).join(’’);
+set(‘wd-sub’, n+’ dias registrados · ‘+wdC.filter(c=>c>0).length+’ dias da semana com dados’);
 const melhorWD=wdA.indexOf(maxA), piorWD=wdA.indexOf(minA);
-set('wd-media-badge','Média: R$'+fmt(mediaFat));
-set('wd-legenda',`<span>🟩 Melhor: <strong>${WN[melhorWD]}</strong> R$${maxA}</span><span>🔴 Pior: <strong>${WN[piorWD]}</strong> R$${minA}</span><span>📍 Hoje: <strong>${WN[wdArr]}</strong></span>`);
-set('fat-stats',`<div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$${fmt(melhor.fat)}</div><div class="stat-l">Maior</div></div><div class="stat-item"><div class="stat-v">R$${fmt(mediaFat)}</div><div class="stat-l">Média</div></div><div class="stat-item"><div class="stat-v" style="color:var(--red)">R$${fmt(pior.fat)}</div><div class="stat-l">Menor</div></div><div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$${dp}</div><div class="stat-l">Desvio P.</div></div>`);
+set(‘wd-media-badge’,‘Média: R$’+fmt(mediaFat));
+set(‘wd-legenda’,`<span>🟩 Melhor: <strong>${WN[melhorWD]}</strong> R$${maxA}</span><span>🔴 Pior: <strong>${WN[piorWD]}</strong> R$${minA}</span><span>📍 Hoje: <strong>${WN[wdArr]}</strong></span>`);
+set(‘fat-stats’,`<div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$${fmt(melhor.fat)}</div><div class="stat-l">Maior</div></div><div class="stat-item"><div class="stat-v">R$${fmt(mediaFat)}</div><div class="stat-l">Média</div></div><div class="stat-item"><div class="stat-v" style="color:var(--red)">R$${fmt(pior.fat)}</div><div class="stat-l">Menor</div></div><div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$${dp}</div><div class="stat-l">Desvio P.</div></div>`);
 (function renderSemana(){
-const WN_FULL=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
-const WN_SHORT=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+const wdAvg=window._wdAvg||{};
+const WN_FULL=[‘Segunda’,‘Terça’,‘Quarta’,‘Quinta’,‘Sexta’,‘Sábado’,‘Domingo’];
+const WN_SHORT=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
 const hoje = new Date();
 const diaSemana = hoje.getDay();
 const diffSeg = diaSemana===0?-6:1-diaSemana;
 const seg = new Date(hoje); seg.setDate(hoje.getDate()+diffSeg);
 const _totalSorvCalc = vendas.reduce((s,r)=>s+r.sorv,0);
 const _totalDVCalc = vendas.reduce((s,r)=>s+(r.dv||0),0);
-const _custoInsumoTopping = compras.filter(c=>c.cat==='Insumo'||c.cat==='Topping'||c.cat==='Embalagem').reduce((s,c)=>s+c.val,0);
+const _custoInsumoTopping = compras.filter(c=>c.cat===‘Insumo’||c.cat===‘Topping’||c.cat===‘Embalagem’).reduce((s,c)=>s+c.val,0);
 const custoPorSorv = _totalSorvCalc>0 ? +(_custoInsumoTopping/_totalSorvCalc).toFixed(2) : 0;
 const vendasMap={};
 vendas.forEach(r=>{vendasMap[r.d]=r;});
 const dias=[];
 for(let i=0;i<7;i++){
 const d=new Date(seg); d.setDate(seg.getDate()+i);
-const dd=d.getDate().toString().padStart(2,'0');
-const mm=(d.getMonth()+1).toString().padStart(2,'0');
-const key=dd+'/'+mm;
+const dd=d.getDate().toString().padStart(2,‘0’);
+const mm=(d.getMonth()+1).toString().padStart(2,‘0’);
+const key=dd+’/’+mm;
 const r=vendasMap[key]||null;
 const isHoje=i===(diaSemana===0?6:diaSemana-1);
 const isOntem=i===(diaSemana===0?5:diaSemana-2);
@@ -630,16 +649,17 @@ const fatSemana=dias.filter(d=>d.r).reduce((s,d)=>s+d.r.fat,0);
 const diasComDados=dias.filter(d=>d.r).length;
 const melhorSemana=dias.filter(d=>d.r).reduce((a,b)=>!a||b.r.fat>a.r.fat?b:a,null);
 const ontem=dias.find(d=>d.isOntem);
-let html='';
+let html=’’;
 if(ontem&&ontem.r){
 const r=ontem.r;
-const cor=r.fat>=600?'var(--teal)':r.fat<300?'var(--red)':'var(--amber)';
+const cor=r.fat>=600?‘var(–teal)’:r.fat<300?‘var(–red)’:‘var(–amber)’;
 const vs=wdAvg[ontem.wd]>0?Math.round((r.fat/wdAvg[ontem.wd]-1)*100):null;
 const despProd=+(r.sorv*custoPorSorv).toFixed(2);
 const lucroOntem=+(r.fat-despProd-r.maq).toFixed(2);
-const lucroCorOntem=lucroOntem>=0?'var(--teal)':'var(--red)';
-const cpsFmt=custoPorSorv.toFixed(2).replace('.',',');
+const lucroCorOntem=lucroOntem>=0?‘var(–teal)’:‘var(–red)’;
+const cpsFmt=custoPorSorv.toFixed(2).replace(’.’,’,’);
 html+=`<div style="background:rgba(255,255,255,.04);border:1px solid var(--bor2);border-radius:12px;padding:14px;margin-bottom:10px">
+
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
 <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3)">📅 Ontem · ${ontem.nome} ${ontem.key}</div>
 ${vs!==null?`<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;background:${vs>=0?'rgba(28,201,168,.12)':'rgba(232,64,64,.12)'};color:${vs>=0?'var(--teal)':'var(--red)'};">${vs>=0?'+':''}${vs}% vs média histórica</span>`:''}
@@ -749,29 +769,54 @@ const mi=now.getMinutes().toString().padStart(2,‘0’);
 set(‘lastUpdated’,`🕐 Dados: ${ultimoReg}/2026 · ${dd}/${mm} ${hh}:${mi}`);
 set(‘hoje-dia-label’,`${WN_PT[wdHoje]} · ${dd}/${mm}`);
 })();
+
+(function renderSemanas(){
+const el=document.getElementById(‘semanas-wrap’);
+if(!el) return;
+const semanasMap={};
+vendas.forEach(r=>{
+const p=r.d.split(’/’);
+const dt=new Date(2026,parseInt(p[1])-1,parseInt(p[0]));
+const dow=dt.getDay()===0?6:dt.getDay()-1;
+const seg=new Date(dt);
+seg.setDate(dt.getDate()-dow);
+const key=seg.getDate().toString().padStart(2,‘0’)+’/’+(seg.getMonth()+1).toString().padStart(2,‘0’);
+if(!semanasMap[key]) semanasMap[key]={fat:0,dias:0,seg:new Date(seg)};
+semanasMap[key].fat+=r.fat;
+semanasMap[key].dias++;
+});
+const semanas=Object.values(semanasMap).sort((a,b)=>a.seg-b.seg).slice(-4);
+if(!semanas.length){el.innerHTML=’’;return;}
+const maxFat=Math.max(…semanas.map(s=>s.fat));
+const totalGeral=semanas.reduce((s,w)=>s+w.fat,0);
+const fmt=v=>Math.round(v).toLocaleString(‘pt-BR’);
+const fimStr=seg=>{const d=new Date(seg);d.setDate(d.getDate()+6);return d.getDate().toString().padStart(2,‘0’)+’/’+(d.getMonth()+1).toString().padStart(2,‘0’);};
+let h=`<div style="background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px"><div style="font-size:11px;font-weight:600">${semanas.length} semanas registradas</div><div style="font-size:11px;color:var(--teal);font-weight:700">Total R$${fmt(totalGeral)}</div></div><div style="display:flex;flex-direction:column;gap:10px">`;
+semanas.forEach((s,i)=>{
+const pct=Math.round(s.fat/maxFat*100);
+const isLast=i===semanas.length-1;
+const cor=isLast?‘var(–amber)’:s.fat===maxFat?‘var(–teal)’:‘var(–coral)’;
+const bg=isLast?‘rgba(240,160,32,.06)’:‘rgba(255,255,255,.02)’;
+const bor=isLast?‘rgba(240,160,32,.2)’:‘var(–bor)’;
+h+=`<div style="background:${bg};border:1px solid ${bor};border-radius:8px;padding:10px 12px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div><div style="font-size:10px;font-weight:700;color:${isLast?'var(--amber)':'var(--t3)'};letter-spacing:.5px">Semana ${i+1}${isLast?' (atual)':''}</div><div style="font-size:10px;color:var(--t3)">${s.seg.getDate().toString().padStart(2,'0')}/${(s.seg.getMonth()+1).toString().padStart(2,'0')} – ${fimStr(s.seg)} · ${s.dias} dia${s.dias!==1?'s':''}</div></div><div style="font-size:18px;font-weight:800;color:${cor}">R$${fmt(s.fat)}</div></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:20px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${cor};border-radius:20px;opacity:.8"></div></div><div style="font-size:9px;color:var(--t3);margin-top:4px">Média R$${fmt(Math.round(s.fat/s.dias))}/dia</div></div>`;
+});
+h+=’</div></div>’;
+el.innerHTML=h;
+})();
+
 Chart.defaults.font.family=”‘Plus Jakarta Sans’,sans-serif”;
 Chart.defaults.color=’#6A5840’;
 const G=‘rgba(255,255,255,.05)’,T=’#6A5840’;
 const tck={color:T,font:{size:10}};
 const grd={color:G};
-const TO={backgroundColor:’#1C160D’,borderColor:‘rgba(255,255,255,.1)’,borderWidth:1};
+const TO={backgroundColor:’#1C160D’,borderColor:‘rgba(255,255,255,.1)’,borderWidth:1,padding:10,titleColor:’#E8D5BC’,bodyColor:’#A89880’};
+
 function renderGraficos(){
 if(window._cFat){window._cFat.destroy();}
 window._cFat=new Chart(‘cFat’,{type:‘bar’,data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.fat),backgroundColor:vendas.map(r=>r.fat>=600?‘rgba(28,201,168,.5)’:r.fat<300?‘rgba(232,64,64,.5)’:‘rgba(255,255,255,.15)’),borderColor:vendas.map(r=>r.fat>=600?’#1CC9A8’:r.fat<300?’#E84040’:‘rgba(255,255,255,.3)’),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{…TO,callbacks:{label:c=>` R$${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{…tck,callback:v=>‘R$’+v},grid:grd}}}});
 }
 renderGraficos();
-const horasData=[
-{h:‘13h’,fat:1,v:1},
-{h:‘17h’,fat:45,v:2},
-{h:‘18h’,fat:243,v:14},
-{h:‘19h’,fat:1672,v:82},
-{h:‘20h’,fat:2820,v:145},
-{h:‘21h’,fat:2646,v:127},
-{h:‘22h’,fat:1573,v:79},
-{h:‘23h’,fat:95,v:5}
-];
-const faixasData=[{f:‘13:30’,fat:1,v:1},{f:‘17:30’,fat:45,v:2},{f:‘18:00’,fat:20,v:1},{f:‘18:30’,fat:223,v:13},{f:‘19:00’,fat:490,v:25},{f:‘19:30’,fat:1182,v:57},{f:‘20:00’,fat:1492,v:73},{f:‘20:30’,fat:1328,v:72},{f:‘21:00’,fat:1600,v:73},{f:‘21:30’,fat:1046,v:54},{f:‘22:00’,fat:1118,v:59},{f:‘22:30’,fat:455,v:20},{f:‘23:00’,fat:95,v:5}];
-const top10h=[{h:‘12/03 20h’,fat:225,v:9},{h:‘11/03 21h’,fat:220,v:7},{h:‘06/03 20h’,fat:210,v:14},{h:‘21/03 20h’,fat:195,v:11},{h:‘15/03 20h’,fat:185,v:9},{h:‘16/03 21h’,fat:185,v:10},{h:‘21/03 21h’,fat:180,v:7},{h:‘14/03 20h’,fat:180,v:10},{h:‘22/03 21h’,fat:180,v:8},{h:‘08/03 20h’,fat:168,v:9}];
+
 function renderHorarios(){
 const fmtR2=v=>‘R$’+Math.round(v).toLocaleString(‘pt-BR’);
 const fmtD2=(v,d=2)=>(+v).toFixed(d).replace(’.’,’,’);
@@ -825,68 +870,7 @@ const ctxF=document.getElementById('cFaixas');
 if(ctxF) window._cFaixas=new Chart(ctxF,{type:'bar',data:{labels:faixasData.map(f=>f.f),datasets:[{data:faixasData.map(f=>f.fat),backgroundColor:faixasData.map(f=>f.fat>=1000?'rgba(242,96,64,.65)':f.fat>=300?'rgba(242,96,64,.3)':'rgba(255,255,255,.08)'),borderColor:faixasData.map(f=>f.fat>=1000?'#F26040':f.fat>=300?'rgba(242,96,64,.5)':'rgba(255,255,255,.1)'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TO,callbacks:{label:c=>[` R$${c.raw}`,` ${faixasData[c.dataIndex].v} vendas`]}}},scales:{x:{ticks:{...tck,maxRotation:45},grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
 
 }
-const WNA=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
-const fv=v=>v==null?’<span style="color:var(--t3)">—</span>’:‘R$ ‘+v.toFixed(2);
-let vF=[…vendas],vSC=0,vSA=true,vP=1;
-document.getElementById(‘srch-v’).addEventListener(‘input’,()=>{
-const q=document.getElementById(‘srch-v’).value.toLowerCase();
-vF=vendas.filter(r=>!q||r.d.includes(q)||(r.obs&&r.obs.toLowerCase().includes(q)));
-vP=1;rV();
-});
-const VC=[‘d’,‘fat’,‘ext’,‘dv’,‘maq’,‘dia’,‘lucro_real’];
-document.querySelectorAll(‘th[data-tbl=“v”]’).forEach(th=>{
-th.addEventListener(‘click’,()=>{
-const c=+th.dataset.c;vSC===c?vSA=!vSA:(vSC=c,vSA=true);
-document.querySelectorAll(‘th[data-tbl=“v”]’).forEach(t=>t.classList.remove(‘s’));th.classList.add(‘s’);
-vF.sort((a,b)=>{const k=VC[c],av=a[k]??-Infinity,bv=b[k]??-Infinity;return vSA?(av>bv?1:-1):(av<bv?1:-1);});
-vP=1;rV();
-});
-});
-function rV(){
-const sl=vF.slice((vP-1)*10,vP*10);
-document.getElementById(‘tcnt-v’).textContent=vF.length+’ reg.’;
-document.getElementById(‘tbody-v’).innerHTML=sl.map(r=>{
-const lrc=r.lucro_real>=0?‘td-p’:‘td-n’;
-const isAlug=r.obs&&r.obs.includes(‘Aluguel’);
-let outCell=’<span style="color:var(--t3)">—</span>’;
-if(isAlug&&r.out!=null) outCell=`<span style="color:var(--amber);font-weight:700">🏠 ${fv(r.out)}</span>`;
-else if(r.out!=null) outCell=`<span class="${r.out<0?'td-n':''}">${fv(r.out)}</span>`;
-const obs=r.obs&&!r.obs.includes(‘Aluguel’)?`<span class="obs-chip">${r.obs}</span>`:’’;
-const rc=r.lucro_real<0?‘rdanger’:r.maq>5?‘rwarn’:’’;
-return `<tr class="${rc}"><td class="td-d">${r.d}</td><td class="td-d" style="color:var(--t3)">${WNA[r.wd]}</td><td>${fv(r.fat)}</td><td>${r.ext>0?fv(r.ext):'<span style="color:var(--t3)">—</span>'}</td><td style="color:var(--purple)">${r.sorv}</td><td>${fv(r.dv)}</td><td class="${r.maq>5?'td-n':''}">${fv(r.maq)}</td><td>${fv(r.dia)}</td><td>${outCell}</td><td class="${lrc}">${fv(r.lucro_real)}</td><td>${obs}</td></tr>`;
-}).join(’’);pV();
-}
-function pV(){const tot=Math.ceil(vF.length/10),el=document.getElementById(‘pag-v’);if(tot<=1){el.innerHTML=’’;return;}let h=`<button class="pb" onclick="gV(${vP-1})" ${vP===1?'disabled':''}>‹</button>`;for(let i=1;i<=tot;i++)h+=`<button class="pb ${i===vP?'on':''}" onclick="gV(${i})">${i}</button>`;h+=`<button class="pb" onclick="gV(${vP+1})" ${vP===tot?'disabled':''}>›</button>`;el.innerHTML=h;}
-function gV(p){const t=Math.ceil(vF.length/10);if(p<1||p>t)return;vP=p;rV();}
-rV();
-const catChipMap={‘Topping’:’<span class="chip chip-r">Topping</span>’,‘Insumo’:’<span class="chip chip-g">Insumo</span>’,‘Embalagem’:’<span class="chip chip-p">Embalagem</span>’,‘Limpeza’:’<span class="chip chip-gray">Limpeza</span>’,‘Equipamento’:’<span class="chip chip-b">Equip.</span>’,‘Ajuste’:’<span class="chip chip-w">Ajuste</span>’,‘Outros’:’<span class="chip chip-gray">Outros</span>’};
-let cF=[…compras],cSC=0,cSA=true,cP=1;
-document.getElementById(‘srch-c’).addEventListener(‘input’,()=>{
-const q=document.getElementById(‘srch-c’).value.toLowerCase();
-cF=compras.filter(r=>!q||r.d.includes(q)||r.item.toLowerCase().includes(q)||r.cat.toLowerCase().includes(q));
-cP=1;rC();
-});
-const CC=[‘d’,‘item’,‘cat’,‘val’];
-document.querySelectorAll(‘th[data-tbl=“c”]’).forEach(th=>{
-th.addEventListener(‘click’,()=>{
-const c=+th.dataset.c;cSC===c?cSA=!cSA:(cSC=c,cSA=true);
-document.querySelectorAll(‘th[data-tbl=“c”]’).forEach(t=>t.classList.remove(‘s’));th.classList.add(‘s’);
-cF.sort((a,b)=>{const k=CC[c],av=a[k]??’’,bv=b[k]??’’;return cSA?(av>bv?1:-1):(av<bv?1:-1);});
-cP=1;rC();
-});
-});
-function rC(){
-const sl=cF.slice((cP-1)*15,cP*15);
-document.getElementById(‘tcnt-c’).textContent=cF.length+’ itens’;
-document.getElementById(‘tbody-c’).innerHTML=sl.map(r=>{
-const rc=r.tipo===‘equip’?‘rwarn’:r.tipo===‘ajuste’?‘rdanger’:’’;
-const obs=r.tipo===‘equip’?’<span class="obs-chip">Não recorrente</span>’:r.item.includes(‘s/nota’)?’<span class="obs-chip">Sem nota</span>’:r.item===‘Ajuste de saldo’?’<span class="obs-chip">A verificar</span>’:’’;
-return `<tr class="${rc}"><td class="td-d">${r.d}</td><td style="color:var(--t1)">${r.item}</td><td>${catChipMap[r.cat]||r.cat}</td><td style="font-weight:700;color:${r.val<0?'var(--red)':'var(--t1)'}">${fv(r.val)}</td><td>${obs}</td></tr>`;
-}).join(’’);pC();
-}
-function pC(){const tot=Math.ceil(cF.length/15),el=document.getElementById(‘pag-c’);if(tot<=1){el.innerHTML=’’;return;}let h=`<button class="pb" onclick="gC(${cP-1})" ${cP===1?'disabled':''}>‹</button>`;for(let i=1;i<=tot;i++)h+=`<button class="pb ${i===cP?'on':''}" onclick="gC(${i})">${i}</button>`;h+=`<button class="pb" onclick="gC(${cP+1})" ${cP===tot?'disabled':''}>›</button>`;el.innerHTML=h;}
-function gC(p){const t=Math.ceil(cF.length/15);if(p<1||p>t)return;cP=p;rC();}
-rC();
+
 function renderCustos(){
 const catNorm=c=>{
 const cl=(c.cat||’’).toLowerCase();
@@ -1008,15 +992,99 @@ alertasEl.innerHTML=als.map(a=>`<div class="alert-card ${a.tipo}" style="margin-
 rC();
 }
 renderCustos();
-function toggleDrawer(id,btn){
-const d=document.getElementById(id);
-if(!d)return;
-const open=d.classList.toggle('open');
-if(btn){btn.classList.toggle('open',open);const a=btn.querySelector('.arr');if(a)a.style.transform=open?'rotate(90deg)':'';}
-}
 
-Chart.defaults.font.family=”‘Plus Jakarta Sans’,sans-serif”;
-Chart.defaults.color=’#6A5840’;
+(function renderSemana(){
+const wdAvg=window._wdAvg||{};
+const WN_FULL=[‘Segunda’,‘Terça’,‘Quarta’,‘Quinta’,‘Sexta’,‘Sábado’,‘Domingo’];
+const WN_SHORT=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
+const hoje = new Date();
+const diaSemana = hoje.getDay();
+const diffSeg = diaSemana===0?-6:1-diaSemana;
+const seg = new Date(hoje); seg.setDate(hoje.getDate()+diffSeg);
+const _totalSorvCalc = vendas.reduce((s,r)=>s+r.sorv,0);
+const _totalDVCalc = vendas.reduce((s,r)=>s+(r.dv||0),0);
+const _custoInsumoTopping = compras.filter(c=>c.cat===‘Insumo’||c.cat===‘Topping’||c.cat===‘Embalagem’).reduce((s,c)=>s+c.val,0);
+const custoPorSorv = _totalSorvCalc>0 ? +(_custoInsumoTopping/_totalSorvCalc).toFixed(2) : 0;
+const vendasMap={};
+vendas.forEach(r=>{vendasMap[r.d]=r;});
+const dias=[];
+for(let i=0;i<7;i++){
+const d=new Date(seg); d.setDate(seg.getDate()+i);
+const dd=d.getDate().toString().padStart(2,‘0’);
+const mm=(d.getMonth()+1).toString().padStart(2,‘0’);
+const key=dd+’/’+mm;
+const r=vendasMap[key]||null;
+const isHoje=i===(diaSemana===0?6:diaSemana-1);
+const isOntem=i===(diaSemana===0?5:diaSemana-2);
+dias.push({key,wd:i,nome:WN_FULL[i],short:WN_SHORT[i],r,isHoje,isOntem,d});
+}
+const fatSemana=dias.filter(d=>d.r).reduce((s,d)=>s+d.r.fat,0);
+const diasComDados=dias.filter(d=>d.r).length;
+const melhorSemana=dias.filter(d=>d.r).reduce((a,b)=>!a||b.r.fat>a.r.fat?b:a,null);
+const ontem=dias.find(d=>d.isOntem);
+let html=’’;
+if(ontem&&ontem.r){
+const r=ontem.r;
+const cor=r.fat>=600?‘var(–teal)’:r.fat<300?‘var(–red)’:‘var(–amber)’;
+const vs=wdAvg[ontem.wd]>0?Math.round((r.fat/wdAvg[ontem.wd]-1)*100):null;
+const despProd=+(r.sorv*custoPorSorv).toFixed(2);
+const lucroOntem=+(r.fat-despProd-r.maq).toFixed(2);
+const lucroCorOntem=lucroOntem>=0?‘var(–teal)’:‘var(–red)’;
+const cpsFmt=custoPorSorv.toFixed(2).replace(’.’,’,’);
+html+=`<div style="background:rgba(255,255,255,.04);border:1px solid var(--bor2);border-radius:12px;padding:14px;margin-bottom:10px">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+<div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3)">📅 Ontem · ${ontem.nome} ${ontem.key}</div>
+${vs!==null?`<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;background:${vs>=0?'rgba(28,201,168,.12)':'rgba(232,64,64,.12)'};color:${vs>=0?'var(--teal)':'var(--red)'};">${vs>=0?'+':''}${vs}% vs média histórica</span>`:''}
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+<div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Faturamento</div><div style="font-size:28px;font-weight:800;color:${cor};font-family:var(--fntD);letter-spacing:-1px">R$${r.fat}</div></div>
+<div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Sorvetes</div><div style="font-size:28px;font-weight:800;color:var(--purple);font-family:var(--fntD);letter-spacing:-1px">~${r.sorv}</div></div>
+<div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Lucro produção</div><div style="font-size:28px;font-weight:800;color:${lucroCorOntem};font-family:var(--fntD);letter-spacing:-1px">R$${lucroOntem}</div></div>
+</div>
+<div style="background:var(--bg2);border:1px solid var(--bor);border-radius:8px;padding:10px 12px;font-size:11px">
+<div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px">Despesa de Produção · ${ontem.key}</div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">Faturamento</span><span style="font-weight:600">R$${r.fat}</span></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">− Prod. (~${r.sorv} sorv × R$${cpsFmt}/sorv)</span><span style="font-weight:600;color:var(--amber)">−R$${despProd.toFixed(2).replace('.',',')}</span></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--t2)">− Tx Maquininha</span><span style="font-weight:600;color:${r.maq>5?'var(--red)':'var(--amber)'}">−R$${r.maq.toFixed(2).replace('.',',')}</span></div>
+<div style="display:flex;justify-content:space-between;padding:6px 0 2px;margin-top:4px;border-top:1px solid rgba(255,255,255,.08)"><span style="font-weight:700">= Lucro de produção</span><span style="font-weight:800;color:${lucroCorOntem}">R$${lucroOntem}</span></div>
+<div style="margin-top:8px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px;font-size:10px;color:var(--t3);line-height:1.6">Custo/sorv = DV total ÷ sorv. do mês = R$${_totalDVCalc.toFixed(0)} ÷ ${_totalSorvCalc} = <strong style="color:var(--t2)">R$${cpsFmt}</strong>. Não inclui diária, aluguel ou outros fixos.</div>
+</div>
+${r.obs?`<div style="margin-top:8px;font-size:10px;color:var(--amber)">📌 ${r.obs}</div>`:''}
+</div>`;
+} else if(ontem&&!ontem.r){
+html+=`<div style="background:rgba(255,255,255,.03);border:1px dashed var(--bor);border-radius:12px;padding:12px;margin-bottom:10px;text-align:center;font-size:11px;color:var(--t3)">📅 Ontem (${ontem.nome} ${ontem.key}) — sem registro na planilha</div>`;
+}
+html+=`<div style="background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:14px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+<div style="font-size:11px;font-weight:600">Semana · ${dias[0].key} a ${dias[6].key}</div>
+<div style="font-size:11px;color:var(--teal);font-weight:700">${diasComDados>0?'R$'+fatSemana.toLocaleString('pt-BR')+' · '+diasComDados+' dia'+( diasComDados!==1?'s':''):'Sem dados esta semana'}</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+${dias.map(d=>{
+const fat=d.r?d.r.fat:null;
+const maxF=Math.max(...dias.filter(x=>x.r).map(x=>x.r.fat),1);
+const pct=fat?Math.max(fat/maxF*100,8):0;
+const cor=fat>=600?'var(--teal)':fat>=300?'var(--coral)':'var(--red)';
+const bg=d.isHoje?'rgba(240,160,32,.15)':d.isOntem?'rgba(255,255,255,.06)':'rgba(255,255,255,.03)';
+const bor=d.isHoje?'1px solid rgba(240,160,32,.4)':d.isOntem?'1px solid var(--bor2)':'1px solid var(--bor)';
+return `<div style="background:${bg};border:${bor};border-radius:8px;padding:6px 4px;text-align:center">
+<div style="font-size:8px;font-weight:700;color:${d.isHoje?'var(--amber)':d.isOntem?'var(--t2)':'var(--t3)'};letter-spacing:.5px;margin-bottom:4px">${d.short}${d.isHoje?' 📍':d.isOntem?' ←':''}</div>
+<div style="height:40px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:4px">
+${fat?`<div style="width:60%;border-radius:3px 3px 0 0;height:${pct}%;background:${cor};min-height:4px"></div>`:`<div style="width:60%;height:4px;border-radius:2px;background:var(--bg3)"></div>`}
+</div>
+<div style="font-size:9px;font-weight:700;color:${fat?cor:'var(--t3)'}">${fat?'R$'+fat:'—'}</div>
+<div style="font-size:8px;color:var(--t3)">${d.key}</div>
+</div>`;
+}).join('')}
+</div>
+${melhorSemana&&diasComDados>1?`<div style="margin-top:10px;font-size:10px;color:var(--t3)">🏆 Melhor dia da semana: <strong style="color:var(--t1)">${melhorSemana.nome}</strong> · R$${melhorSemana.r.fat}</div>`:''}
+</div>`;
+const el=document.getElementById('semana-wrap');
+if(el) el.innerHTML=html;
+window._wdAvg=wdAvg;
+})();
+
 (function renderEstoque(){
 const el=document.getElementById(‘estoque-alertas’);
 if(!el) return;
@@ -1100,6 +1168,78 @@ h+=`<div style="margin-top:8px;font-size:10px;color:var(--t3);line-height:1.6;pa
 </div>`;
 el.innerHTML=h;
 })();
+
+const WNA=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
+const fv=v=>v==null?’<span style="color:var(--t3)">—</span>’:‘R$ ‘+v.toFixed(2);
+vF=[…vendas];
+document.getElementById(‘srch-v’).addEventListener(‘input’,function(){
+var q=document.getElementById(‘srch-v’).value.toLowerCase();
+vF=vendas.filter(function(r){return !q||r.d.includes(q)||(r.obs&&r.obs.toLowerCase().includes(q));});
+vP=1;rV();
+});
+const VC=[‘d’,‘fat’,‘ext’,‘dv’,‘maq’,‘dia’,‘lucro_real’];
+document.querySelectorAll(‘th[data-tbl=“v”]’).forEach(function(th){
+th.addEventListener(‘click’,function(){
+var c=+th.dataset.c;
+if(vSC===c){vSA=!vSA;}else{vSC=c;vSA=true;}
+document.querySelectorAll(‘th[data-tbl=“v”]’).forEach(function(t){t.classList.remove(‘s’);});
+th.classList.add(‘s’);
+vF.sort(function(a,b){var k=VC[c],av=a[k]??-Infinity,bv=b[k]??-Infinity;return vSA?(av>bv?1:-1):(av<bv?1:-1);});
+vP=1;rV();
+});
+});
+function rV(){
+const sl=vF.slice((vP-1)*10,vP*10);
+document.getElementById(‘tcnt-v’).textContent=vF.length+’ reg.’;
+document.getElementById(‘tbody-v’).innerHTML=sl.map(r=>{
+const lrc=r.lucro_real>=0?‘td-p’:‘td-n’;
+const isAlug=r.obs&&r.obs.includes(‘Aluguel’);
+let outCell=’<span style="color:var(--t3)">—</span>’;
+if(isAlug&&r.out!=null) outCell=`<span style="color:var(--amber);font-weight:700">🏠 ${fv(r.out)}</span>`;
+else if(r.out!=null) outCell=`<span class="${r.out<0?'td-n':''}">${fv(r.out)}</span>`;
+const obs=r.obs&&!r.obs.includes(‘Aluguel’)?`<span class="obs-chip">${r.obs}</span>`:’’;
+const rc=r.lucro_real<0?‘rdanger’:r.maq>5?‘rwarn’:’’;
+return `<tr class="${rc}"><td class="td-d">${r.d}</td><td class="td-d" style="color:var(--t3)">${WNA[r.wd]}</td><td>${fv(r.fat)}</td><td>${r.ext>0?fv(r.ext):'<span style="color:var(--t3)">—</span>'}</td><td style="color:var(--purple)">${r.sorv}</td><td>${fv(r.dv)}</td><td class="${r.maq>5?'td-n':''}">${fv(r.maq)}</td><td>${fv(r.dia)}</td><td>${outCell}</td><td class="${lrc}">${fv(r.lucro_real)}</td><td>${obs}</td></tr>`;
+}).join(’’);pV();
+}
+function pV(){const tot=Math.ceil(vF.length/10),el=document.getElementById(‘pag-v’);if(tot<=1){el.innerHTML=’’;return;}let h=`<button class="pb" onclick="gV(${vP-1})" ${vP===1?'disabled':''}>‹</button>`;for(let i=1;i<=tot;i++)h+=`<button class="pb ${i===vP?'on':''}" onclick="gV(${i})">${i}</button>`;h+=`<button class="pb" onclick="gV(${vP+1})" ${vP===tot?'disabled':''}>›</button>`;el.innerHTML=h;}
+function gV(p){const t=Math.ceil(vF.length/10);if(p<1||p>t)return;vP=p;rV();}
+rV();
+
+const catChipMap={‘Topping’:’<span class="chip chip-r">Topping</span>’,‘Insumo’:’<span class="chip chip-g">Insumo</span>’,‘Manutenção’:’<span class="chip chip-b">Manutenção</span>’};
+cF=[…compras];
+document.getElementById(‘srch-c’).addEventListener(‘input’,function(){
+var q=document.getElementById(‘srch-c’).value.toLowerCase();
+cF=compras.filter(function(r){return !q||r.d.includes(q)||r.item.toLowerCase().includes(q)||r.cat.toLowerCase().includes(q);});
+cP=1;rC();
+});
+const CC=[‘d’,‘item’,‘cat’,‘val’];
+document.querySelectorAll(‘th[data-tbl=“c”]’).forEach(function(th){
+th.addEventListener(‘click’,function(){
+var c=+th.dataset.c;
+if(cSC===c){cSA=!cSA;}else{cSC=c;cSA=true;}
+document.querySelectorAll(‘th[data-tbl=“c”]’).forEach(function(t){t.classList.remove(‘s’);});
+th.classList.add(‘s’);
+cF.sort(function(a,b){var k=CC[c],av=a[k]??-Infinity,bv=b[k]??-Infinity;return cSA?(av>bv?1:-1):(av<bv?1:-1);});
+cP=1;rC();
+});
+});
+function rC(){
+const tbody=document.getElementById(‘tbody-c’);
+if(!tbody) return;
+const start=(cP-1)*15,slice=cF.slice(start,start+15);
+const tcnt=document.getElementById(‘tcnt-c’);
+if(tcnt) tcnt.textContent=cF.length+’ itens’;
+tbody.innerHTML=slice.map(r=>{
+const catChip=catChipMap[r.cat]||’<span class="chip chip-g">’+r.cat+’</span>’;
+return ‘<tr><td class="td-d">’+r.d+’</td><td>’+r.item+’</td><td>’+catChip+’</td><td class="td-d" style="font-weight:700">R$’+r.val.toFixed(2).replace(’.’,’,’)+’</td><td></td></tr>’;
+}).join(’’);
+pC();
+}
+function pC(){const tot=Math.ceil(cF.length/15),el=document.getElementById(‘pag-c’);if(!el)return;el.innerHTML=’’;if(tot<=1)return;for(let i=1;i<=tot;i++){const b=document.createElement(‘button’);b.textContent=i;if(i===cP)b.classList.add(‘on’);b.onclick=()=>gC(i);el.appendChild(b);}}
+function gC(p){const t=Math.ceil(cF.length/15);if(p<1||p>t)return;cP=p;rC();}
+rC();
+
 </script>
 </body>
 </html>
