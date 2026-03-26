@@ -580,29 +580,30 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 // DADOS — atualizados automaticamente pelo Apps Script
 // ══════════════════════════════════════════════════════
 const vendas=[
-  {d:'02/03',wd:6,fat:495.0,ext:0.0,dv:null,maq:2.47,dia:90.0,luc:402.53,out:null,obs:'',sorv:33,lucro_real:165.87},
-  {d:'03/03',wd:0,fat:144.0,ext:9.0,dv:173.98,maq:0.85,dia:80.0,luc:-110.83,out:null,obs:'',sorv:9,lucro_real:-77.03},
-  {d:'04/03',wd:1,fat:447.0,ext:0.0,dv:355.67,maq:2.33,dia:80.0,luc:9.0,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
-  {d:'05/03',wd:2,fat:330.0,ext:15.0,dv:50.82,maq:1.56,dia:80.0,luc:197.62,out:null,obs:'',sorv:21,lucro_real:60.02},
-  {d:'06/03',wd:3,fat:747.0,ext:0.0,dv:101.21,maq:2.0,dia:80.0,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360.0},
-  {d:'07/03',wd:4,fat:615.0,ext:0.0,dv:257.68,maq:2.7,dia:80.0,luc:274.62,out:null,obs:'',sorv:41,lucro_real:263.48},
-  {d:'08/03',wd:5,fat:408.0,ext:0.0,dv:152.84,maq:1.93,dia:110.0,luc:143.23,out:null,obs:'',sorv:27,lucro_real:83.53},
-  {d:'09/03',wd:6,fat:440.0,ext:5.0,dv:204.3,maq:1.78,dia:80.0,luc:153.92,out:null,obs:'',sorv:29,lucro_real:137.64},
-  {d:'10/03',wd:0,fat:505.0,ext:10.0,dv:27.84,maq:3.38,dia:90.0,luc:383.78,out:null,obs:'',sorv:33,lucro_real:174.96},
-  {d:'11/03',wd:1,fat:575.0,ext:0.0,dv:31.6,maq:3.39,dia:70.0,luc:470.01,out:780.0,obs:'Aluguel',sorv:38,lucro_real:244.85},
-  {d:'12/03',wd:2,fat:730.0,ext:65.0,dv:69.85,maq:3.02,dia:83.0,luc:574.13,out:null,obs:'',sorv:44,lucro_real:363.1},
-  {d:'13/03',wd:3,fat:520.0,ext:25.0,dv:254.83,maq:2.6,dia:80.0,luc:182.57,out:null,obs:'',sorv:33,lucro_real:200.74},
-  {d:'14/03',wd:4,fat:640.0,ext:35.0,dv:24.58,maq:2.54,dia:77.0,luc:535.88,out:null,obs:'',sorv:40,lucro_real:295.66},
-  {d:'15/03',wd:5,fat:500.0,ext:20.0,dv:20.89,maq:2.33,dia:74.0,luc:402.78,out:null,obs:'',sorv:32,lucro_real:191.03},
-  {d:'16/03',wd:6,fat:340.0,ext:55.0,dv:375.11,maq:1.91,dia:81.0,luc:-118.02,out:null,obs:'',sorv:19,lucro_real:76.71},
-  {d:'17/03',wd:0,fat:335.0,ext:5.0,dv:46.74,maq:1.53,dia:90.0,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
-  {d:'18/03',wd:1,fat:525.0,ext:30.0,dv:111.49,maq:2.32,dia:76.0,luc:335.19,out:780.0,obs:'Aluguel',sorv:33,lucro_real:210.02},
-  {d:'19/03',wd:2,fat:345.0,ext:25.0,dv:297.46,maq:1.48,dia:75.0,luc:-28.94,out:null,obs:'',sorv:21,lucro_real:80.1},
-  {d:'20/03',wd:3,fat:510.0,ext:15.0,dv:179.9,maq:9.1,dia:73.0,luc:248.0,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
-  {d:'21/03',wd:4,fat:775.0,ext:50.0,dv:60.13,maq:11.88,dia:80.0,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
-  {d:'22/03',wd:5,fat:670.0,ext:15.0,dv:117.46,maq:9.78,dia:73.0,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
-  {d:'23/03',wd:6,fat:240.0,ext:30.0,dv:115.54,maq:3.02,dia:126.0,luc:-4.56,out:null,obs:'',sorv:14,lucro_real:-49.3},
-  {d:'24/03',wd:0,fat:510.0,ext:0.0,dv:null,maq:6.43,dia:90.0,luc:413.57,out:null,obs:'',sorv:34,lucro_real:172.89}
+  {d:'02/03',wd:0,fat:495.0,ext:0.0,dv:null,maq:2.47,dia:90.0,luc:402.53,out:null,obs:'',sorv:33,lucro_real:165.87},
+  {d:'03/03',wd:1,fat:144.0,ext:9.0,dv:173.98,maq:0.85,dia:80.0,luc:-110.83,out:null,obs:'',sorv:9,lucro_real:-77.03},
+  {d:'04/03',wd:2,fat:447.0,ext:0.0,dv:355.67,maq:2.33,dia:80.0,luc:9.0,out:null,obs:'Aluguel',sorv:30,lucro_real:140.07},
+  {d:'05/03',wd:3,fat:330.0,ext:15.0,dv:50.82,maq:1.56,dia:80.0,luc:197.62,out:null,obs:'',sorv:21,lucro_real:60.02},
+  {d:'06/03',wd:4,fat:747.0,ext:0.0,dv:101.21,maq:2.0,dia:80.0,luc:563.79,out:null,obs:'',sorv:50,lucro_real:360.0},
+  {d:'07/03',wd:5,fat:615.0,ext:0.0,dv:257.68,maq:2.7,dia:80.0,luc:274.62,out:null,obs:'',sorv:41,lucro_real:263.48},
+  {d:'08/03',wd:6,fat:408.0,ext:0.0,dv:152.84,maq:1.93,dia:110.0,luc:143.23,out:null,obs:'',sorv:27,lucro_real:83.53},
+  {d:'09/03',wd:0,fat:440.0,ext:5.0,dv:204.3,maq:1.78,dia:80.0,luc:153.92,out:null,obs:'',sorv:29,lucro_real:137.64},
+  {d:'10/03',wd:1,fat:505.0,ext:10.0,dv:27.84,maq:3.38,dia:90.0,luc:383.78,out:null,obs:'',sorv:33,lucro_real:174.96},
+  {d:'11/03',wd:2,fat:575.0,ext:0.0,dv:31.6,maq:3.39,dia:70.0,luc:470.01,out:780.0,obs:'Aluguel',sorv:38,lucro_real:244.85},
+  {d:'12/03',wd:3,fat:730.0,ext:65.0,dv:69.85,maq:3.02,dia:83.0,luc:574.13,out:null,obs:'',sorv:44,lucro_real:363.1},
+  {d:'13/03',wd:4,fat:520.0,ext:25.0,dv:254.83,maq:2.6,dia:80.0,luc:182.57,out:null,obs:'',sorv:33,lucro_real:200.74},
+  {d:'14/03',wd:5,fat:640.0,ext:35.0,dv:24.58,maq:2.54,dia:77.0,luc:535.88,out:null,obs:'',sorv:40,lucro_real:295.66},
+  {d:'15/03',wd:6,fat:500.0,ext:20.0,dv:20.89,maq:2.33,dia:74.0,luc:402.78,out:null,obs:'',sorv:32,lucro_real:191.03},
+  {d:'16/03',wd:0,fat:340.0,ext:55.0,dv:375.11,maq:1.91,dia:81.0,luc:-118.02,out:null,obs:'',sorv:19,lucro_real:76.71},
+  {d:'17/03',wd:1,fat:335.0,ext:5.0,dv:46.74,maq:1.53,dia:90.0,luc:196.73,out:null,obs:'',sorv:22,lucro_real:51.03},
+  {d:'18/03',wd:2,fat:525.0,ext:30.0,dv:111.49,maq:2.32,dia:76.0,luc:335.19,out:780.0,obs:'Aluguel',sorv:33,lucro_real:210.02},
+  {d:'19/03',wd:3,fat:345.0,ext:25.0,dv:297.46,maq:1.48,dia:75.0,luc:-28.94,out:null,obs:'',sorv:21,lucro_real:80.1},
+  {d:'20/03',wd:4,fat:510.0,ext:15.0,dv:179.9,maq:9.1,dia:73.0,luc:248.0,out:null,obs:'Empréstimo',sorv:33,lucro_real:191.24},
+  {d:'21/03',wd:5,fat:775.0,ext:50.0,dv:60.13,maq:11.88,dia:80.0,luc:622.99,out:null,obs:'',sorv:48,lucro_real:386.16},
+  {d:'22/03',wd:6,fat:670.0,ext:15.0,dv:117.46,maq:9.78,dia:73.0,luc:469.76,out:null,obs:'',sorv:44,lucro_real:306.34},
+  {d:'23/03',wd:0,fat:240.0,ext:30.0,dv:115.54,maq:3.02,dia:126.0,luc:-4.56,out:null,obs:'',sorv:14,lucro_real:-49.3},
+  {d:'24/03',wd:1,fat:510.0,ext:0.0,dv:null,maq:6.43,dia:90.0,luc:413.57,out:null,obs:'',sorv:34,lucro_real:172.89},
+  {d:'25/03',wd:2,fat:500.0,ext:20.0,dv:null,maq:6.9,dia:74.0,luc:419.1,out:780.0,obs:'Aluguel',sorv:32,lucro_real:186.46}
 ];
 
 const compras=[
@@ -691,7 +692,7 @@ const compras=[
   {d:'23/03',item:'Açucar',cat:'Insumo',val:27.9,qty:10.0}
 ];
 
-const SALDOS = {"bau":8000.0,"conta":4799.76,"fatura":2782.72,"caixa":200.0,"envelope":350.71};
+const SALDOS = {"bau":8000.0,"conta":5242.85,"fatura":2782.72,"caixa":200.0,"envelope":400.0};
 
 // ══════════════════════════════════════════════════════
 // TABS
