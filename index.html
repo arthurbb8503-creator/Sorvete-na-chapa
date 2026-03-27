@@ -240,6 +240,8 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 </div>
 <div class="slbl au2">Semana Atual</div>
 <div id="semana-wrap" class="au2"></div>
+<div class="slbl au3">Últimas 4 Semanas</div>
+<div id="historico-semanas" class="au3"></div>
 <div class="slbl au3">Previsão de Faturamento</div>
 <div class="hoje-hero au3" style="margin-bottom:10px">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
@@ -948,94 +950,132 @@ const el=document.getElementById('semana-wrap');
 if(el) el.innerHTML=html;
 // Expor wdAvg para usar no ranking
 window._wdAvg=wdAvg;
+  })();
+
+// ── HISTÓRICO 4 SEMANAS ──────────────────────────────
+(function renderHistoricoSemanas(){
+const el=document.getElementById(‘historico-semanas’);
+if(!el) return;
+const hoje=new Date();
+const jsDay=hoje.getDay(); // 0=Dom..6=Sab
+const diffSeg=jsDay===0?-6:1-jsDay;
+const WN_S=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
+const semanas=[];
+// 4 semanas passadas, cronológica (w=4 mais antiga, w=1 mais recente)
+for(let w=3;w>=1;w–){
+const seg=new Date(hoje); seg.setDate(hoje.getDate()+diffSeg-w*7);
+const dias=[];
+for(let d=0;d<7;d++){
+const dt=new Date(seg); dt.setDate(seg.getDate()+d);
+const dd=dt.getDate().toString().padStart(2,‘0’);
+const mm=(dt.getMonth()+1).toString().padStart(2,‘0’);
+const key=dd+’/’+mm;
+const venda=vendas.find(r=>r.d===key)||null;
+dias.push({key,venda,isSab:d===5,isDom:d===6});
+}
+const fat=dias.reduce((s,d)=>s+(d.venda?d.venda.fat:0),0);
+semanas.push({dias,fat,label:dias[0].key+’ a ‘+dias[6].key});
+}
+el.innerHTML=semanas.map(sem=>{
+const maxDia=Math.max(…sem.dias.map(d=>d.venda?d.venda.fat:0),1);
+return `<div style="background:var(--sur);border:1px solid var(--bor);border-radius:10px;padding:12px 14px;margin-bottom:8px"> <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px"> <div style="font-size:10px;font-weight:600;color:var(--t2)">${sem.label}</div> <span style="font-size:13px;font-weight:800;color:${sem.fat>=2500?'var(--teal)':'var(--coral)'}">${sem.fat>0?'R$'+sem.fat.toLocaleString('pt-BR'):'—'}</span> </div> <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px"> ${sem.dias.map((d,di)=>{ const fat=d.venda?d.venda.fat:null; const pct=fat?Math.max(fat/maxDia*100,5):0; const cor=d.isSab?'var(--teal)':d.isDom?'var(--purple)':fat>=400?'var(--coral)':'rgba(255,255,255,.3)'; const bg=d.isSab?'rgba(28,201,168,.07)':d.isDom?'rgba(155,109,255,.07)':'rgba(255,255,255,.02)'; const bor=d.isSab?'rgba(28,201,168,.2)':d.isDom?'rgba(155,109,255,.2)':'var(--bor)'; return `<div style="background:${bg};border:1px solid ${bor};border-radius:6px;padding:4px 2px;text-align:center">
+<div style="font-size:7px;font-weight:700;color:${d.isSab?'var(--teal)':d.isDom?'var(--purple)':'var(--t3)'};margin-bottom:3px">${WN_S[di]}</div>
+<div style="height:28px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:3px">
+${fat?`<div style="width:70%;border-radius:2px 2px 0 0;height:${pct}%;background:${cor};min-height:3px"></div>`:`<div style="width:70%;height:3px;background:rgba(255,255,255,.08);border-radius:2px"></div>`}
+</div>
+<div style="font-size:8px;font-weight:700;color:${fat?cor:'var(--t3)'}">${fat?‘R$’+fat:’—’}</div>
+</div>`; }).join('')} </div> </div>`;
+}).join(’’);
 })();
-const fmtBR=v=>(+v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const fmtInt=v=>Math.round(+v).toLocaleString('pt-BR');
+
+const fmtBR=v=>(+v).toLocaleString(‘pt-BR’,{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtInt=v=>Math.round(+v).toLocaleString(‘pt-BR’);
 const pat=SALDOS.bau+SALDOS.conta+SALDOS.caixa+SALDOS.envelope-SALDOS.fatura;
-set('fin-bau',        fmtInt(SALDOS.bau));
-set('fin-conta',      fmtBR(SALDOS.conta));
-set('fin-fatura',     fmtBR(SALDOS.fatura));
-set('fin-caixa',      fmtInt(SALDOS.caixa));
-set('fin-envelope',   fmtBR(SALDOS.envelope));
-set('fin-patrimonio', fmtInt(pat));
+set(‘fin-bau’,        fmtInt(SALDOS.bau));
+set(‘fin-conta’,      fmtBR(SALDOS.conta));
+set(‘fin-fatura’,     fmtBR(SALDOS.fatura));
+set(‘fin-caixa’,      fmtInt(SALDOS.caixa));
+set(‘fin-envelope’,   fmtBR(SALDOS.envelope));
+set(‘fin-patrimonio’, fmtInt(pat));
 // ── HEADER — data do último registro ────────────────
-const ultimoReg=vendas.length>0?vendas[vendas.length-1].d:'—';
-const dd=now.getDate().toString().padStart(2,'0');
-const mm=(now.getMonth()+1).toString().padStart(2,'0');
-const hh=now.getHours().toString().padStart(2,'0');
-const mi=now.getMinutes().toString().padStart(2,'0');
-set('lastUpdated',`🕐 Dados: ${ultimoReg}/2026 · ${dd}/${mm} ${hh}:${mi}`);
-set('hoje-dia-label',`${WN_PT[wdHoje]} · ${dd}/${mm}`);
+const ultimoReg=vendas.length>0?vendas[vendas.length-1].d:’—’;
+const dd=now.getDate().toString().padStart(2,‘0’);
+const mm=(now.getMonth()+1).toString().padStart(2,‘0’);
+const hh=now.getHours().toString().padStart(2,‘0’);
+const mi=now.getMinutes().toString().padStart(2,‘0’);
+set(‘lastUpdated’,`🕐 Dados: ${ultimoReg}/2026 · ${dd}/${mm} ${hh}:${mi}`);
+set(‘hoje-dia-label’,`${WN_PT[wdHoje]} · ${dd}/${mm}`);
 })();
 // ══════════════════════════════════════════════════════
 // CHART DEFAULTS
 // ══════════════════════════════════════════════════════
-Chart.defaults.font.family="'Plus Jakarta Sans',sans-serif";
-Chart.defaults.color='#6A5840';
-const G='rgba(255,255,255,.05)',T='#6A5840';
+Chart.defaults.font.family=”‘Plus Jakarta Sans’,sans-serif”;
+Chart.defaults.color=’#6A5840’;
+const G=‘rgba(255,255,255,.05)’,T=’#6A5840’;
 const tck={color:T,font:{size:10}};
 const grd={color:G};
-const TO={backgroundColor:'#1C160D',borderColor:'rgba(255,255,255,.1)',borderWidth:1};
+const TO={backgroundColor:’#1C160D’,borderColor:‘rgba(255,255,255,.1)’,borderWidth:1};
 // ══════════════════════════════════════════════════════
 // GRÁFICOS — renderGraficos()
 // ══════════════════════════════════════════════════════
 function renderGraficos(){
 if(window._cFat){window._cFat.destroy();}
-window._cFat=new Chart('cFat',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.fat),backgroundColor:vendas.map(r=>r.fat>=600?'rgba(28,201,168,.5)':r.fat<300?'rgba(232,64,64,.5)':'rgba(255,255,255,.15)'),borderColor:vendas.map(r=>r.fat>=600?'#1CC9A8':r.fat<300?'#E84040':'rgba(255,255,255,.3)'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TO,callbacks:{label:c=>` R$${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+window._cFat=new Chart(‘cFat’,{type:‘bar’,data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.fat),backgroundColor:vendas.map(r=>r.fat>=600?‘rgba(28,201,168,.5)’:r.fat<300?‘rgba(232,64,64,.5)’:‘rgba(255,255,255,.15)’),borderColor:vendas.map(r=>r.fat>=600?’#1CC9A8’:r.fat<300?’#E84040’:‘rgba(255,255,255,.3)’),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{…TO,callbacks:{label:c=>` R$${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{…tck,callback:v=>‘R$’+v},grid:grd}}}});
 if(window._cSorv){window._cSorv.destroy();}
-window._cSorv=new Chart('cSorv',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.sorv),backgroundColor:'rgba(155,109,255,.35)',borderColor:'#9B6DFF',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TO,callbacks:{label:c=>`${c.raw} sorv.`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:tck,grid:grd}}}});
+window._cSorv=new Chart(‘cSorv’,{type:‘bar’,data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.sorv),backgroundColor:‘rgba(155,109,255,.35)’,borderColor:’#9B6DFF’,borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{…TO,callbacks:{label:c=>`${c.raw} sorv.`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:tck,grid:grd}}}});
 let acc=0;
 if(window._cAcum){window._cAcum.destroy();}
-window._cAcum=new Chart('cAcum',{type:'line',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>{acc+=r.fat;return Math.round(acc);}),borderColor:'#F26040',backgroundColor:'rgba(242,96,64,.08)',borderWidth:2.5,fill:true,tension:.35,pointRadius:3,pointBackgroundColor:'#F26040'}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TO,callbacks:{label:c=>` R$${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+window._cAcum=new Chart(‘cAcum’,{type:‘line’,data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>{acc+=r.fat;return Math.round(acc);}),borderColor:’#F26040’,backgroundColor:‘rgba(242,96,64,.08)’,borderWidth:2.5,fill:true,tension:.35,pointRadius:3,pointBackgroundColor:’#F26040’}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{…TO,callbacks:{label:c=>` R$${c.raw}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{…tck,callback:v=>‘R$’+v},grid:grd}}}});
 if(window._cMaq){window._cMaq.destroy();}
-window._cMaq=new Chart('cMaq',{type:'bar',data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.maq),backgroundColor:vendas.map(r=>r.maq>5?'rgba(232,64,64,.4)':'rgba(240,160,32,.3)'),borderColor:vendas.map(r=>r.maq>5?'#E84040':'#F0A020'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TO,callbacks:{label:c=>` R$${c.raw?.toFixed(2)}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{...tck,callback:v=>'R$'+v},grid:grd}}}});
+window._cMaq=new Chart(‘cMaq’,{type:‘bar’,data:{labels:vendas.map(r=>r.d),datasets:[{data:vendas.map(r=>r.maq),backgroundColor:vendas.map(r=>r.maq>5?‘rgba(232,64,64,.4)’:‘rgba(240,160,32,.3)’),borderColor:vendas.map(r=>r.maq>5?’#E84040’:’#F0A020’),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{…TO,callbacks:{label:c=>` R$${c.raw?.toFixed(2)}`}}},scales:{x:{ticks:tck,grid:grd},y:{ticks:{…tck,callback:v=>‘R$’+v},grid:grd}}}});
 }
 renderGraficos();
 // ══════════════════════════════════════════════════════
 // HORÁRIOS (dados fixos da maquininha de março)
 // ══════════════════════════════════════════════════════
 const horasData=[
-{h:'13h',fat:1,v:1},
-{h:'17h',fat:45,v:2},
-{h:'18h',fat:243,v:14},
-{h:'19h',fat:1672,v:82},
-{h:'20h',fat:2820,v:145},
-{h:'21h',fat:2646,v:127},
-{h:'22h',fat:1573,v:79},
-{h:'23h',fat:95,v:5}
+{h:‘13h’,fat:1,v:1},
+{h:‘17h’,fat:45,v:2},
+{h:‘18h’,fat:243,v:14},
+{h:‘19h’,fat:1672,v:82},
+{h:‘20h’,fat:2820,v:145},
+{h:‘21h’,fat:2646,v:127},
+{h:‘22h’,fat:1573,v:79},
+{h:‘23h’,fat:95,v:5}
 ];
-const faixasData=[{f:'13:30',fat:1,v:1},{f:'17:30',fat:45,v:2},{f:'18:00',fat:20,v:1},{f:'18:30',fat:223,v:13},{f:'19:00',fat:490,v:25},{f:'19:30',fat:1182,v:57},{f:'20:00',fat:1492,v:73},{f:'20:30',fat:1328,v:72},{f:'21:00',fat:1600,v:73},{f:'21:30',fat:1046,v:54},{f:'22:00',fat:1118,v:59},{f:'22:30',fat:455,v:20},{f:'23:00',fat:95,v:5}];
-const top10h=[{h:'12/03 20h',fat:225,v:9},{h:'11/03 21h',fat:220,v:7},{h:'06/03 20h',fat:210,v:14},{h:'21/03 20h',fat:195,v:11},{h:'15/03 20h',fat:185,v:9},{h:'16/03 21h',fat:185,v:10},{h:'21/03 21h',fat:180,v:7},{h:'14/03 20h',fat:180,v:10},{h:'22/03 21h',fat:180,v:8},{h:'08/03 20h',fat:168,v:9}];
+const faixasData=[{f:‘13:30’,fat:1,v:1},{f:‘17:30’,fat:45,v:2},{f:‘18:00’,fat:20,v:1},{f:‘18:30’,fat:223,v:13},{f:‘19:00’,fat:490,v:25},{f:‘19:30’,fat:1182,v:57},{f:‘20:00’,fat:1492,v:73},{f:‘20:30’,fat:1328,v:72},{f:‘21:00’,fat:1600,v:73},{f:‘21:30’,fat:1046,v:54},{f:‘22:00’,fat:1118,v:59},{f:‘22:30’,fat:455,v:20},{f:‘23:00’,fat:95,v:5}];
+const top10h=[{h:‘12/03 20h’,fat:225,v:9},{h:‘11/03 21h’,fat:220,v:7},{h:‘06/03 20h’,fat:210,v:14},{h:‘21/03 20h’,fat:195,v:11},{h:‘15/03 20h’,fat:185,v:9},{h:‘16/03 21h’,fat:185,v:10},{h:‘21/03 21h’,fat:180,v:7},{h:‘14/03 20h’,fat:180,v:10},{h:‘22/03 21h’,fat:180,v:8},{h:‘08/03 20h’,fat:168,v:9}];
 function renderHorarios(){
 // Top 10
 // Mix pagamento dinâmico
-const fmtR2=v=>'R$'+Math.round(v).toLocaleString('pt-BR');
-const fmtD2=(v,d=2)=>(+v).toFixed(d).replace('.',',');
+const fmtR2=v=>‘R$’+Math.round(v).toLocaleString(‘pt-BR’);
+const fmtD2=(v,d=2)=>(+v).toFixed(d).replace(’.’,’,’);
 const set2=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
-set2('maq-total', fmtR2(mixPag.totalMaq));
-set2('maq-cnt',   mixPag.totalCnt+' transações');
-set2('maq-din',   fmtR2(mixPag.totalDinheiro));
-set2('maq-din-pct', (mixPag.totalDinheiro/(mixPag.totalMaq+mixPag.totalDinheiro)*100).toFixed(1)+'% em espécie');
+set2(‘maq-total’, fmtR2(mixPag.totalMaq));
+set2(‘maq-cnt’,   mixPag.totalCnt+’ transações’);
+set2(‘maq-din’,   fmtR2(mixPag.totalDinheiro));
+set2(‘maq-din-pct’, (mixPag.totalDinheiro/(mixPag.totalMaq+mixPag.totalDinheiro)*100).toFixed(1)+’% em espécie’);
 // Pico de vendas
 const picoH=horasData.reduce((a,b)=>b.fat>a.fat?b:a);
 const pico2H=horasData.filter(h=>h.fat>horasData.reduce((s,x)=>s+x.fat,0)*0.2);
-set2('maq-pico', picoH.h+'–'+horasData[horasData.indexOf(picoH)+1]?.h||picoH.h);
-set2('maq-pico-pct', (picoH.fat/mixPag.totalMaq*100).toFixed(1)+'% do faturamento');
+set2(‘maq-pico’, picoH.h+’–’+horasData[horasData.indexOf(picoH)+1]?.h||picoH.h);
+set2(‘maq-pico-pct’, (picoH.fat/mixPag.totalMaq*100).toFixed(1)+’% do faturamento’);
 // Mix pagamento
-set2('mix-deb-pct', mixPag.debito.pct+'%');
-set2('mix-deb-sub',  mixPag.debito.cnt+' trans · R$'+fmtD2(mixPag.debito.val,0));
-set2('mix-cred-pct', mixPag.credito.pct+'%');
-set2('mix-cred-sub', mixPag.credito.cnt+' trans · R$'+fmtD2(mixPag.credito.val,0));
-set2('mix-pix-pct',  mixPag.pix.pct+'%');
-set2('mix-pix-sub',  mixPag.pix.cnt+' trans · taxa 0%');
+set2(‘mix-deb-pct’, mixPag.debito.pct+’%’);
+set2(‘mix-deb-sub’,  mixPag.debito.cnt+’ trans · R$’+fmtD2(mixPag.debito.val,0));
+set2(‘mix-cred-pct’, mixPag.credito.pct+’%’);
+set2(‘mix-cred-sub’, mixPag.credito.cnt+’ trans · R$’+fmtD2(mixPag.credito.val,0));
+set2(‘mix-pix-pct’,  mixPag.pix.pct+’%’);
+set2(‘mix-pix-sub’,  mixPag.pix.cnt+’ trans · taxa 0%’);
 // Drawers mix
-const ticketDeb=(mixPag.debito.val/mixPag.debito.cnt).toFixed(2).replace('.',',');
-const ticketCred=(mixPag.credito.val/mixPag.credito.cnt).toFixed(2).replace('.',',');
-const ticketPix=(mixPag.pix.val/mixPag.pix.cnt).toFixed(2).replace('.',',');
-const taxaDeb=(mixPag.debito.val*0.0092).toFixed(2).replace('.',',');
-const taxaCred=(mixPag.credito.val*0.013).toFixed(2).replace('.',',');
-const dDeb=document.getElementById('d-debito');
+const ticketDeb=(mixPag.debito.val/mixPag.debito.cnt).toFixed(2).replace(’.’,’,’);
+const ticketCred=(mixPag.credito.val/mixPag.credito.cnt).toFixed(2).replace(’.’,’,’);
+const ticketPix=(mixPag.pix.val/mixPag.pix.cnt).toFixed(2).replace(’.’,’,’);
+const taxaDeb=(mixPag.debito.val*0.0092).toFixed(2).replace(’.’,’,’);
+const taxaCred=(mixPag.credito.val*0.013).toFixed(2).replace(’.’,’,’);
+const dDeb=document.getElementById(‘d-debito’);
 if(dDeb) dDeb.innerHTML=`<div class="drawer-title">Débito</div>
+
 <div class="drawer-row"><span>Transações</span><span>${mixPag.debito.cnt}</span></div>
 <div class="drawer-row"><span>Faturamento</span><span>${fmtR2(mixPag.debito.val)}</span></div>
 <div class="drawer-row"><span>Ticket médio</span><span>R$${ticketDeb}</span></div>
@@ -1554,59 +1594,90 @@ Chart.defaults.color='#6A5840';
 // ALERTA DE ESTOQUE — tela inicial
 // ══════════════════════════════════════════════════════
 (function renderEstoque(){
-const el=document.getElementById('estoque-alertas');
-if(!el) return;
-const ultimaVenda=vendas.length>0?vendas[vendas.length-1].d:'24/03';
-const partes=ultimaVenda.split('/');
-const ultimaData=new Date(2026,parseInt(partes[1])-1,parseInt(partes[0]));
+  const el=document.getElementById('estoque-alertas');
+  if(!el) return;
+
+const ultimaVenda=vendas.length>0?vendas[vendas.length-1].d:‘26/03’;
+const partes=ultimaVenda.split(’/’);
+const hoje=new Date(2026,parseInt(partes[1])-1,parseInt(partes[0]));
+
+// Próxima sexta-feira
+const proximaSexta=(function(){
+const d=new Date(hoje); d.setDate(hoje.getDate()+1);
+while(d.getDay()!==5) d.setDate(d.getDate()+1);
+return d;
+})();
+// Próximo domingo (fim do FDS da sexta)
+const proximoDomingo=new Date(proximaSexta);
+proximoDomingo.setDate(proximaSexta.getDate()+2);
+const diasAteSexta=Math.round((proximaSexta-hoje)/(1000*60*60*24));
+const diasAteDomingo=Math.round((proximoDomingo-hoje)/(1000*60*60*24));
+
+// % FDS calculado internamente (usado só na lógica, não exibido)
+const wdV=[0,0,0,0,0,0,0], wdC=[0,0,0,0,0,0,0];
+vendas.forEach(r=>{wdV[r.wd]+=r.fat; wdC[r.wd]++;});
+const wdAvg=wdV.map((s,i)=>wdC[i]>0?s/wdC[i]:0);
+const fatSem=wdAvg.reduce((a,b)=>a+b,0);
+// Sexta + Sáb + Dom como % do total (wd4=Sex, wd5=Sáb, wd6=Dom)
+const fatFSD=(wdAvg[4]||0)+(wdAvg[5]||0)+(wdAvg[6]||0);
+const pctFSD=fatSem>0?fatFSD/fatSem:0.5;
+
+// Agrupar compras por item
 const itens={};
 compras.forEach(c=>{
-if(c.cat!=='Insumo'&&c.cat!=='Topping') return;
+if(c.cat!==‘Insumo’&&c.cat!==‘Topping’) return;
 const key=c.item.toLowerCase().trim();
 if(!itens[key]) itens[key]={nome:c.item,cat:c.cat,compras:[]};
 if(c.d){
-const p=c.d.split('/');
+const p=c.d.split(’/’);
 const dt=new Date(2026,parseInt(p[1])-1,parseInt(p[0]));
-itens[key].compras.push({dt,val:c.val,qty:c.qty});
+itens[key].compras.push({dt,val:c.val,qty:c.qty||1});
 }
 });
+
 const alertas=[];
 Object.values(itens).forEach(it=>{
 if(it.compras.length<2) return;
-const datas=it.compras.map(c=>c.dt).sort((a,b)=>a-b);
+const sorted=it.compras.sort((a,b)=>a.dt-b.dt);
+const datas=sorted.map(c=>c.dt);
 const intervalos=[];
 for(let i=1;i<datas.length;i++) intervalos.push((datas[i]-datas[i-1])/(1000*60*60*24));
 const freqMedia=Math.round(intervalos.reduce((s,v)=>s+v,0)/intervalos.length);
 const ultimaCompra=datas[datas.length-1];
-const diasDesde=Math.round((ultimaData-ultimaCompra)/(1000*60*60*24));
-const projecao=freqMedia-diasDesde;
-const dd=ultimaCompra.getDate().toString().padStart(2,'0');
-const mm=(ultimaCompra.getMonth()+1).toString().padStart(2,'0');
-alertas.push({nome:it.nome,freq:freqMedia,ultimaCompra:`${dd}/${mm}`,diasDesde,projecao});
+const diasDesde=Math.round((hoje-ultimaCompra)/(1000*60*60*24));
+const diasRestantes=freqMedia-diasDesde;
+// Compra de sexta: item vai acabar antes do domingo que fecha o FDS
+const urgenciaSexta=diasRestantes>0&&diasRestantes<=diasAteDomingo;
+// Sugestão de qty: média + extra proporcional ao peso de Sex+Sáb+Dom
+const qtyMedia=sorted.reduce((s,c)=>s+c.qty,0)/sorted.length;
+const qtySugerida=Math.ceil(qtyMedia*(1+pctFSD*0.5));
+const dd=ultimaCompra.getDate().toString().padStart(2,‘0’);
+const mm=(ultimaCompra.getMonth()+1).toString().padStart(2,‘0’);
+alertas.push({nome:it.nome,freq:freqMedia,ultimaCompra:`${dd}/${mm}`,diasDesde,diasRestantes,urgenciaSexta,qtySugerida,qtyMedia:Math.round(qtyMedia)});
 });
-alertas.sort((a,b)=>a.projecao-b.projecao);
-const vermelhos=alertas.filter(a=>a.projecao<=2);
-const amarelos=alertas.filter(a=>a.projecao>2&&a.projecao<=5);
-const verdes=alertas.filter(a=>a.projecao>5);
-if(!alertas.length){el.innerHTML='<div style="font-size:11px;color:var(--t3);padding:8px">Sem dados suficientes para análise de estoque.</div>';return;}
-const renderItem=(a,cor,bg,bor)=>`
-<div style="background:${bg};border:1px solid ${bor};border-radius:8px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
-<div>
-<div style="font-size:11px;font-weight:700;color:var(--t1)">${a.nome}</div>
-<div style="font-size:10px;color:var(--t3);margin-top:2px">Freq. ~${a.freq}d · última ${a.ultimaCompra} · ${a.diasDesde}d atrás</div>
-</div>
-<div style="text-align:right;flex-shrink:0">
-<div style="font-size:13px;font-weight:800;color:${cor}">${a.projecao<=0?'AGORA':a.projecao===1?'Amanhã':'~'+a.projecao+'d'}</div>
-<div style="font-size:9px;color:var(--t3)">próx. compra</div>
-</div>
-</div>`;
-let html='';
-if(vermelhos.length) html+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:6px">🔴 Comprar agora</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">${vermelhos.map(a=>renderItem(a,'var(--red)','rgba(232,64,64,.08)','rgba(232,64,64,.2)')).join('')}</div>`;
-if(amarelos.length) html+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);margin-bottom:6px">🟡 Atenção esta semana</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">${amarelos.map(a=>renderItem(a,'var(--amber)','rgba(240,160,32,.06)','rgba(240,160,32,.2)')).join('')}</div>`;
-if(verdes.length) html+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:6px">🟢 Estoque ok</div><div style="display:flex;flex-direction:column;gap:5px">${verdes.map(a=>renderItem(a,'var(--teal)','rgba(28,201,168,.05)','rgba(28,201,168,.15)')).join('')}</div>`;
-html+=`<div style="margin-top:10px;font-size:10px;color:var(--t3);line-height:1.6;padding:8px;background:rgba(255,255,255,.03);border-radius:6px">⚠ Baseado na frequência histórica de reposição. Itens comprados só 1x não aparecem — sem frequência para calcular.</div>`;
-el.innerHTML=html;
+
+alertas.sort((a,b)=>a.diasRestantes-b.diasRestantes);
+
+const vermelhos=alertas.filter(a=>a.diasRestantes<=0);
+const sexta=alertas.filter(a=>a.diasRestantes>0&&a.urgenciaSexta);
+const amarelos=alertas.filter(a=>a.diasRestantes>0&&!a.urgenciaSexta&&a.diasRestantes<=5);
+const verdes=alertas.filter(a=>a.diasRestantes>5&&!a.urgenciaSexta);
+
+if(!alertas.length){el.innerHTML=’<div style="font-size:11px;color:var(--t3);padding:8px">Sem dados suficientes.</div>’;return;}
+
+const renderItem=(a,cor,bg,bor,extra=’’)=>` <div style="background:${bg};border:1px solid ${bor};border-radius:8px;padding:9px 12px"> <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"> <div style="flex:1"> <div style="font-size:11px;font-weight:700;color:var(--t1)">${a.nome}</div> <div style="font-size:10px;color:var(--t3);margin-top:2px">Ciclo ~${a.freq}d · última ${a.ultimaCompra} · ${a.diasDesde}d atrás</div> ${extra} </div> <div style="text-align:right;flex-shrink:0"> <div style="font-size:13px;font-weight:800;color:${cor}">${a.diasRestantes<=0?'AGORA':a.diasRestantes===1?'Amanhã':'~'+a.diasRestantes+'d'}</div> <div style="font-size:9px;color:var(--t3)">próx. compra</div> </div> </div> </div>`;
+
+const extraSexta=(a)=>`<div style="margin-top:4px;font-size:9px;font-weight:600;color:var(--amber)">🛒 Incluir na compra de sexta · sugestão: ${a.qtySugerida}un</div>`;
+
+let htmlOut=’’;
+if(vermelhos.length) htmlOut+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:6px">🔴 Acabou — comprar agora</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">${vermelhos.map(a=>renderItem(a,'var(--red)','rgba(232,64,64,.08)','rgba(232,64,64,.2)')).join('')}</div>`;
+if(sexta.length) htmlOut+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);margin-bottom:6px">🛒 Comprar na sexta</div><div style="background:rgba(240,160,32,.05);border:1px solid rgba(240,160,32,.2);border-radius:10px;padding:10px;margin-bottom:12px"><div style="font-size:10px;color:var(--t2);margin-bottom:8px;line-height:1.5">Operação abre à noite — a compra de sexta abastece <strong style="color:var(--t1)">sexta, sábado e domingo</strong>.</div><div style="display:flex;flex-direction:column;gap:5px">${sexta.map(a=>renderItem(a,'var(--amber)','rgba(240,160,32,.06)','rgba(240,160,32,.15)',extraSexta(a))).join('')}</div></div>`;
+if(amarelos.length) htmlOut+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">🟡 Atenção esta semana</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">${amarelos.map(a=>renderItem(a,'var(--amber)','rgba(240,160,32,.04)','rgba(240,160,32,.12)')).join('')}</div>`;
+if(verdes.length) htmlOut+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:6px">🟢 Estoque ok</div><div style="display:flex;flex-direction:column;gap:5px">${verdes.map(a=>renderItem(a,'var(--teal)','rgba(28,201,168,.05)','rgba(28,201,168,.15)')).join('')}</div>`;
+htmlOut+=`<div style="margin-top:10px;font-size:10px;color:var(--t3);line-height:1.6;padding:8px;background:rgba(255,255,255,.03);border-radius:6px">⚠ Baseado na frequência histórica de reposição. Itens comprados só 1x não aparecem.</div>`;
+el.innerHTML=htmlOut;
 })();
 </script>
+
 </body>
 </html>
