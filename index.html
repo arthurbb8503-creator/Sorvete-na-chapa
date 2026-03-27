@@ -240,7 +240,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 </div>
 <div class="slbl au2">Semana Atual</div>
 <div id="semana-wrap" class="au2"></div>
-<div class="slbl au3">Últimas 4 Semanas</div>
+<div class="slbl au3">Últimas 3 Semanas</div>
 <div id="historico-semanas" class="au3"></div>
 <div class="slbl au3">Previsão de Faturamento</div>
 <div class="hoje-hero au3" style="margin-bottom:10px">
@@ -952,16 +952,15 @@ if(el) el.innerHTML=html;
 window._wdAvg=wdAvg;
   })();
 
-// ── HISTÓRICO 4 SEMANAS ──────────────────────────────
+// ── HISTÓRICO 3 SEMANAS ──────────────────────────────
 (function renderHistoricoSemanas(){
 const el=document.getElementById(‘historico-semanas’);
 if(!el) return;
 const hoje=new Date();
-const jsDay=hoje.getDay(); // 0=Dom..6=Sab
+const jsDay=hoje.getDay();
 const diffSeg=jsDay===0?-6:1-jsDay;
 const WN_S=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
 const semanas=[];
-// 4 semanas passadas, cronológica (w=4 mais antiga, w=1 mais recente)
 for(let w=3;w>=1;w–){
 const seg=new Date(hoje); seg.setDate(hoje.getDate()+diffSeg-w*7);
 const dias=[];
@@ -974,17 +973,33 @@ const venda=vendas.find(r=>r.d===key)||null;
 dias.push({key,venda,isSab:d===5,isDom:d===6});
 }
 const fat=dias.reduce((s,d)=>s+(d.venda?d.venda.fat:0),0);
-semanas.push({dias,fat,label:dias[0].key+’ a ‘+dias[6].key});
+semanas.push({dias,fat,label:dias[0].key+’ a ’+dias[6].key});
 }
-el.innerHTML=semanas.map(sem=>{
-const maxDia=Math.max(…sem.dias.map(d=>d.venda?d.venda.fat:0),1);
-return `<div style="background:var(--sur);border:1px solid var(--bor);border-radius:10px;padding:12px 14px;margin-bottom:8px"> <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px"> <div style="font-size:10px;font-weight:600;color:var(--t2)">${sem.label}</div> <span style="font-size:13px;font-weight:800;color:${sem.fat>=2500?'var(--teal)':'var(--coral)'}">${sem.fat>0?'R$'+sem.fat.toLocaleString('pt-BR'):'—'}</span> </div> <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px"> ${sem.dias.map((d,di)=>{ const fat=d.venda?d.venda.fat:null; const pct=fat?Math.max(fat/maxDia*100,5):0; const cor=d.isSab?'var(--teal)':d.isDom?'var(--purple)':fat>=400?'var(--coral)':'rgba(255,255,255,.3)'; const bg=d.isSab?'rgba(28,201,168,.07)':d.isDom?'rgba(155,109,255,.07)':'rgba(255,255,255,.02)'; const bor=d.isSab?'rgba(28,201,168,.2)':d.isDom?'rgba(155,109,255,.2)':'var(--bor)'; return `<div style="background:${bg};border:1px solid ${bor};border-radius:6px;padding:4px 2px;text-align:center">
-<div style="font-size:7px;font-weight:700;color:${d.isSab?'var(--teal)':d.isDom?'var(--purple)':'var(--t3)'};margin-bottom:3px">${WN_S[di]}</div>
-<div style="height:28px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:3px">
-${fat?`<div style="width:70%;border-radius:2px 2px 0 0;height:${pct}%;background:${cor};min-height:3px"></div>`:`<div style="width:70%;height:3px;background:rgba(255,255,255,.08);border-radius:2px"></div>`}
-</div>
-<div style="font-size:8px;font-weight:700;color:${fat?cor:'var(--t3)'}">${fat?‘R$’+fat:’—’}</div>
-</div>`; }).join('')} </div> </div>`;
+el.innerHTML=semanas.map(function(sem){
+const maxDia=Math.max.apply(null,sem.dias.map(function(d){return d.venda?d.venda.fat:0;}).concat([1]));
+const rowDias=sem.dias.map(function(d,di){
+const fat=d.venda?d.venda.fat:null;
+const pct=fat?Math.max(fat/maxDia*100,5):0;
+const cor=d.isSab?’#1CC9A8’:d.isDom?’#9B6DFF’:fat>=400?’#F26040’:‘rgba(255,255,255,.3)’;
+const bg=d.isSab?‘rgba(28,201,168,.07)’:d.isDom?‘rgba(155,109,255,.07)’:‘rgba(255,255,255,.02)’;
+const bor=d.isSab?‘rgba(28,201,168,.2)’:d.isDom?‘rgba(155,109,255,.2)’:‘rgba(255,255,255,.07)’;
+const barH=fat?’<div style="width:70%;border-radius:2px 2px 0 0;height:'+pct+'%;background:'+cor+';min-height:3px"></div>’:’<div style="width:70%;height:3px;background:rgba(255,255,255,.08);border-radius:2px"></div>’;
+const valTxt=fat?‘R$’+fat:’—’;
+const valCol=fat?cor:’#6A5840’;
+return ‘<div style="background:'+bg+';border:1px solid '+bor+';border-radius:6px;padding:4px 2px;text-align:center">’
++’<div style="font-size:7px;font-weight:700;color:'+(d.isSab?'#1CC9A8':d.isDom?'#9B6DFF':'#6A5840')+';margin-bottom:3px">’+WN_S[di]+’</div>’
++’<div style="height:28px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:3px">’+barH+’</div>’
++’<div style="font-size:8px;font-weight:700;color:'+valCol+'">’+valTxt+’</div>’
++’</div>’;
+}).join(’’);
+const fatColor=sem.fat>=2500?’#1CC9A8’:’#F26040’;
+return ‘<div style="background:#1E1912;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;margin-bottom:8px">’
++’<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">’
++’<div style="font-size:10px;font-weight:600;color:#A89880">’+sem.label+’</div>’
++’<span style="font-size:13px;font-weight:800;color:'+fatColor+'">’+(sem.fat>0?‘R$’+sem.fat.toLocaleString(‘pt-BR’):’—’)+’</span>’
++’</div>’
++’<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px">’+rowDias+’</div>’
++’</div>’;
 }).join(’’);
 })();
 
@@ -1594,90 +1609,80 @@ Chart.defaults.color='#6A5840';
 // ALERTA DE ESTOQUE — tela inicial
 // ══════════════════════════════════════════════════════
 (function renderEstoque(){
-  const el=document.getElementById('estoque-alertas');
+  var el=document.getElementById('estoque-alertas');
   if(!el) return;
-
-const ultimaVenda=vendas.length>0?vendas[vendas.length-1].d:‘26/03’;
-const partes=ultimaVenda.split(’/’);
-const hoje=new Date(2026,parseInt(partes[1])-1,parseInt(partes[0]));
-
-// Próxima sexta-feira
-const proximaSexta=(function(){
-const d=new Date(hoje); d.setDate(hoje.getDate()+1);
-while(d.getDay()!==5) d.setDate(d.getDate()+1);
-return d;
-})();
-// Próximo domingo (fim do FDS da sexta)
-const proximoDomingo=new Date(proximaSexta);
-proximoDomingo.setDate(proximaSexta.getDate()+2);
-const diasAteSexta=Math.round((proximaSexta-hoje)/(1000*60*60*24));
-const diasAteDomingo=Math.round((proximoDomingo-hoje)/(1000*60*60*24));
-
-// % FDS calculado internamente (usado só na lógica, não exibido)
-const wdV=[0,0,0,0,0,0,0], wdC=[0,0,0,0,0,0,0];
-vendas.forEach(r=>{wdV[r.wd]+=r.fat; wdC[r.wd]++;});
-const wdAvg=wdV.map((s,i)=>wdC[i]>0?s/wdC[i]:0);
-const fatSem=wdAvg.reduce((a,b)=>a+b,0);
-// Sexta + Sáb + Dom como % do total (wd4=Sex, wd5=Sáb, wd6=Dom)
-const fatFSD=(wdAvg[4]||0)+(wdAvg[5]||0)+(wdAvg[6]||0);
-const pctFSD=fatSem>0?fatFSD/fatSem:0.5;
-
-// Agrupar compras por item
-const itens={};
-compras.forEach(c=>{
-if(c.cat!==‘Insumo’&&c.cat!==‘Topping’) return;
-const key=c.item.toLowerCase().trim();
-if(!itens[key]) itens[key]={nome:c.item,cat:c.cat,compras:[]};
-if(c.d){
-const p=c.d.split(’/’);
-const dt=new Date(2026,parseInt(p[1])-1,parseInt(p[0]));
-itens[key].compras.push({dt,val:c.val,qty:c.qty||1});
-}
-});
-
-const alertas=[];
-Object.values(itens).forEach(it=>{
-if(it.compras.length<2) return;
-const sorted=it.compras.sort((a,b)=>a.dt-b.dt);
-const datas=sorted.map(c=>c.dt);
-const intervalos=[];
-for(let i=1;i<datas.length;i++) intervalos.push((datas[i]-datas[i-1])/(1000*60*60*24));
-const freqMedia=Math.round(intervalos.reduce((s,v)=>s+v,0)/intervalos.length);
-const ultimaCompra=datas[datas.length-1];
-const diasDesde=Math.round((hoje-ultimaCompra)/(1000*60*60*24));
-const diasRestantes=freqMedia-diasDesde;
-// Compra de sexta: item vai acabar antes do domingo que fecha o FDS
-const urgenciaSexta=diasRestantes>0&&diasRestantes<=diasAteDomingo;
-// Sugestão de qty: média + extra proporcional ao peso de Sex+Sáb+Dom
-const qtyMedia=sorted.reduce((s,c)=>s+c.qty,0)/sorted.length;
-const qtySugerida=Math.ceil(qtyMedia*(1+pctFSD*0.5));
-const dd=ultimaCompra.getDate().toString().padStart(2,‘0’);
-const mm=(ultimaCompra.getMonth()+1).toString().padStart(2,‘0’);
-alertas.push({nome:it.nome,freq:freqMedia,ultimaCompra:`${dd}/${mm}`,diasDesde,diasRestantes,urgenciaSexta,qtySugerida,qtyMedia:Math.round(qtyMedia)});
-});
-
-alertas.sort((a,b)=>a.diasRestantes-b.diasRestantes);
-
-const vermelhos=alertas.filter(a=>a.diasRestantes<=0);
-const sexta=alertas.filter(a=>a.diasRestantes>0&&a.urgenciaSexta);
-const amarelos=alertas.filter(a=>a.diasRestantes>0&&!a.urgenciaSexta&&a.diasRestantes<=5);
-const verdes=alertas.filter(a=>a.diasRestantes>5&&!a.urgenciaSexta);
-
-if(!alertas.length){el.innerHTML=’<div style="font-size:11px;color:var(--t3);padding:8px">Sem dados suficientes.</div>’;return;}
-
-const renderItem=(a,cor,bg,bor,extra=’’)=>` <div style="background:${bg};border:1px solid ${bor};border-radius:8px;padding:9px 12px"> <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"> <div style="flex:1"> <div style="font-size:11px;font-weight:700;color:var(--t1)">${a.nome}</div> <div style="font-size:10px;color:var(--t3);margin-top:2px">Ciclo ~${a.freq}d · última ${a.ultimaCompra} · ${a.diasDesde}d atrás</div> ${extra} </div> <div style="text-align:right;flex-shrink:0"> <div style="font-size:13px;font-weight:800;color:${cor}">${a.diasRestantes<=0?'AGORA':a.diasRestantes===1?'Amanhã':'~'+a.diasRestantes+'d'}</div> <div style="font-size:9px;color:var(--t3)">próx. compra</div> </div> </div> </div>`;
-
-const extraSexta=(a)=>`<div style="margin-top:4px;font-size:9px;font-weight:600;color:var(--amber)">🛒 Incluir na compra de sexta · sugestão: ${a.qtySugerida}un</div>`;
-
-let htmlOut=’’;
-if(vermelhos.length) htmlOut+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:6px">🔴 Acabou — comprar agora</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">${vermelhos.map(a=>renderItem(a,'var(--red)','rgba(232,64,64,.08)','rgba(232,64,64,.2)')).join('')}</div>`;
-if(sexta.length) htmlOut+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);margin-bottom:6px">🛒 Comprar na sexta</div><div style="background:rgba(240,160,32,.05);border:1px solid rgba(240,160,32,.2);border-radius:10px;padding:10px;margin-bottom:12px"><div style="font-size:10px;color:var(--t2);margin-bottom:8px;line-height:1.5">Operação abre à noite — a compra de sexta abastece <strong style="color:var(--t1)">sexta, sábado e domingo</strong>.</div><div style="display:flex;flex-direction:column;gap:5px">${sexta.map(a=>renderItem(a,'var(--amber)','rgba(240,160,32,.06)','rgba(240,160,32,.15)',extraSexta(a))).join('')}</div></div>`;
-if(amarelos.length) htmlOut+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">🟡 Atenção esta semana</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">${amarelos.map(a=>renderItem(a,'var(--amber)','rgba(240,160,32,.04)','rgba(240,160,32,.12)')).join('')}</div>`;
-if(verdes.length) htmlOut+=`<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:6px">🟢 Estoque ok</div><div style="display:flex;flex-direction:column;gap:5px">${verdes.map(a=>renderItem(a,'var(--teal)','rgba(28,201,168,.05)','rgba(28,201,168,.15)')).join('')}</div>`;
-htmlOut+=`<div style="margin-top:10px;font-size:10px;color:var(--t3);line-height:1.6;padding:8px;background:rgba(255,255,255,.03);border-radius:6px">⚠ Baseado na frequência histórica de reposição. Itens comprados só 1x não aparecem.</div>`;
-el.innerHTML=htmlOut;
+  var ultimaVenda=vendas.length>0?vendas[vendas.length-1].d:'26/03';
+  var partes=ultimaVenda.split('/');
+  var hoje=new Date(2026,parseInt(partes[1])-1,parseInt(partes[0]));
+  var proximaSexta=new Date(hoje);
+  proximaSexta.setDate(hoje.getDate()+1);
+  while(proximaSexta.getDay()!==5) proximaSexta.setDate(proximaSexta.getDate()+1);
+  var proximoDomingo=new Date(proximaSexta);
+  proximoDomingo.setDate(proximaSexta.getDate()+2);
+  var diasAteDomingo=Math.round((proximoDomingo-hoje)/(1000*60*60*24));
+  var wdV=[0,0,0,0,0,0,0],wdC=[0,0,0,0,0,0,0];
+  vendas.forEach(function(r){wdV[r.wd]+=r.fat;wdC[r.wd]++;});
+  var wdAvgE=wdV.map(function(s,i){return wdC[i]>0?s/wdC[i]:0;});
+  var fatFSD=(wdAvgE[4]||0)+(wdAvgE[5]||0)+(wdAvgE[6]||0);
+  var fatSemE=wdAvgE.reduce(function(a,b){return a+b;},0);
+  var pctFSD=fatSemE>0?fatFSD/fatSemE:0.5;
+  var itens={};
+  compras.forEach(function(c){
+    if(c.cat!=='Insumo'&&c.cat!=='Topping') return;
+    var key=c.item.toLowerCase().trim();
+    if(!itens[key]) itens[key]={nome:c.item,compras:[]};
+    if(c.d){
+      var p=c.d.split('/');
+      var dt=new Date(2026,parseInt(p[1])-1,parseInt(p[0]));
+      itens[key].compras.push({dt:dt,val:c.val,qty:c.qty||1});
+    }
+  });
+  var alertas=[];
+  Object.values(itens).forEach(function(it){
+    if(it.compras.length<2) return;
+    var sorted=it.compras.slice().sort(function(a,b){return a.dt-b.dt;});
+    var datas=sorted.map(function(c){return c.dt;});
+    var intervalos=[];
+    for(var i=1;i<datas.length;i++) intervalos.push((datas[i]-datas[i-1])/(1000*60*60*24));
+    var freqMedia=Math.round(intervalos.reduce(function(s,v){return s+v;},0)/intervalos.length);
+    var ultimaCompra=datas[datas.length-1];
+    var diasDesde=Math.round((hoje-ultimaCompra)/(1000*60*60*24));
+    var diasRestantes=freqMedia-diasDesde;
+    var urgenciaSexta=diasRestantes>0&&diasRestantes<=diasAteDomingo;
+    var qtyMedia=sorted.reduce(function(s,c){return s+c.qty;},0)/sorted.length;
+    var qtySugerida=Math.ceil(qtyMedia*(1+pctFSD*0.5));
+    var ultimaD=ultimaCompra.getDate().toString().padStart(2,'0');
+    var ultimaM=(ultimaCompra.getMonth()+1).toString().padStart(2,'0');
+    alertas.push({nome:it.nome,freq:freqMedia,ultimaCompra:ultimaD+'/'+ultimaM,diasDesde:diasDesde,diasRestantes:diasRestantes,urgenciaSexta:urgenciaSexta,qtySugerida:qtySugerida});
+  });
+  alertas.sort(function(a,b){return a.diasRestantes-b.diasRestantes;});
+  var vermelhos=alertas.filter(function(a){return a.diasRestantes<=0;});
+  var sexta=alertas.filter(function(a){return a.diasRestantes>0&&a.urgenciaSexta;});
+  var amarelos=alertas.filter(function(a){return a.diasRestantes>0&&!a.urgenciaSexta&&a.diasRestantes<=5;});
+  var verdes=alertas.filter(function(a){return a.diasRestantes>5&&!a.urgenciaSexta;});
+  if(!alertas.length){el.innerHTML='<div style="font-size:11px;color:#6A5840;padding:8px">Sem dados suficientes.</div>';return;}
+  function renderItem(a,cor,bg,bor,extra){
+    extra=extra||'';
+    return '<div style="background:'+bg+';border:1px solid '+bor+';border-radius:8px;padding:9px 12px;margin-bottom:4px">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">'
+      +'<div style="flex:1">'
+      +'<div style="font-size:11px;font-weight:700;color:#F0EDE8">'+a.nome+'</div>'
+      +'<div style="font-size:10px;color:#6A5840;margin-top:2px">Ciclo ~'+a.freq+'d · última '+a.ultimaCompra+' · '+a.diasDesde+'d atrás</div>'
+      +extra
+      +'</div>'
+      +'<div style="text-align:right;flex-shrink:0">'
+      +'<div style="font-size:13px;font-weight:800;color:'+cor+'">'+(a.diasRestantes<=0?'AGORA':a.diasRestantes===1?'Amanhã':'~'+a.diasRestantes+'d')+'</div>'
+      +'<div style="font-size:9px;color:#6A5840">próx. compra</div>'
+      +'</div></div></div>';
+  }
+  var htmlOut='';
+  if(vermelhos.length) htmlOut+='<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E84040;margin-bottom:6px">🔴 Acabou — comprar agora</div><div style="margin-bottom:12px">'+vermelhos.map(function(a){return renderItem(a,'#E84040','rgba(232,64,64,.08)','rgba(232,64,64,.2)');}).join('')+'</div>';
+  if(sexta.length) htmlOut+='<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#F0A020;margin-bottom:6px">🛒 Comprar na sexta</div><div style="background:rgba(240,160,32,.05);border:1px solid rgba(240,160,32,.2);border-radius:10px;padding:10px;margin-bottom:12px"><div style="font-size:10px;color:#A89880;margin-bottom:8px;line-height:1.5">Operação abre à noite — a compra de sexta abastece <strong style="color:#F0EDE8">sexta, sábado e domingo</strong>.</div>'+sexta.map(function(a){return renderItem(a,'#F0A020','rgba(240,160,32,.06)','rgba(240,160,32,.15)','<div style="margin-top:4px;font-size:9px;font-weight:600;color:#F0A020">Sugestão: '+a.qtySugerida+'un</div>');}).join('')+'</div>';
+  if(amarelos.length) htmlOut+='<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6A5840;margin-bottom:6px">🟡 Atenção esta semana</div><div style="margin-bottom:12px">'+amarelos.map(function(a){return renderItem(a,'#F0A020','rgba(240,160,32,.04)','rgba(240,160,32,.12)');}).join('')+'</div>';
+  if(verdes.length) htmlOut+='<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1CC9A8;margin-bottom:6px">🟢 Estoque ok</div>'+verdes.map(function(a){return renderItem(a,'#1CC9A8','rgba(28,201,168,.05)','rgba(28,201,168,.15)');}).join('');
+  htmlOut+='<div style="margin-top:10px;font-size:10px;color:#6A5840;line-height:1.6;padding:8px;background:rgba(255,255,255,.03);border-radius:6px">⚠ Baseado na frequência histórica. Itens comprados só 1x não aparecem.</div>';
+  el.innerHTML=htmlOut;
 })();
 </script>
-
 </body>
 </html>
