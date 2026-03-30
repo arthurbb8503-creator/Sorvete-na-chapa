@@ -231,8 +231,23 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <div class="nav-tab" data-tab="horarios">⏱ Horários</div>
 <div class="nav-tab" data-tab="custos">🛒 Custos</div>
 <div class="nav-tab" data-tab="gestao">🔍 Gestão</div>
+
+</div>
+<div id="month-control-bar" style="background:var(--bg1);border-bottom:1px solid var(--bor);padding:12px 20px">
+  <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <span style="font-size:10px;color:var(--t3);font-weight:700;letter-spacing:1.2px;text-transform:uppercase">Mês analisado</span>
+      <select id="mesSelecionado" style="background:var(--sur);border:1px solid var(--bor2);color:var(--t1);padding:8px 12px;border-radius:10px;font:600 12px var(--fnt);outline:none"></select>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <span id="status-ultimo-dia" style="font-size:10px;color:var(--t2);background:rgba(255,255,255,.04);border:1px solid var(--bor);padding:6px 10px;border-radius:20px">Último dia lançado: —</span>
+      <span id="status-atualizacao" style="font-size:10px;color:var(--amber);background:rgba(240,160,32,.08);border:1px solid rgba(240,160,32,.18);padding:6px 10px;border-radius:20px">Atualização feita: —</span>
+      <span style="font-size:10px;color:var(--teal);background:rgba(28,201,168,.08);border:1px solid rgba(28,201,168,.18);padding:6px 10px;border-radius:20px">Painel histórico</span>
+    </div>
+  </div>
 </div>
 <!-- ══ ABA: HOJE ══ -->
+
 <div class="pg on" id="tab-operacional">
 <div style="height:16px"></div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0 4px;flex-wrap:wrap;gap:8px">
@@ -543,7 +558,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 // ══════════════════════════════════════════════════════
 // DADOS — atualizados automaticamente pelo Apps Script
 // ══════════════════════════════════════════════════════
-const vendas=[
+let vendas=[
   {d:'02/03',wd:0,fat:495,ext:0,dv:null,maq:2.47,dia:90,luc:402.53,out:null,obs:'',sorv:33,lucro_real:187.98},
   {d:'03/03',wd:1,fat:144,ext:9,dv:173.98,maq:0.85,dia:80,luc:-110.82999999999998,out:null,obs:'',sorv:9,lucro_real:-71},
   {d:'04/03',wd:2,fat:447,ext:0,dv:355.67,maq:2.33,dia:80,luc:8.999999999999984,out:null,obs:'Aluguel',sorv:30,lucro_real:160.17},
@@ -573,7 +588,7 @@ const vendas=[
   {d:'28/03',wd:5,fat:806,ext:20,dv:126.42999999999999,maq:10.48,dia:78,luc:591.09,out:null,obs:'',sorv:52,lucro_real:439.32},
   {d:'29/03',wd:6,fat:505,ext:20,dv:59.900000000000006,maq:7.99,dia:90,luc:347.11,out:null,obs:'',sorv:32,lucro_real:195.81}
 ];
-const compras=[
+let compras=[
   {d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:18.79,qty:1},
   {d:'03/03',item:'Cobertura Morango 1,3kg',cat:'Insumo',val:17.59,qty:1},
   {d:'03/03',item:'Leite 200g',cat:'Insumo',val:51.92,qty:8},
@@ -1716,5 +1731,331 @@ html+=`<div style="margin-top:10px;font-size:10px;color:var(--t3);line-height:1.
 el.innerHTML=html;
 })();
 </script>
+
+<script>
+(function(){
+  const ALL_VENDAS = Array.isArray(vendas) ? JSON.parse(JSON.stringify(vendas)) : [];
+  const ALL_COMPRAS = Array.isArray(compras) ? JSON.parse(JSON.stringify(compras)) : [];
+  const HORARIOS_HTML_ORIGINAL = document.getElementById('tab-horarios') ? document.getElementById('tab-horarios').innerHTML : '';
+  const GESTAO_HTML_ORIGINAL = document.getElementById('tab-gestao') ? document.getElementById('tab-gestao').innerHTML : '';
+  const BASE_MONTH_HORARIOS = '2026-03';
+  let MES_ATUAL = null;
+
+  function pad2(n){ return String(n).padStart(2,'0'); }
+
+  function parseDateAny(val){
+    if(!val) return null;
+    const s = String(val).trim();
+    if(/^(\d{4})-(\d{2})-(\d{2})$/.test(s)){
+      const [,y,m,d] = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      return new Date(Number(y), Number(m)-1, Number(d));
+    }
+    if(/^(\d{2})\/(\d{2})\/(\d{4})$/.test(s)){
+      const [,d,m,y] = s.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      return new Date(Number(y), Number(m)-1, Number(d));
+    }
+    if(/^(\d{2})\/(\d{2})$/.test(s)){
+      const [,d,m] = s.match(/^(\d{2})\/(\d{2})$/);
+      return new Date(2026, Number(m)-1, Number(d));
+    }
+    return null;
+  }
+
+  function getMonthKeyFromVal(val){
+    const dt = parseDateAny(val);
+    if(!dt || isNaN(dt.getTime())) return null;
+    return dt.getFullYear() + '-' + pad2(dt.getMonth()+1);
+  }
+
+  function monthLabel(key){
+    const mapa = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    const [y,m] = String(key).split('-');
+    return (mapa[Number(m)-1] || m) + ' ' + y;
+  }
+
+  function formatDateBR(dt){
+    if(!dt || isNaN(dt.getTime())) return '—';
+    return pad2(dt.getDate()) + '/' + pad2(dt.getMonth()+1) + '/' + dt.getFullYear();
+  }
+
+  function getMonthOptions(){
+    const set = new Set();
+    ALL_VENDAS.forEach(r => { const k = getMonthKeyFromVal(r.d); if(k) set.add(k); });
+    ALL_COMPRAS.forEach(r => { const k = getMonthKeyFromVal(r.d); if(k) set.add(k); });
+    const arr = Array.from(set).sort();
+    return arr;
+  }
+
+  function filterVendasByMonth(key){
+    return ALL_VENDAS.filter(r => getMonthKeyFromVal(r.d) === key);
+  }
+
+  function filterComprasByMonth(key){
+    return ALL_COMPRAS.filter(r => getMonthKeyFromVal(r.d) === key);
+  }
+
+  function getLastVendaDate(arr){
+    if(!arr || !arr.length) return null;
+    return parseDateAny(arr[arr.length-1].d);
+  }
+
+  function getPrevMonthKey(key){
+    const [y,m] = key.split('-').map(Number);
+    const dt = new Date(y, m-1, 1);
+    dt.setMonth(dt.getMonth()-1);
+    return dt.getFullYear() + '-' + pad2(dt.getMonth()+1);
+  }
+
+  function sameDayComparison(monthKey, dayLimit){
+    const atual = filterVendasByMonth(monthKey).filter(r => {
+      const dt = parseDateAny(r.d);
+      return dt && dt.getDate() <= dayLimit;
+    });
+    const anteriorKey = getPrevMonthKey(monthKey);
+    const anterior = filterVendasByMonth(anteriorKey).filter(r => {
+      const dt = parseDateAny(r.d);
+      return dt && dt.getDate() <= dayLimit;
+    });
+    const soma = arr => arr.reduce((s,r)=>s+(r.fat||0),0);
+    const lucro = arr => arr.reduce((s,r)=>s+(r.lucro_real||0),0);
+    const sorv = arr => arr.reduce((s,r)=>s+(r.sorv||0),0);
+    return {
+      atualKey: monthKey,
+      anteriorKey,
+      atualFat: soma(atual),
+      antFat: soma(anterior),
+      atualLuc: lucro(atual),
+      antLuc: lucro(anterior),
+      atualSorv: sorv(atual),
+      antSorv: sorv(anterior),
+      atualDias: atual.length,
+      antDias: anterior.length
+    };
+  }
+
+  function pctDiff(a,b){
+    if(!b) return null;
+    return ((a/b)-1)*100;
+  }
+
+  function pctBadge(v){
+    if(v === null || !isFinite(v)) return '<span style="color:var(--t3)">sem base</span>';
+    const cor = v > 0 ? 'var(--teal)' : v < 0 ? 'var(--red)' : 'var(--amber)';
+    const bg  = v > 0 ? 'rgba(28,201,168,.08)' : v < 0 ? 'rgba(232,64,64,.08)' : 'rgba(240,160,32,.08)';
+    return '<span style="color:'+cor+';background:'+bg+';border:1px solid '+bg.replace('.08','.18')+';padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700">'+(v>0?'+':'')+v.toFixed(1).replace('.',',')+'%</span>';
+  }
+
+  function fmtMoney(v){
+    return 'R$'+Math.round(v||0).toLocaleString('pt-BR');
+  }
+
+  function updateHeaderAndLabels(){
+    const monthSelect = document.getElementById('mesSelecionado');
+    const monthTxt = monthSelect && monthSelect.value ? monthLabel(monthSelect.value) : '—';
+    const hdrSub = document.querySelector('.hdr-sub');
+    if(hdrSub) hdrSub.textContent = 'Caixa · ' + monthTxt;
+    const opTab = document.querySelector('.nav-tab[data-tab="operacional"]');
+    if(opTab) opTab.textContent = '📍 Último dia';
+    const s1 = document.querySelector('#tab-operacional .slbl');
+    if(s1) s1.textContent = 'Último dia registrado';
+    const s2 = document.querySelectorAll('#tab-operacional .slbl')[1];
+    if(s2) s2.textContent = 'Últimas 4 semanas';
+    const s3 = document.querySelectorAll('#tab-operacional .slbl')[2];
+    if(s3) s3.textContent = 'Referência histórica do dia';
+  }
+
+  function ensureMonthComparisonCard(){
+    const tabMes = document.getElementById('tab-mes');
+    if(!tabMes) return null;
+    let card = document.getElementById('comparison-month-card');
+    if(!card){
+      card = document.createElement('div');
+      card.id = 'comparison-month-card';
+      card.className = 'chart-card au';
+      const metaCard = tabMes.querySelector('.meta-card');
+      if(metaCard && metaCard.parentNode){
+        metaCard.parentNode.insertBefore(card, metaCard.nextSibling);
+      } else {
+        tabMes.insertBefore(card, tabMes.firstChild);
+      }
+    }
+    return card;
+  }
+
+  function updateComparisonCard(vendasMes){
+    const card = ensureMonthComparisonCard();
+    if(!card) return;
+    if(!vendasMes.length){
+      card.innerHTML = '<div class="chart-title">Comparação com mês anterior</div><div class="chart-sub">Sem vendas no mês selecionado.</div>';
+      return;
+    }
+    const lastDt = getLastVendaDate(vendasMes);
+    const cmp = sameDayComparison(MES_ATUAL, lastDt.getDate());
+    const fatPct = pctDiff(cmp.atualFat, cmp.antFat);
+    const lucPct = pctDiff(cmp.atualLuc, cmp.antLuc);
+    const sorvPct = pctDiff(cmp.atualSorv, cmp.antSorv);
+    const status = fatPct === null ? 'Sem base anterior' : fatPct > 0 ? '🟢 Acima do mês anterior' : fatPct < 0 ? '🔴 Abaixo do mês anterior' : '🟡 Igual ao mês anterior';
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+        <div>
+          <div class="chart-title" style="margin:0">Comparação com mês anterior</div>
+          <div class="chart-sub" style="margin:4px 0 0">Até o dia ${pad2(lastDt.getDate())} · ${monthLabel(MES_ATUAL)} vs ${monthLabel(cmp.anteriorKey)}</div>
+        </div>
+        <span style="font-size:11px;font-weight:700;color:${fatPct!==null && fatPct>=0 ? 'var(--teal)' : 'var(--red)'}">${status}</span>
+      </div>
+      <div class="kpi-grid cols3" style="margin:0">
+        <div class="kpi"><div class="kpi-accent" style="background:var(--teal)"></div><div class="kpi-lbl">Faturamento</div><div class="kpi-val green">${fmtMoney(cmp.atualFat)}</div><div class="kpi-sub">Anterior: ${fmtMoney(cmp.antFat)} · ${pctBadge(fatPct)}</div></div>
+        <div class="kpi"><div class="kpi-accent" style="background:var(--coral)"></div><div class="kpi-lbl">Lucro Real</div><div class="kpi-val coral">${fmtMoney(cmp.atualLuc)}</div><div class="kpi-sub">Anterior: ${fmtMoney(cmp.antLuc)} · ${pctBadge(lucPct)}</div></div>
+        <div class="kpi"><div class="kpi-accent" style="background:var(--purple)"></div><div class="kpi-lbl">Sorvetes</div><div class="kpi-val purple">${Math.round(cmp.atualSorv||0).toLocaleString('pt-BR')}</div><div class="kpi-sub">Anterior: ${Math.round(cmp.antSorv||0).toLocaleString('pt-BR')} · ${pctBadge(sorvPct)}</div></div>
+      </div>`;
+  }
+
+  function updateHistoricalTop(vendasMes){
+    if(!vendasMes.length) return;
+    const last = vendasMes[vendasMes.length-1];
+    const lastDt = parseDateAny(last.d);
+    const wd = last.wd;
+    const base = vendasMes.filter(r => r.wd === wd);
+    const mediaFat = base.length ? Math.round(base.reduce((s,r)=>s+(r.fat||0),0)/base.length) : Math.round(vendasMes.reduce((s,r)=>s+(r.fat||0),0)/vendasMes.length);
+    const minFat = base.length ? Math.min(...base.map(r=>r.fat||0)) : 0;
+    const maxFat = base.length ? Math.max(...base.map(r=>r.fat||0)) : 0;
+    const hojeLabel = document.getElementById('hoje-dia-label');
+    if(hojeLabel) hojeLabel.textContent = 'Último dia lançado · ' + pad2(lastDt.getDate()) + '/' + pad2(lastDt.getMonth()+1);
+    const prevFat = document.getElementById('prev-fat');
+    if(prevFat) prevFat.textContent = mediaFat.toLocaleString('pt-BR');
+    const prevMin = document.getElementById('prev-min');
+    if(prevMin) prevMin.textContent = (minFat||mediaFat).toLocaleString('pt-BR');
+    const prevMax = document.getElementById('prev-max');
+    if(prevMax) prevMax.textContent = (maxFat||mediaFat).toLocaleString('pt-BR');
+    const confTxt = document.getElementById('conf-txt');
+    if(confTxt) confTxt.textContent = (base.length>=3?75:base.length===2?55:40) + '%';
+    const confFill = document.getElementById('conf-fill');
+    if(confFill) confFill.style.width = (base.length>=3?75:base.length===2?55:40) + '%';
+    const prevPills = document.getElementById('prev-pills');
+    if(prevPills){
+      prevPills.innerHTML = base.map(r => `<span class="hoje-pill ${r.fat===maxFat?'hi':r.fat===minFat?'lo':'mid'}">${r.d} · R$${Math.round(r.fat)}</span>`).join(' ');
+    }
+    const drawer = document.getElementById('prev-drawer-content');
+    if(drawer){
+      drawer.innerHTML = `
+        <div class="drawer-title">Referência do mesmo dia da semana</div>
+        <div class="drawer-row"><span>Último dia lançado</span><span>${last.d} · R$${Math.round(last.fat)}</span></div>
+        <div class="drawer-row"><span>Média da base</span><span>R$${Math.round(mediaFat)}</span></div>
+        <div class="drawer-row"><span>Mínimo</span><span>R$${Math.round(minFat||mediaFat)}</span></div>
+        <div class="drawer-row"><span>Máximo</span><span>R$${Math.round(maxFat||mediaFat)}</span></div>
+        <div class="drawer-insight">Painel histórico: a referência usa o mesmo dia da semana do último lançamento dentro do mês selecionado.</div>`;
+    }
+    const alerta = document.getElementById('alerta-dia-txt');
+    if(alerta){
+      const delta = last.fat - mediaFat;
+      const sinal = delta >= 0 ? 'acima' : 'abaixo';
+      alerta.innerHTML = `Último dia lançado: <strong>${last.d}</strong> com <strong>R$${Math.round(last.fat)}</strong>, ${Math.abs(Math.round(delta))===0?'em linha com':Math.abs(Math.round(delta))+' reais '+sinal+' da'} média histórica do mesmo dia da semana.`;
+    }
+  }
+
+  function updateMetaProjection(vendasMes){
+    if(!vendasMes.length) return;
+    const lastDt = getLastVendaDate(vendasMes);
+    const diasNoMes = new Date(lastDt.getFullYear(), lastDt.getMonth()+1, 0).getDate();
+    const diasComVenda = vendasMes.length;
+    const totalFat = vendasMes.reduce((s,r)=>s+(r.fat||0),0);
+    const proj = diasComVenda ? Math.round((totalFat / diasComVenda) * diasNoMes) : 0;
+    const metaSub = document.getElementById('meta-sub');
+    if(metaSub){
+      metaSub.innerHTML = `Lançado até <strong>${pad2(lastDt.getDate())}/${pad2(lastDt.getMonth()+1)}</strong> · projeção do mês: <strong>R$${proj.toLocaleString('pt-BR')}</strong>`;
+    }
+  }
+
+  function updateStatusChips(vendasMes){
+    const lastDt = getLastVendaDate(vendasMes);
+    const statusUlt = document.getElementById('status-ultimo-dia');
+    const statusAtual = document.getElementById('status-atualizacao');
+    const lastUpdated = document.getElementById('lastUpdated');
+    if(statusUlt) statusUlt.textContent = 'Último dia lançado: ' + (lastDt ? formatDateBR(lastDt) : '—');
+    if(statusAtual) statusAtual.textContent = 'Atualização feita: ' + (lastUpdated ? lastUpdated.textContent.replace(/^🕐\s*/,'') : '—');
+  }
+
+  function updateGestaoNotice(){
+    const tab = document.getElementById('tab-gestao');
+    if(!tab) return;
+    let note = document.getElementById('gestao-month-note');
+    if(!note){
+      note = document.createElement('div');
+      note.id = 'gestao-month-note';
+      note.className = 'alert-card warn';
+      note.style.marginBottom = '12px';
+      tab.insertBefore(note, tab.firstChild.nextSibling || tab.firstChild);
+    }
+    note.innerHTML = '<div class="alert-title">ℹ Escopo desta aba</div><div class="alert-items"><div class="alert-item"><span class="ai-txt">Posição Financeira usa os saldos atuais lançados na planilha. Os registros de vendas abaixo respeitam o mês selecionado.</span></div></div>';
+  }
+
+  function updateHorariosTab(){
+    const tab = document.getElementById('tab-horarios');
+    if(!tab) return;
+    if(MES_ATUAL !== BASE_MONTH_HORARIOS){
+      tab.innerHTML = `
+        <div style="height:16px"></div>
+        <div class="alert-card warn">
+          <div class="alert-title">⏱ Dados horários indisponíveis neste mês</div>
+          <div class="alert-items">
+            <div class="alert-item"><span class="ai-txt">A aba de horários ainda usa a carga específica disponível para ${monthLabel(BASE_MONTH_HORARIOS)}. Para ${monthLabel(MES_ATUAL)}, o restante do dashboard funciona normalmente, mas os horários precisam ser publicados também no script.</span></div>
+          </div>
+        </div>`;
+    } else {
+      if(HORARIOS_HTML_ORIGINAL && !tab.querySelector('#top10-horas')){
+        tab.innerHTML = HORARIOS_HTML_ORIGINAL;
+      }
+      if(typeof renderHorarios === 'function') renderHorarios();
+    }
+  }
+
+  function rerenderMonth(){
+    vF = [...vendas];
+    cF = [...compras];
+    vP = 1; cP = 1;
+    if(typeof rV === 'function') rV();
+    if(typeof rC === 'function') rC();
+    if(typeof renderGraficos === 'function') renderGraficos();
+    if(typeof renderCustos === 'function') renderCustos();
+    updateHorariosTab();
+    updateGestaoNotice();
+    updateHeaderAndLabels();
+    updateStatusChips(vendas);
+    updateHistoricalTop(vendas);
+    updateComparisonCard(vendas);
+    updateMetaProjection(vendas);
+  }
+
+  function populateMonthSelect(){
+    const sel = document.getElementById('mesSelecionado');
+    if(!sel) return;
+    const opts = getMonthOptions();
+    sel.innerHTML = opts.map(k => `<option value="${k}">${monthLabel(k)}</option>`).join('');
+
+    const hoje = new Date();
+    const mesAtualReal = hoje.getFullYear() + '-' + pad2(hoje.getMonth()+1);
+
+    MES_ATUAL = opts.includes(mesAtualReal) ? mesAtualReal : (opts[opts.length-1] || null);
+
+    if(MES_ATUAL) sel.value = MES_ATUAL;
+
+    sel.addEventListener('change', function(){
+      MES_ATUAL = this.value;
+      vendas = filterVendasByMonth(MES_ATUAL);
+      compras = filterComprasByMonth(MES_ATUAL);
+      rerenderMonth();
+    });
+
+    if(MES_ATUAL){
+      vendas = filterVendasByMonth(MES_ATUAL);
+      compras = filterComprasByMonth(MES_ATUAL);
+      rerenderMonth();
+    }
+  }
+
+  populateMonthSelect();
+})();
+</script>
+
 </body>
 </html>
