@@ -554,34 +554,34 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 // DADOS — atualizados automaticamente pelo Apps Script
 // ══════════════════════════════════════════════════════
 const vendas=[
-  {d:'02/03',wd:0,fat:495.0,ext:0.0,dv:null,maq:2.47,dia:90.0,luc:402.53,out:null,obs:'',sorv:33,lucro_real:187.98},
-  {d:'03/03',wd:1,fat:144.0,ext:9.0,dv:null,maq:0.85,dia:80.0,luc:63.15,out:null,obs:'',sorv:9,lucro_real:-71.0},
-  {d:'04/03',wd:2,fat:447.0,ext:0.0,dv:null,maq:2.33,dia:80.0,luc:364.67,out:null,obs:'Aluguel',sorv:30,lucro_real:160.17},
-  {d:'05/03',wd:3,fat:330.0,ext:15.0,dv:null,maq:1.56,dia:80.0,luc:248.44,out:null,obs:'',sorv:21,lucro_real:74.09},
-  {d:'06/03',wd:4,fat:747.0,ext:0.0,dv:null,maq:2.0,dia:80.0,luc:665.0,out:null,obs:'',sorv:50,lucro_real:393.5},
-  {d:'07/03',wd:5,fat:615.0,ext:0.0,dv:null,maq:2.7,dia:80.0,luc:532.3,out:null,obs:'',sorv:41,lucro_real:290.95},
-  {d:'08/03',wd:6,fat:408.0,ext:0.0,dv:null,maq:1.93,dia:110.0,luc:296.07,out:null,obs:'',sorv:27,lucro_real:101.62},
-  {d:'09/03',wd:0,fat:440.0,ext:5.0,dv:null,maq:1.78,dia:80.0,luc:358.22,out:null,obs:'',sorv:29,lucro_real:157.07},
-  {d:'10/03',wd:1,fat:505.0,ext:10.0,dv:null,maq:3.38,dia:90.0,luc:411.62,out:null,obs:'',sorv:33,lucro_real:197.07},
-  {d:'11/03',wd:2,fat:575.0,ext:0.0,dv:null,maq:3.39,dia:70.0,luc:501.61,out:780.0,obs:'Aluguel',sorv:38,lucro_real:270.31},
-  {d:'12/03',wd:3,fat:730.0,ext:65.0,dv:null,maq:3.02,dia:83.0,luc:643.98,out:null,obs:'',sorv:44,lucro_real:392.58},
-  {d:'13/03',wd:4,fat:520.0,ext:25.0,dv:null,maq:2.6,dia:80.0,luc:437.4,out:null,obs:'',sorv:33,lucro_real:222.85},
-  {d:'14/03',wd:5,fat:640.0,ext:35.0,dv:null,maq:2.54,dia:77.0,luc:560.46,out:null,obs:'',sorv:40,lucro_real:322.46},
-  {d:'15/03',wd:6,fat:500.0,ext:20.0,dv:null,maq:2.33,dia:74.0,luc:423.67,out:null,obs:'',sorv:32,lucro_real:212.47},
-  {d:'16/03',wd:0,fat:340.0,ext:55.0,dv:null,maq:1.91,dia:81.0,luc:257.09,out:null,obs:'',sorv:19,lucro_real:89.44},
-  {d:'17/03',wd:1,fat:335.0,ext:5.0,dv:null,maq:1.53,dia:90.0,luc:243.47,out:null,obs:'',sorv:22,lucro_real:65.77},
-  {d:'18/03',wd:2,fat:525.0,ext:30.0,dv:null,maq:2.32,dia:76.0,luc:446.68,out:780.0,obs:'Aluguel',sorv:33,lucro_real:232.13},
-  {d:'19/03',wd:3,fat:345.0,ext:25.0,dv:null,maq:1.48,dia:75.0,luc:268.52,out:null,obs:'',sorv:21,lucro_real:94.17},
-  {d:'20/03',wd:4,fat:510.0,ext:15.0,dv:null,maq:9.1,dia:73.0,luc:427.9,out:null,obs:'Empréstimo',sorv:33,lucro_real:213.35},
-  {d:'21/03',wd:5,fat:775.0,ext:50.0,dv:null,maq:11.88,dia:80.0,luc:683.12,out:null,obs:'',sorv:48,lucro_real:418.32},
-  {d:'22/03',wd:6,fat:670.0,ext:15.0,dv:null,maq:9.78,dia:73.0,luc:587.22,out:null,obs:'',sorv:44,lucro_real:335.82},
-  {d:'23/03',wd:0,fat:240.0,ext:30.0,dv:null,maq:3.02,dia:126.0,luc:110.98,out:null,obs:'',sorv:14,lucro_real:-39.92},
-  {d:'24/03',wd:1,fat:510.0,ext:0.0,dv:null,maq:6.43,dia:90.0,luc:413.57,out:null,obs:'',sorv:34,lucro_real:195.67},
-  {d:'25/03',wd:2,fat:500.0,ext:20.0,dv:null,maq:6.9,dia:74.0,luc:419.1,out:780.0,obs:'Aluguel',sorv:32,lucro_real:207.9},
-  {d:'26/03',wd:3,fat:430.0,ext:20.0,dv:null,maq:3.29,dia:74.0,luc:352.71,out:null,obs:'',sorv:27,lucro_real:158.26},
-  {d:'27/03',wd:4,fat:435.0,ext:40.0,dv:null,maq:7.31,dia:78.0,luc:349.69,out:null,obs:'',sorv:26,lucro_real:158.59},
-  {d:'28/03',wd:5,fat:806.0,ext:20.0,dv:null,maq:10.48,dia:78.0,luc:717.52,out:null,obs:'',sorv:52,lucro_real:439.32},
-  {d:'29/03',wd:6,fat:505.0,ext:20.0,dv:null,maq:7.99,dia:90.0,luc:407.01,out:null,obs:'',sorv:32,lucro_real:195.81}
+  {d:'02/03',wd:0,fat:495,ext:0,dv:null,maq:2.47,dia:90,luc:402.53,out:null,obs:'',sorv:33,lucro_real:187.98},
+  {d:'03/03',wd:1,fat:144,ext:9,dv:null,maq:0.85,dia:80,luc:63.15,out:null,obs:'',sorv:9,lucro_real:-71.0},
+  {d:'04/03',wd:2,fat:447,ext:0,dv:null,maq:2.33,dia:80,luc:364.67,out:null,obs:'Aluguel',sorv:30,lucro_real:160.17},
+  {d:'05/03',wd:3,fat:330,ext:15,dv:null,maq:1.56,dia:80,luc:248.44,out:null,obs:'',sorv:21,lucro_real:74.09},
+  {d:'06/03',wd:4,fat:747,ext:0,dv:null,maq:2.0,dia:80,luc:665.0,out:null,obs:'',sorv:50,lucro_real:393.5},
+  {d:'07/03',wd:5,fat:615,ext:0,dv:null,maq:2.7,dia:80,luc:532.3,out:null,obs:'',sorv:41,lucro_real:290.95},
+  {d:'08/03',wd:6,fat:408,ext:0,dv:null,maq:1.93,dia:110,luc:296.07,out:null,obs:'',sorv:27,lucro_real:101.62},
+  {d:'09/03',wd:0,fat:440,ext:5,dv:null,maq:1.78,dia:80,luc:358.22,out:null,obs:'',sorv:29,lucro_real:157.07},
+  {d:'10/03',wd:1,fat:505,ext:10,dv:null,maq:3.38,dia:90,luc:411.62,out:null,obs:'',sorv:33,lucro_real:197.07},
+  {d:'11/03',wd:2,fat:575,ext:0,dv:null,maq:3.39,dia:70,luc:501.61,out:780,obs:'Aluguel',sorv:38,lucro_real:270.31},
+  {d:'12/03',wd:3,fat:730,ext:65,dv:null,maq:3.02,dia:83,luc:643.98,out:null,obs:'',sorv:44,lucro_real:392.58},
+  {d:'13/03',wd:4,fat:520,ext:25,dv:null,maq:2.6,dia:80,luc:437.4,out:null,obs:'',sorv:33,lucro_real:222.85},
+  {d:'14/03',wd:5,fat:640,ext:35,dv:null,maq:2.54,dia:77,luc:560.46,out:null,obs:'',sorv:40,lucro_real:322.46},
+  {d:'15/03',wd:6,fat:500,ext:20,dv:null,maq:2.33,dia:74,luc:423.67,out:null,obs:'',sorv:32,lucro_real:212.47},
+  {d:'16/03',wd:0,fat:340,ext:55,dv:null,maq:1.91,dia:81,luc:257.09,out:null,obs:'',sorv:19,lucro_real:89.44},
+  {d:'17/03',wd:1,fat:335,ext:5,dv:null,maq:1.53,dia:90,luc:243.47,out:null,obs:'',sorv:22,lucro_real:65.77},
+  {d:'18/03',wd:2,fat:525,ext:30,dv:null,maq:2.32,dia:76,luc:446.68,out:780,obs:'Aluguel',sorv:33,lucro_real:232.13},
+  {d:'19/03',wd:3,fat:345,ext:25,dv:null,maq:1.48,dia:75,luc:268.52,out:null,obs:'',sorv:21,lucro_real:94.17},
+  {d:'20/03',wd:4,fat:510,ext:15,dv:null,maq:9.1,dia:73,luc:427.9,out:null,obs:'Empréstimo',sorv:33,lucro_real:213.35},
+  {d:'21/03',wd:5,fat:775,ext:50,dv:null,maq:11.88,dia:80,luc:683.12,out:null,obs:'',sorv:48,lucro_real:418.32},
+  {d:'22/03',wd:6,fat:670,ext:15,dv:null,maq:9.78,dia:73,luc:587.22,out:null,obs:'',sorv:44,lucro_real:335.82},
+  {d:'23/03',wd:0,fat:240,ext:30,dv:null,maq:3.02,dia:126,luc:110.98,out:null,obs:'',sorv:14,lucro_real:-39.92},
+  {d:'24/03',wd:1,fat:510,ext:0,dv:null,maq:6.43,dia:90,luc:413.57,out:null,obs:'',sorv:34,lucro_real:195.67},
+  {d:'25/03',wd:2,fat:500,ext:20,dv:null,maq:6.9,dia:74,luc:419.1,out:780,obs:'Aluguel',sorv:32,lucro_real:207.9},
+  {d:'26/03',wd:3,fat:430,ext:20,dv:null,maq:3.29,dia:74,luc:352.71,out:null,obs:'',sorv:27,lucro_real:158.26},
+  {d:'27/03',wd:4,fat:435,ext:40,dv:null,maq:7.31,dia:78,luc:349.69,out:null,obs:'',sorv:26,lucro_real:158.59},
+  {d:'28/03',wd:5,fat:806,ext:20,dv:null,maq:10.48,dia:78,luc:717.52,out:null,obs:'',sorv:52,lucro_real:439.32},
+  {d:'29/03',wd:6,fat:505,ext:20,dv:null,maq:7.99,dia:90,luc:407.01,out:null,obs:'',sorv:32,lucro_real:195.81}
 ];
 const compras=[
 {d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:18.79,qty:1},
@@ -706,9 +706,9 @@ var dias = [];
 for (d = 0; d < 7; d++) {
 var dt = new Date(seg);
 dt.setDate(seg.getDate() + d);
-var dd = dt.getDate() < 10 ? ‘0’+dt.getDate() : ‘’+dt.getDate();
-var mm = (dt.getMonth()+1) < 10 ? ‘0’+(dt.getMonth()+1) : ‘’+(dt.getMonth()+1);
-var key = dd + ‘/’ + mm;
+var dd2 = dt.getDate() < 10 ? ‘0’+dt.getDate() : ‘’+dt.getDate();
+var mm2 = (dt.getMonth()+1) < 10 ? ‘0’+(dt.getMonth()+1) : ‘’+(dt.getMonth()+1);
+var key = dd2 + ‘/’ + mm2;
 var venda = null;
 for (vi = 0; vi < vArr.length; vi++) {
 if (vArr[vi].d === key) { venda = vArr[vi]; break; }
@@ -723,7 +723,6 @@ var inicio = dias[0].key.split(’/’)[0];
 var fim = dias[6].key;
 semanas.push({ dias: dias, fat: fat, label: inicio + ‘-’ + fim });
 }
-// Máximos para escala
 var maxDia = 1, maxFat = 1;
 for (si = 0; si < semanas.length; si++) {
 if (semanas[si].fat > maxFat) maxFat = semanas[si].fat;
@@ -732,7 +731,6 @@ if (semanas[si].dias[di].venda && semanas[si].dias[di].venda.fat > maxDia)
 maxDia = semanas[si].dias[di].venda.fat;
 }
 }
-// Cabeçalho
 var header = ‘<div style="display:grid;grid-template-columns:66px repeat(7,1fr);gap:3px;margin-bottom:5px">’;
 header += ‘<div></div>’;
 for (d = 0; d < 7; d++) {
@@ -740,7 +738,6 @@ var lc = d===5 ? ‘#1CC9A8’ : d===6 ? ‘#9B6DFF’ : ‘#6A5840’;
 header += ‘<div style="text-align:center;font-size:7px;font-weight:700;color:'+lc+'">’+WN[d]+’</div>’;
 }
 header += ‘</div>’;
-// Linhas — w=1 primeiro (mais recente)
 var rows = ‘’;
 for (si = 0; si < semanas.length; si++) {
 var sem = semanas[si];
@@ -751,16 +748,19 @@ var cells = ‘’;
 for (di = 0; di < sem.dias.length; di++) {
 var d2 = sem.dias[di];
 var fat2 = d2.venda ? d2.venda.fat : 0;
-var pct = fat2 > 0 ? Math.round(fat2 / maxDia * 100) : 0;
-if (pct < 5 && fat2 > 0) pct = 5;
+var pct2 = fat2 > 0 ? Math.round(fat2 / maxDia * 100) : 0;
+if (pct2 < 5 && fat2 > 0) pct2 = 5;
 var cor = d2.isSab ? ‘#1CC9A8’ : d2.isDom ? ‘#9B6DFF’ : fat2 >= 500 ? ‘#F26040’ : ‘rgba(255,255,255,.28)’;
-var bg  = d2.isSab ? ‘rgba(28,201,168,.07)’ : d2.isDom ? ‘rgba(155,109,255,.07)’ : ‘rgba(255,255,255,.02)’;
+var bg2 = d2.isSab ? ‘rgba(28,201,168,.07)’ : d2.isDom ? ‘rgba(155,109,255,.07)’ : ‘rgba(255,255,255,.02)’;
 var bor = d2.isSab ? ‘rgba(28,201,168,.2)’ : d2.isDom ? ‘rgba(155,109,255,.2)’ : ‘rgba(255,255,255,.07)’;
-var bar = fat2 > 0
-? ‘<div style="width:65%;border-radius:2px 2px 0 0;height:'+pct+'%;background:'+cor+';min-height:3px"></div>’
-: ‘<div style="width:65%;height:2px;background:rgba(255,255,255,.06);border-radius:2px"></div>’;
+var bar;
+if (fat2 > 0) {
+bar = ‘<div style="width:65%;border-radius:2px 2px 0 0;height:'+pct2+'%;background:'+cor+';min-height:3px"></div>’;
+} else {
+bar = ‘<div style="width:65%;height:2px;background:rgba(255,255,255,.06);border-radius:2px"></div>’;
+}
 var val = fat2 > 0 ? ‘R$’+fat2 : ‘—’;
-cells += ‘<div style="background:'+bg+';border:1px solid '+bor+';border-radius:5px;padding:3px 1px;text-align:center">’
+cells += ‘<div style="background:'+bg2+';border:1px solid '+bor+';border-radius:5px;padding:3px 1px;text-align:center">’
 + ‘<div style="height:22px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:2px">’+bar+’</div>’
 + ‘<div style="font-size:7px;font-weight:700;color:'+(fat2>0?cor:'#6A5840')+'">’+val+’</div>’
 + ‘</div>’;
