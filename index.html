@@ -271,7 +271,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <div class="alert-title">🟡 Atenção para hoje</div>
 <div class="alert-items">
 <div class="alert-item"><span class="ai-txt" id="alerta-dia-txt">Carregando...</span></div>
-<div class="alert-item"><span class="ai-txt">Nova tarifa de maquininha vigente desde 20/03. Custo estimado: <strong>~R$8–12/dia</strong>.</span></div>
+<div class="alert-item"><span class="ai-txt">Nova tarifa de maquininha vigente desde 20/03. Custo estimado: <strong>~R$8-12/dia</strong>.</span></div>
 </div>
 </div>
 <div class="slbl au5">📦 Estoque — Próximas Reposições</div>
@@ -324,7 +324,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <div class="drawer-row"><span>− Despesa Variável (D)</span><span id="dr-luc-dv">—</span></div>
 <div class="drawer-row"><span>− Tx Maquininha (E)</span><span id="dr-luc-maq">—</span></div>
 <div class="drawer-row"><span>− Diárias (F)</span><span id="dr-luc-dia">—</span></div>
-<div class="drawer-row"><span>− Outros — aluguel, potes… (H)</span><span id="dr-luc-out">—</span></div>
+<div class="drawer-row"><span>− Outros — aluguel, potes... (H)</span><span id="dr-luc-out">—</span></div>
 <div class="drawer-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:4px;padding-top:8px"><span><strong>Lucro real</strong></span><span><strong id="dr-luc-total">—</strong></span></div>
 <div class="drawer-row"><span>Margem</span><span id="dr-luc-marg">—</span></div>
 <div class="drawer-insight">⚠ A coluna G da planilha não desconta a col H (Outros). Correto: Fat − D − E − F − H.</div>
@@ -343,7 +343,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <div class="drawer-row"><span>Desp. Variável (D)</span><span id="dr-desp-dv">—</span></div>
 <div class="drawer-row"><span>Tx Maquininha (E)</span><span id="dr-desp-maq">—</span></div>
 <div class="drawer-row"><span>Diárias (F)</span><span id="dr-desp-dia">—</span></div>
-<div class="drawer-row"><span>Outros — aluguel, potes… (H)</span><span id="dr-desp-out">—</span></div>
+<div class="drawer-row"><span>Outros — aluguel, potes... (H)</span><span id="dr-desp-out">—</span></div>
 <div class="drawer-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:4px;padding-top:8px"><span><strong>Total</strong></span><span><strong id="dr-desp-total">—</strong></span></div>
 <div class="drawer-insight">A col H inclui aluguel (R$780×semana), potes e outros lançamentos avulsos.</div>
 </div>
@@ -408,7 +408,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 </div>
 <div class="chart-card au4">
 <div class="chart-title">⚡ Taxa Maquininha por Dia</div>
-<div class="chart-sub">Subiu em 20–22/03 — nova tarifa vigente a partir de agora</div>
+<div class="chart-sub">Subiu em 20-22/03 — nova tarifa vigente a partir de agora</div>
 <canvas id="cMaq" height="120"></canvas>
 </div>
 <div class="wd-wrap au5">
@@ -447,16 +447,16 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <div style="background:rgba(155,109,255,.1);border:1px solid rgba(155,109,255,.2);border-radius:10px;padding:8px 14px;text-align:center"><div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(155,109,255,.7);margin-bottom:4px">Média top 10</div><div style="font-size:22px;font-weight:800;color:#9B6DFF">R$193</div><div style="font-size:10px;color:var(--t3)">~9 vendas/h</div></div>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px" id="top10-horas"></div>
-<div style="margin-top:12px;background:rgba(242,96,64,.06);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--t2);line-height:1.7">💡 Operando 3,5h/dia no pico (19h–22h30), potencial teórico ~R$700–750/dia — já atingido em 21/03 (R$775).</div>
+<div style="margin-top:12px;background:rgba(242,96,64,.06);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--t2);line-height:1.7">💡 Operando 3,5h/dia no pico (19h-22h30), potencial teórico ~R$700-750/dia — já atingido em 21/03 (R$775).</div>
 </div>
 <div class="chart-card au3">
 <div class="chart-title">⏱ Faturamento por Hora</div>
-<div class="chart-sub">Total acumulado · pico 20h–21h = 60%</div>
+<div class="chart-sub">Total acumulado · pico 20h-21h = 60%</div>
 <canvas id="cHoras" height="160"></canvas>
 </div>
 <div class="chart-card au4">
 <div class="chart-title">🔍 Vendas por Faixa de 30min</div>
-<div class="chart-sub">Janela de ouro: 20h–21h30 = 46% do total</div>
+<div class="chart-sub">Janela de ouro: 20h-21h30 = 46% do total</div>
 <canvas id="cFaixas" height="155"></canvas>
 </div>
 <div class="slbl au4">Mix de Pagamento</div>
@@ -494,17 +494,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <div class="kpi-val green" id="c-total-geral">—</div>
 <div class="kpi-sub" id="c-total-geral-sub">—</div>
 </div>
-</div>
-<div class="kpi" onclick="toggleDrawer('d-manutencao',this)">
-<div class="kpi-accent" style="background:var(--amber)"></div>
-<div class="kpi-lbl">Manutenção</div>
-<div class="kpi-val amber" id="c-manut">—</div>
-<div class="kpi-sub">Limpeza e conservação</div>
-<div class="btn-expand"><span class="arr">›</span> Detalhar</div>
-<div class="drawer" id="d-manutencao"></div>
-</div>
-</div>
-<div class="slbl au3">Top Gastos</div>
+</div><div class="slbl au3">Top Gastos</div>
 <div class="chart-card au2"><div class="chart-title">🏆 Por Item</div><div class="chart-sub">Excluindo equipamentos e ajustes</div><div class="bar-list" id="barList" style="margin-top:8px"></div></div>
 <div class="chart-card au3"><div class="chart-title">🥧 Por Categoria</div><div class="chart-sub">Distribuição do custo operacional</div><canvas id="cCats" height="180"></canvas></div>
 <div class="slbl au4">Alertas de Custo</div>
@@ -512,7 +502,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <div class="slbl">Todas as Compras</div>
 <div class="tbl-wrap">
 <div class="tbl-hdr"><div class="tbl-title">Detalhamento de Notas</div><div style="display:flex;gap:8px;align-items:center"><span style="font-size:10px;color:var(--t3)">🔵 equip &nbsp;🟡 ajuste</span><div class="tbl-cnt" id="tcnt-c">—</div></div></div>
-<div class="srch-wrap"><span style="color:var(--t3)">🔍</span><input id="srch-c" placeholder="Buscar item ou data…"></div>
+<div class="srch-wrap"><span style="color:var(--t3)">🔍</span><input id="srch-c" placeholder="Buscar item ou data..."></div>
 <div class="tbl-scroll"><table><thead><tr><th data-tbl="c" data-c="0">Data ↕</th><th data-tbl="c" data-c="1">Item ↕</th><th data-tbl="c" data-c="2">Categoria</th><th data-tbl="c" data-c="3">Valor ↕</th><th>Obs.</th></tr></thead><tbody id="tbody-c"></tbody></table></div>
 <div class="pag" id="pag-c"></div>
 </div>
@@ -536,7 +526,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <div class="slbl au2">Registro de Caixa</div>
 <div class="tbl-wrap au2">
 <div class="tbl-hdr"><div class="tbl-title">Histórico de Vendas</div><div style="display:flex;gap:8px;align-items:center"><span style="font-size:10px;color:var(--t3)">🏠 aluguel &nbsp;🟡 tx↑ &nbsp;🔴 prejuízo</span><div class="tbl-cnt" id="tcnt-v">—</div></div></div>
-<div class="srch-wrap"><span style="color:var(--t3)">🔍</span><input id="srch-v" placeholder="Data ou observação…"></div>
+<div class="srch-wrap"><span style="color:var(--t3)">🔍</span><input id="srch-v" placeholder="Data ou observação..."></div>
 <div class="tbl-scroll"><table><thead><tr><th data-tbl="v" data-c="0">Data ↕</th><th>Dia</th><th data-tbl="v" data-c="1">Fat. ↕</th><th data-tbl="v" data-c="2">Extras ↕</th><th>Sorv.</th><th data-tbl="v" data-c="3">DV ↕</th><th data-tbl="v" data-c="4">Maq. ↕</th><th data-tbl="v" data-c="5">Diária ↕</th><th>Outros</th><th data-tbl="v" data-c="6">Lucro Real ↕</th><th>Obs.</th></tr></thead><tbody id="tbody-v"></tbody></table></div>
 <div class="pag" id="pag-v"></div>
 </div>
@@ -701,12 +691,12 @@ if(t.dataset.tab==='horarios') renderHorarios();
 
 // == COMPARATIVO 4 SEMANAS ==
 function renderCompSemanas() {
-var el = document.getElementById(‘comp-semanas’);
+var el = document.getElementById('comp-semanas');
 if (!el) return;
 var hoje = new Date();
 var jsDay = hoje.getDay();
 var diffSeg = jsDay === 0 ? -6 : 1 - jsDay;
-var WN = [‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
+var WN = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
 var vArr = vendas;
 var semanas = [];
 var w, d, vi, si, di;
@@ -717,9 +707,9 @@ var dias = [];
 for (d = 0; d < 7; d++) {
 var dt = new Date(seg);
 dt.setDate(seg.getDate() + d);
-var dd2 = dt.getDate() < 10 ? ‘0’+dt.getDate() : ‘’+dt.getDate();
-var mm2 = (dt.getMonth()+1) < 10 ? ‘0’+(dt.getMonth()+1) : ‘’+(dt.getMonth()+1);
-var key = dd2 + ‘/’ + mm2;
+var dd2 = dt.getDate() < 10 ? '0'+dt.getDate() : ''+dt.getDate();
+var mm2 = (dt.getMonth()+1) < 10 ? '0'+(dt.getMonth()+1) : ''+(dt.getMonth()+1);
+var key = dd2 + '/' + mm2;
 var venda = null;
 for (vi = 0; vi < vArr.length; vi++) {
 if (vArr[vi].d === key) { venda = vArr[vi]; break; }
@@ -730,9 +720,9 @@ var fat = 0;
 for (di = 0; di < dias.length; di++) {
 if (dias[di].venda) fat += dias[di].venda.fat;
 }
-var inicio = dias[0].key.split(’/’)[0];
+var inicio = dias[0].key.split('/')[0];
 var fim = dias[6].key;
-semanas.push({ dias: dias, fat: fat, label: inicio + ‘-’ + fim });
+semanas.push({ dias: dias, fat: fat, label: inicio + '-' + fim });
 }
 var maxDia = 1, maxFat = 1;
 for (si = 0; si < semanas.length; si++) {
@@ -742,59 +732,59 @@ if (semanas[si].dias[di].venda && semanas[si].dias[di].venda.fat > maxDia)
 maxDia = semanas[si].dias[di].venda.fat;
 }
 }
-var header = ‘<div style="display:grid;grid-template-columns:66px repeat(7,1fr);gap:3px;margin-bottom:5px">’;
-header += ‘<div></div>’;
+var header = '<div style="display:grid;grid-template-columns:66px repeat(7,1fr);gap:3px;margin-bottom:5px">';
+header += '<div></div>';
 for (d = 0; d < 7; d++) {
-var lc = d===5 ? ‘#1CC9A8’ : d===6 ? ‘#9B6DFF’ : ‘#6A5840’;
-header += ‘<div style="text-align:center;font-size:7px;font-weight:700;color:'+lc+'">’+WN[d]+’</div>’;
+var lc = d===5 ? '#1CC9A8' : d===6 ? '#9B6DFF' : '#6A5840';
+header += '<div style="text-align:center;font-size:7px;font-weight:700;color:'+lc+'">'+WN[d]+'</div>';
 }
-header += ‘</div>’;
-var rows = ‘’;
+header += '</div>';
+var rows = '';
 for (si = 0; si < semanas.length; si++) {
 var sem = semanas[si];
 var barPct = sem.fat > 0 ? Math.round(sem.fat / maxFat * 100) : 0;
 if (barPct < 4 && sem.fat > 0) barPct = 4;
-var fc = sem.fat >= 3500 ? ‘#1CC9A8’ : sem.fat >= 2000 ? ‘#F26040’ : ‘#A89880’;
-var cells = ‘’;
+var fc = sem.fat >= 3500 ? '#1CC9A8' : sem.fat >= 2000 ? '#F26040' : '#A89880';
+var cells = '';
 for (di = 0; di < sem.dias.length; di++) {
 var d2 = sem.dias[di];
 var fat2 = d2.venda ? d2.venda.fat : 0;
 var pct2 = fat2 > 0 ? Math.round(fat2 / maxDia * 100) : 0;
 if (pct2 < 5 && fat2 > 0) pct2 = 5;
-var cor = d2.isSab ? ‘#1CC9A8’ : d2.isDom ? ‘#9B6DFF’ : fat2 >= 500 ? ‘#F26040’ : ‘rgba(255,255,255,.28)’;
-var bg2 = d2.isSab ? ‘rgba(28,201,168,.07)’ : d2.isDom ? ‘rgba(155,109,255,.07)’ : ‘rgba(255,255,255,.02)’;
-var bor = d2.isSab ? ‘rgba(28,201,168,.2)’ : d2.isDom ? ‘rgba(155,109,255,.2)’ : ‘rgba(255,255,255,.07)’;
+var cor = d2.isSab ? '#1CC9A8' : d2.isDom ? '#9B6DFF' : fat2 >= 500 ? '#F26040' : 'rgba(255,255,255,.28)';
+var bg2 = d2.isSab ? 'rgba(28,201,168,.07)' : d2.isDom ? 'rgba(155,109,255,.07)' : 'rgba(255,255,255,.02)';
+var bor = d2.isSab ? 'rgba(28,201,168,.2)' : d2.isDom ? 'rgba(155,109,255,.2)' : 'rgba(255,255,255,.07)';
 var bar;
 if (fat2 > 0) {
-bar = ‘<div style="width:65%;border-radius:2px 2px 0 0;height:'+pct2+'%;background:'+cor+';min-height:3px"></div>’;
+bar = '<div style="width:65%;border-radius:2px 2px 0 0;height:'+pct2+'%;background:'+cor+';min-height:3px"></div>';
 } else {
-bar = ‘<div style="width:65%;height:2px;background:rgba(255,255,255,.06);border-radius:2px"></div>’;
+bar = '<div style="width:65%;height:2px;background:rgba(255,255,255,.06);border-radius:2px"></div>';
 }
-var val = fat2 > 0 ? ‘R$’+fat2 : ‘—’;
-cells += ‘<div style="background:'+bg2+';border:1px solid '+bor+';border-radius:5px;padding:3px 1px;text-align:center">’
-+ ‘<div style="height:22px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:2px">’+bar+’</div>’
-+ ‘<div style="font-size:7px;font-weight:700;color:'+(fat2>0?cor:'#6A5840')+'">’+val+’</div>’
-+ ‘</div>’;
+var val = fat2 > 0 ? 'R$'+fat2 : '—';
+cells += '<div style="background:'+bg2+';border:1px solid '+bor+';border-radius:5px;padding:3px 1px;text-align:center">'
++ '<div style="height:22px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:2px">'+bar+'</div>'
++ '<div style="font-size:7px;font-weight:700;color:'+(fat2>0?cor:'#6A5840')+'">'+val+'</div>'
++ '</div>';
 }
-rows += ‘<div style="display:grid;grid-template-columns:66px repeat(7,1fr);gap:3px;margin-bottom:4px;align-items:center">’
-+ ‘<div>’
-+ ‘<div style="font-size:8px;color:#6A5840;margin-bottom:2px">’+sem.label+’</div>’
-+ ‘<div style="height:4px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden;margin-bottom:2px">’
-+ ‘<div style="height:100%;width:'+barPct+'%;background:'+fc+';border-radius:20px"></div>’
-+ ‘</div>’
-+ ‘<div style="font-size:9px;font-weight:800;color:'+fc+'">’+(sem.fat>0?‘R$’+sem.fat.toLocaleString(‘pt-BR’):’—’)+’</div>’
-+ ‘</div>’
+rows += '<div style="display:grid;grid-template-columns:66px repeat(7,1fr);gap:3px;margin-bottom:4px;align-items:center">'
++ '<div>'
++ '<div style="font-size:8px;color:#6A5840;margin-bottom:2px">'+sem.label+'</div>'
++ '<div style="height:4px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden;margin-bottom:2px">'
++ '<div style="height:100%;width:'+barPct+'%;background:'+fc+';border-radius:20px"></div>'
++ '</div>'
++ '<div style="font-size:9px;font-weight:800;color:'+fc+'">'+(sem.fat>0?'R$'+sem.fat.toLocaleString('pt-BR'):'—')+'</div>'
++ '</div>'
 + cells
-+ ‘</div>’;
++ '</div>';
 }
-el.innerHTML = ‘<div style="background:#1E1912;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px 14px">’
-+ header + rows + ‘</div>’;
+el.innerHTML = '<div style="background:#1E1912;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px 14px">'
++ header + rows + '</div>';
 }
 function toggleDrawer(id,btn){
 const d=document.getElementById(id);
 if(!d)return;
-const open=d.classList.toggle(‘open’);
-if(btn){btn.classList.toggle(‘open’,open);const a=btn.querySelector(’.arr’);if(a)a.style.transform=open?‘rotate(90deg)’:’’;}
+const open=d.classList.toggle('open');
+if(btn){btn.classList.toggle('open',open);const a=btn.querySelector('.arr');if(a)a.style.transform=open?'rotate(90deg)':'';}
 }
 // ══════════════════════════════════════════════════════
 // MOTOR PRINCIPAL — Lucro = Fat − D − E − F − H
@@ -809,34 +799,34 @@ totalCnt:455,
 totalDinheiro:2250.99
 };
 const dinheiroDia=[
-{d:‘02/03’,plan:495.0,maq:406.0,din:89.0},
-{d:‘03/03’,plan:144.0,maq:94.0,din:50.0},
-{d:‘04/03’,plan:447.0,maq:435.0,din:12.0},
-{d:‘05/03’,plan:330.0,maq:315.0,din:15.0},
-{d:‘06/03’,plan:747.0,maq:567.0,din:180.0},
-{d:‘07/03’,plan:615.0,maq:555.0,din:60.0},
-{d:‘08/03’,plan:408.0,maq:378.0,din:30.0},
-{d:‘09/03’,plan:440.0,maq:350.0,din:90.0},
-{d:‘10/03’,plan:505.0,maq:400.0,din:105.0},
-{d:‘11/03’,plan:575.0,maq:515.0,din:60.0},
-{d:‘12/03’,plan:730.0,maq:635.0,din:95.0},
-{d:‘13/03’,plan:520.0,maq:410.0,din:110.0},
-{d:‘14/03’,plan:640.0,maq:535.0,din:105.0},
-{d:‘15/03’,plan:500.0,maq:455.0,din:45.0},
-{d:‘16/03’,plan:340.0,maq:320.0,din:20.0},
-{d:‘17/03’,plan:335.0,maq:260.0,din:75.0},
-{d:‘18/03’,plan:525.0,maq:490.0,din:35.0},
-{d:‘19/03’,plan:345.0,maq:325.0,din:20.0},
-{d:‘20/03’,plan:510.0,maq:465.0,din:45.0},
-{d:‘21/03’,plan:775.0,maq:685.0,din:90.0},
-{d:‘22/03’,plan:670.0,maq:500.0,din:170.0},
-{d:‘23/03’,plan:240.0,maq:230.0,din:10.0},
-{d:‘24/03’,plan:510.0,maq:510.0,din:0.0}
+{d:'02/03',plan:495.0,maq:406.0,din:89.0},
+{d:'03/03',plan:144.0,maq:94.0,din:50.0},
+{d:'04/03',plan:447.0,maq:435.0,din:12.0},
+{d:'05/03',plan:330.0,maq:315.0,din:15.0},
+{d:'06/03',plan:747.0,maq:567.0,din:180.0},
+{d:'07/03',plan:615.0,maq:555.0,din:60.0},
+{d:'08/03',plan:408.0,maq:378.0,din:30.0},
+{d:'09/03',plan:440.0,maq:350.0,din:90.0},
+{d:'10/03',plan:505.0,maq:400.0,din:105.0},
+{d:'11/03',plan:575.0,maq:515.0,din:60.0},
+{d:'12/03',plan:730.0,maq:635.0,din:95.0},
+{d:'13/03',plan:520.0,maq:410.0,din:110.0},
+{d:'14/03',plan:640.0,maq:535.0,din:105.0},
+{d:'15/03',plan:500.0,maq:455.0,din:45.0},
+{d:'16/03',plan:340.0,maq:320.0,din:20.0},
+{d:'17/03',plan:335.0,maq:260.0,din:75.0},
+{d:'18/03',plan:525.0,maq:490.0,din:35.0},
+{d:'19/03',plan:345.0,maq:325.0,din:20.0},
+{d:'20/03',plan:510.0,maq:465.0,din:45.0},
+{d:'21/03',plan:775.0,maq:685.0,din:90.0},
+{d:'22/03',plan:670.0,maq:500.0,din:170.0},
+{d:'23/03',plan:240.0,maq:230.0,din:10.0},
+{d:'24/03',plan:510.0,maq:510.0,din:0.0}
 ];
 (function calcularTudo(){
-const WN_PT   = [‘Domingo’,‘Segunda-feira’,‘Terça-feira’,‘Quarta-feira’,‘Quinta-feira’,‘Sexta-feira’,‘Sábado’];
-const WN_SHORT= [‘Dom’,‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’];
-const WN_ARR  = [‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
+const WN_PT   = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+const WN_SHORT= ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const WN_ARR  = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
 const META    = 10000;
 // ── MÉTRICAS (fórmulas — não valores fixos) ──────────
 const totalFat  = vendas.reduce((s,r)=>s+r.fat,0);
@@ -860,18 +850,18 @@ const mediaLReal= Math.round(vendas.reduce((s,r)=>s+r.lucro_real,0)/n);
 // ── PREVISÃO HOJE ────────────────────────────────────
 const now    = new Date();
 const wdHoje = now.getDay();
-const wdArr  = wdHoje===0?6:wdHoje-1; // getDay→wd array (0=Seg…6=Dom)
+const wdArr  = wdHoje===0?6:wdHoje-1; // getDay→wd array (0=Seg...6=Dom)
 const diasSemana = vendas.filter(r=>r.wd===wdArr);
 const nBase  = diasSemana.length;
 let prevFat=mediaFat,prevSorv=mediaSorv,minFat=0,maxFat=0;
-let pillsHTML=’’,drawerHTML=’’;
+let pillsHTML='',drawerHTML='';
 if(nBase>0){
 prevFat  = Math.round(diasSemana.reduce((s,r)=>s+r.fat,0)/nBase);
 prevSorv = Math.round(diasSemana.reduce((s,r)=>s+r.sorv,0)/nBase);
-minFat   = Math.min(…diasSemana.map(r=>r.fat));
-maxFat   = Math.max(…diasSemana.map(r=>r.fat));
-pillsHTML = diasSemana.map(r=>`<span class="hoje-pill ${r.fat===maxFat?'hi':r.fat===minFat?'lo':'mid'}">${r.d} · R$${r.fat}</span>`).join(’ ‘);
-const sorted=[…diasSemana].sort((a,b)=>a.fat-b.fat);
+minFat   = Math.min(...diasSemana.map(r=>r.fat));
+maxFat   = Math.max(...diasSemana.map(r=>r.fat));
+pillsHTML = diasSemana.map(r=>`<span class="hoje-pill ${r.fat===maxFat?'hi':r.fat===minFat?'lo':'mid'}">${r.d} · R$${r.fat}</span>`).join(' ');
+const sorted=[...diasSemana].sort((a,b)=>a.fat-b.fat);
 const rec=diasSemana[diasSemana.length-1];
 drawerHTML=`<div class="drawer-title">Base — ${WN_PT[wdHoje]}s</div>`+
 `<div class="drawer-row"><span>Média (${nBase} dias)</span><span>R$${prevFat}</span></div>`+
@@ -880,98 +870,98 @@ drawerHTML=`<div class="drawer-title">Base — ${WN_PT[wdHoje]}s</div>`+
 `<div class="drawer-row"><span>Mais recente</span><span>R$${rec.fat} · ${rec.d}</span></div>`+
 `<div class="drawer-insight">⚠ Baseado em ${nBase} ${WN_SHORT[wdArr]}${nBase>1?'s':''} registrada${nBase>1?'s':''}. Quanto mais dados, maior a confiabilidade.</div>`;
 } else {
-pillsHTML=’<span class="hoje-pill mid">Sem dados para este dia — usando média geral</span>’;
+pillsHTML='<span class="hoje-pill mid">Sem dados para este dia — usando média geral</span>';
 drawerHTML=`<div class="drawer-insight">⚠ Nenhum ${WN_SHORT[wdArr]} registrado ainda. Usando média geral (R$${mediaFat}).</div>`;
 }
 // Ranking do dia da semana
 const wdAvg=Array(7).fill(null).map((_,i)=>{const d=vendas.filter(r=>r.wd===i);return d.length>0?Math.round(d.reduce((s,r)=>s+r.fat,0)/d.length):null;});
 const rankHoje=wdAvg[wdArr]!==null?wdAvg.filter(v=>v!==null&&v>wdAvg[wdArr]).length+1:null;
-const ordinals=[’’,‘melhor’,‘2º melhor’,‘3º melhor’,‘4º’,‘5º’,‘6º’,‘pior’];
-const rankLabel=rankHoje?(ordinals[rankHoje]||`${rankHoje}º`):’—’;
+const ordinals=['','melhor','2º melhor','3º melhor','4º','5º','6º','pior'];
+const rankLabel=rankHoje?(ordinals[rankHoje]||`${rankHoje}º`):'—';
 const confPct=nBase>=3?75:nBase===2?55:nBase===1?40:25;
 // ── SET HELPERS ──────────────────────────────────────
 const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
-const fmt=v=>Math.round(v).toLocaleString(‘pt-BR’);
-const fmtD=(v,d=2)=>(+v).toFixed(d).replace(’.’,’,’);
+const fmt=v=>Math.round(v).toLocaleString('pt-BR');
+const fmtD=(v,d=2)=>(+v).toFixed(d).replace('.',',');
 // ── INJETAR HOJE ─────────────────────────────────────
-set(‘prev-fat’,     prevFat);
-set(‘prev-sorv’,    ‘~’+prevSorv);
-set(‘prev-min’,     minFat||mediaFat);
-set(‘prev-max’,     maxFat||mediaFat);
-set(‘prev-pills’,   pillsHTML);
-set(‘prev-drawer-content’, drawerHTML);
-set(‘conf-txt’,     confPct+’%’);
-const cf=document.getElementById(‘conf-fill’);
-if(cf) cf.style.width=confPct+’%’;
-set(‘alerta-dia-txt’, `${WN_PT[wdHoje]} tem média de <strong>R$${prevFat}</strong> (${rankLabel} da semana). ${prevFat<mediaFat?'Prepare-se para volume menor que a média.':'Dia acima da média geral — bom sinal.'}`);
-set(‘kpi-media-sorv’, ’~’+mediaSorv);
+set('prev-fat',     prevFat);
+set('prev-sorv',    '~'+prevSorv);
+set('prev-min',     minFat||mediaFat);
+set('prev-max',     maxFat||mediaFat);
+set('prev-pills',   pillsHTML);
+set('prev-drawer-content', drawerHTML);
+set('conf-txt',     confPct+'%');
+const cf=document.getElementById('conf-fill');
+if(cf) cf.style.width=confPct+'%';
+set('alerta-dia-txt', `${WN_PT[wdHoje]} tem média de <strong>R$${prevFat}</strong> (${rankLabel} da semana). ${prevFat<mediaFat?'Prepare-se para volume menor que a média.':'Dia acima da média geral — bom sinal.'}`);
+set('kpi-media-sorv', '~'+mediaSorv);
 // ── INJETAR MÊS ──────────────────────────────────────
-set(‘kpi-fat’,      ‘R$’+fmt(totalFat));
-set(‘kpi-fat-sub’,  ‘Meta ‘+metaPct+’%’+(totalFat>=META?’ ✅’:’’));
-set(‘kpi-luc’,      ‘R$’+fmt(totalLuc));
-set(‘kpi-luc-sub’,  margem+’% de margem’);
-set(‘kpi-desp’,     ‘R$’+fmt(totalDesp));
-set(‘kpi-desp-sub’, fmtD(100-parseFloat(margem),1)+’% do faturamento’);
-set(‘kpi-sorv-dia’, ‘~’+mediaSorv);
-set(‘kpi-media’,    ‘R$’+fmt(mediaFat));
-set(‘kpi-media-sub’,‘±R$’+dp+’ desvio’);
-set(‘kpi-melhor-val’,‘R$’+fmt(melhor.fat));
-set(‘kpi-melhor-dia’, melhor.d+’ · ‘+WN_ARR[melhor.wd]);
-set(‘kpi-lreal’,    ‘R$’+fmt(mediaLReal)+’/dia’);
+set('kpi-fat',      'R$'+fmt(totalFat));
+set('kpi-fat-sub',  'Meta '+metaPct+'%'+(totalFat>=META?' ✅':''));
+set('kpi-luc',      'R$'+fmt(totalLuc));
+set('kpi-luc-sub',  margem+'% de margem');
+set('kpi-desp',     'R$'+fmt(totalDesp));
+set('kpi-desp-sub', fmtD(100-parseFloat(margem),1)+'% do faturamento');
+set('kpi-sorv-dia', '~'+mediaSorv);
+set('kpi-media',    'R$'+fmt(mediaFat));
+set('kpi-media-sub','±R$'+dp+' desvio');
+set('kpi-melhor-val','R$'+fmt(melhor.fat));
+set('kpi-melhor-dia', melhor.d+' · '+WN_ARR[melhor.wd]);
+set('kpi-lreal',    'R$'+fmt(mediaLReal)+'/dia');
 // Meta bar
 const pct=Math.min(100,totalFat/META*100);
-set(‘meta-pct’,     metaPct+’%’);
-set(‘meta-sub’,     totalFat>=META?‘Meta atingida — R$’+fmt(totalFat-META)+’ acima · ‘+n+’ dias 🎉’:‘Faltam R$’+fmt(META-totalFat)+’ · ‘+n+’ dias’);
-set(‘meta-legs-mid’,’<strong>R$’+fmt(totalFat)+’</strong> faturados · ‘+n+’ dias’);
-const mf=document.getElementById(‘meta-fill’);
-if(mf) setTimeout(()=>mf.style.width=pct+’%’,100);
+set('meta-pct',     metaPct+'%');
+set('meta-sub',     totalFat>=META?'Meta atingida — R$'+fmt(totalFat-META)+' acima · '+n+' dias 🎉':'Faltam R$'+fmt(META-totalFat)+' · '+n+' dias');
+set('meta-legs-mid','<strong>R$'+fmt(totalFat)+'</strong> faturados · '+n+' dias');
+const mf=document.getElementById('meta-fill');
+if(mf) setTimeout(()=>mf.style.width=pct+'%',100);
 // Drawers mês — todos dinâmicos
-set(‘dr-fat-total’,   ‘R$’+fmt(totalFat));
-set(‘dr-media2’,      mediaFat);
-set(‘dr-dp’,          dp);
-set(‘dr-melhor’,      melhor.d+’ · R$’+fmt(melhor.fat));
-set(‘dr-pior’,        pior.d+’ · R$’+fmt(pior.fat));
-set(‘dr-extras-total’,‘R$’+fmt(totalExt)+’ — só informativo’);
+set('dr-fat-total',   'R$'+fmt(totalFat));
+set('dr-media2',      mediaFat);
+set('dr-dp',          dp);
+set('dr-melhor',      melhor.d+' · R$'+fmt(melhor.fat));
+set('dr-pior',        pior.d+' · R$'+fmt(pior.fat));
+set('dr-extras-total','R$'+fmt(totalExt)+' — só informativo');
 // Drawer lucro
-set(‘dr-luc-fat’,     ‘R$’+fmt(totalFat));
-set(‘dr-luc-dv’,      ‘−R$’+fmt(totalDV));
-set(‘dr-luc-maq’,     ‘−R$’+fmtD(totalMaq));
-set(‘dr-luc-dia’,     ‘−R$’+fmt(totalDia));
-set(‘dr-luc-out’,     ‘−R$’+fmtD(totalOut));
-set(‘dr-luc-total’,   ‘R$’+fmt(totalLuc));
-set(‘dr-luc-marg’,    margem+’%’);
+set('dr-luc-fat',     'R$'+fmt(totalFat));
+set('dr-luc-dv',      '−R$'+fmt(totalDV));
+set('dr-luc-maq',     '−R$'+fmtD(totalMaq));
+set('dr-luc-dia',     '−R$'+fmt(totalDia));
+set('dr-luc-out',     '−R$'+fmtD(totalOut));
+set('dr-luc-total',   'R$'+fmt(totalLuc));
+set('dr-luc-marg',    margem+'%');
 // Drawer despesas
-set(‘dr-desp-dv’,     ‘R$’+fmt(totalDV));
-set(‘dr-desp-maq’,    ‘R$’+fmtD(totalMaq));
-set(‘dr-desp-dia’,    ‘R$’+fmt(totalDia));
-set(‘dr-desp-out’,    ‘R$’+fmtD(totalOut));
-set(‘dr-desp-total’,  ‘R$’+fmt(totalDesp));
+set('dr-desp-dv',     'R$'+fmt(totalDV));
+set('dr-desp-maq',    'R$'+fmtD(totalMaq));
+set('dr-desp-dia',    'R$'+fmt(totalDia));
+set('dr-desp-out',    'R$'+fmtD(totalOut));
+set('dr-desp-total',  'R$'+fmt(totalDesp));
 // ── WEEKDAY CHART ────────────────────────────────────
 const wdS=Array(7).fill(0),wdC=Array(7).fill(0),wdSv=Array(7).fill(0);
 vendas.forEach(r=>{wdS[r.wd]+=r.fat;wdC[r.wd]++;wdSv[r.wd]+=r.sorv;});
 const wdA=wdS.map((s,i)=>wdC[i]>0?Math.round(s/wdC[i]):0);
 const wdAS=wdSv.map((s,i)=>wdC[i]>0?Math.round(s/wdC[i]):0);
-const maxA=Math.max(…wdA),minA=Math.min(…wdA.filter(v=>v>0));
-const WN=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
-document.getElementById(‘wdGrid’).innerHTML=WN.map((nm,i)=>{
+const maxA=Math.max(...wdA),minA=Math.min(...wdA.filter(v=>v>0));
+const WN=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+document.getElementById('wdGrid').innerHTML=WN.map((nm,i)=>{
 const a=wdA[i],c=wdC[i],s=wdAS[i],pct=maxA>0?(a/maxA)*100:0;
-const cls=c===0?‘none’:a===maxA?‘best’:a===minA?‘worst’:‘norm’;
+const cls=c===0?'none':a===maxA?'best':a===minA?'worst':'norm';
 return `<div class="wd-col"><div class="wd-name">${nm}${i===wdArr?' 📍':''}</div><div class="wd-bw"><div class="wd-b ${cls}${i===wdArr?' today':''}" style="height:${c===0?4:Math.max(pct*.76,5)}px"></div></div><div class="wd-v">${c>0?'R$'+a:'—'}</div><div class="wd-s">${c}d</div><div class="wd-sv">${c>0?'~'+s+'🍦':''}</div></div>`;
-}).join(’’);
-set(‘wd-sub’, n+’ dias registrados · ‘+wdC.filter(c=>c>0).length+’ dias da semana com dados’);
+}).join('');
+set('wd-sub', n+' dias registrados · '+wdC.filter(c=>c>0).length+' dias da semana com dados');
 const melhorWD=wdA.indexOf(maxA), piorWD=wdA.indexOf(minA);
-set(‘wd-media-badge’,‘Média: R$’+fmt(mediaFat));
-set(‘wd-legenda’,`<span>🟩 Melhor: <strong>${WN[melhorWD]}</strong> R$${maxA}</span><span>🔴 Pior: <strong>${WN[piorWD]}</strong> R$${minA}</span><span>📍 Hoje: <strong>${WN[wdArr]}</strong></span>`);
+set('wd-media-badge','Média: R$'+fmt(mediaFat));
+set('wd-legenda',`<span>🟩 Melhor: <strong>${WN[melhorWD]}</strong> R$${maxA}</span><span>🔴 Pior: <strong>${WN[piorWD]}</strong> R$${minA}</span><span>📍 Hoje: <strong>${WN[wdArr]}</strong></span>`);
 // Fat stats
-set(‘fat-stats’,`<div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$${fmt(melhor.fat)}</div><div class="stat-l">Maior</div></div><div class="stat-item"><div class="stat-v">R$${fmt(mediaFat)}</div><div class="stat-l">Média</div></div><div class="stat-item"><div class="stat-v" style="color:var(--red)">R$${fmt(pior.fat)}</div><div class="stat-l">Menor</div></div><div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$${dp}</div><div class="stat-l">Desvio P.</div></div>`);
+set('fat-stats',`<div class="stat-item"><div class="stat-v" style="color:var(--teal)">R$${fmt(melhor.fat)}</div><div class="stat-l">Maior</div></div><div class="stat-item"><div class="stat-v">R$${fmt(mediaFat)}</div><div class="stat-l">Média</div></div><div class="stat-item"><div class="stat-v" style="color:var(--red)">R$${fmt(pior.fat)}</div><div class="stat-l">Menor</div></div><div class="stat-item"><div class="stat-v" style="color:var(--amber)">±R$${dp}</div><div class="stat-l">Desvio P.</div></div>`);
 // ── RESUMO DA SEMANA (aba hoje) ──────────────────────
 (function renderSemana(){
-const WN_FULL=[‘Segunda’,‘Terça’,‘Quarta’,‘Quinta’,‘Sexta’,‘Sábado’,‘Domingo’];
-const WN_SHORT=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
+const WN_FULL=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+const WN_SHORT=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
 // Semana atual = últimos 7 dias a contar de hoje (Seg a Dom)
 // Calcular início da semana (segunda-feira)
 const hoje = new Date();
-const diaSemana = hoje.getDay(); // 0=Dom,1=Seg,…,6=Sáb
+const diaSemana = hoje.getDay(); // 0=Dom,1=Seg,...,6=Sáb
 const diffSeg = diaSemana===0?-6:1-diaSemana; // dias até segunda
 const seg = new Date(hoje); seg.setDate(hoje.getDate()+diffSeg);
 // Custo por sorvete dinâmico = total insumos operacionais ÷ total sorvetes
@@ -979,7 +969,7 @@ const seg = new Date(hoje); seg.setDate(hoje.getDate()+diffSeg);
 // Custo/sorvete = soma de Insumo+Topping ÷ total sorvetes vendidos
 const _totalSorvCalc = vendas.reduce((s,r)=>s+r.sorv,0);
 const _totalDVCalc = vendas.reduce((s,r)=>s+(r.dv||0),0);
-const _custoInsumoTopping = compras.filter(c=>c.cat===‘Insumo’||c.cat===‘Topping’||c.cat===‘Embalagem’).reduce((s,c)=>s+c.val,0);
+const _custoInsumoTopping = compras.filter(c=>c.cat==='Insumo'||c.cat==='Topping'||c.cat==='Embalagem').reduce((s,c)=>s+c.val,0);
 const custoPorSorv = _totalSorvCalc>0 ? +(_custoInsumoTopping/_totalSorvCalc).toFixed(2) : 3.14;
 // Mapear vendas por data
 const vendasMap={};
@@ -988,9 +978,9 @@ vendas.forEach(r=>{vendasMap[r.d]=r;});
 const dias=[];
 for(let i=0;i<7;i++){
 const d=new Date(seg); d.setDate(seg.getDate()+i);
-const dd=d.getDate().toString().padStart(2,‘0’);
-const mm=(d.getMonth()+1).toString().padStart(2,‘0’);
-const key=dd+’/’+mm;
+const dd=d.getDate().toString().padStart(2,'0');
+const mm=(d.getMonth()+1).toString().padStart(2,'0');
+const key=dd+'/'+mm;
 const r=vendasMap[key]||null;
 const isHoje=i===(diaSemana===0?6:diaSemana-1);
 const isOntem=i===(diaSemana===0?5:diaSemana-2);
@@ -1000,17 +990,17 @@ const fatSemana=dias.filter(d=>d.r).reduce((s,d)=>s+d.r.fat,0);
 const diasComDados=dias.filter(d=>d.r).length;
 const melhorSemana=dias.filter(d=>d.r).reduce((a,b)=>!a||b.r.fat>a.r.fat?b:a,null);
 const ontem=dias.find(d=>d.isOntem);
-let html=’’;
+let html='';
 // Ontem — destaque
 if(ontem&&ontem.r){
 const r=ontem.r;
-const cor=r.fat>=600?‘var(–teal)’:r.fat<300?‘var(–red)’:‘var(–amber)’;
+const cor=r.fat>=600?'var(-teal)':r.fat<300?'var(-red)':'var(-amber)';
 const vs=wdAvg[ontem.wd]>0?Math.round((r.fat/wdAvg[ontem.wd]-1)*100):null;
 // Fórmula: Fat - (sorv × custo/sorv) - tx maq
 const despProd=+(r.sorv*custoPorSorv).toFixed(2);
 const lucroOntem=+(r.fat-despProd-r.maq).toFixed(2);
-const lucroCorOntem=lucroOntem>=0?‘var(–teal)’:‘var(–red)’;
-const cpsFmt=custoPorSorv.toFixed(2).replace(’.’,’,’);
+const lucroCorOntem=lucroOntem>=0?'var(-teal)':'var(-red)';
+const cpsFmt=custoPorSorv.toFixed(2).replace('.',',');
 html+=`<div style="background:rgba(255,255,255,.04);border:1px solid var(--bor2);border-radius:12px;padding:14px;margin-bottom:10px">
 
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
@@ -1137,7 +1127,7 @@ set2('maq-din-pct', (mixPag.totalDinheiro/(mixPag.totalMaq+mixPag.totalDinheiro)
 // Pico de vendas
 const picoH=horasData.reduce((a,b)=>b.fat>a.fat?b:a);
 const pico2H=horasData.filter(h=>h.fat>horasData.reduce((s,x)=>s+x.fat,0)*0.2);
-set2('maq-pico', picoH.h+'–'+horasData[horasData.indexOf(picoH)+1]?.h||picoH.h);
+set2('maq-pico', picoH.h+'-'+horasData[horasData.indexOf(picoH)+1]?.h||picoH.h);
 set2('maq-pico-pct', (picoH.fat/mixPag.totalMaq*100).toFixed(1)+'% do faturamento');
 // Mix pagamento
 set2('mix-deb-pct', mixPag.debito.pct+'%');
@@ -1207,7 +1197,7 @@ renderHorarios();
 // TABELAS
 // ══════════════════════════════════════════════════════
 const WNA=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
-const fv=v=>v==null?'<span style="color:var(--t3)">—</span>':'R$ '+v.toFixed(2);
+const fv=v=>v==null?'<span style="color:var(--t3)">—</span>':'R$ '+v.toFixed(2);
 // Vendas
 let vF=[...vendas],vSC=0,vSA=true,vP=1;
 document.getElementById('srch-v').addEventListener('input',()=>{
@@ -1440,7 +1430,7 @@ const mediaLReal= Math.round(vendas.reduce((s,r)=>s+r.lucro_real,0)/n);
 // ── PREVISÃO HOJE ────────────────────────────────────
 const now    = new Date();
 const wdHoje = now.getDay();
-const wdArr  = wdHoje===0?6:wdHoje-1; // getDay→wd array (0=Seg…6=Dom)
+const wdArr  = wdHoje===0?6:wdHoje-1; // getDay→wd array (0=Seg...6=Dom)
 const diasSemana = vendas.filter(r=>r.wd===wdArr);
 const nBase  = diasSemana.length;
 let prevFat=mediaFat,prevSorv=mediaSorv,minFat=0,maxFat=0;
