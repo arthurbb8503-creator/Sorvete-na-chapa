@@ -918,14 +918,44 @@ function renderCustos(vendasMes, comprasMes) {
   setText("custo-produto", totalInsumo ? moeda(totalInsumo,0) : "—");
   setText("custo-produto-sub", totalSorv ? "≈ " + moeda(custoProd,2) + " por sorvete" : "Sem base de sorvetes");
   setText("custo-manut", totalManut ? moeda(totalManut,0) : "—");
-  const tops = comprasMes.slice().sort((a,b)=>b.val-a.val).slice(0,8);
+
+  const normItem = (txt) => String(txt || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const agrupados = {};
+  comprasMes.forEach(c => {
+    const chave = normItem(c.item);
+    if (!chave) return;
+    if (!agrupados[chave]) {
+      agrupados[chave] = {
+        item: String(c.item || "").trim(),
+        cat: c.cat || "",
+        val: 0,
+        qty: 0,
+        ocorrencias: 0
+      };
+    }
+    agrupados[chave].val += (c.val || 0);
+    agrupados[chave].qty += (c.qty || 0);
+    agrupados[chave].ocorrencias += 1;
+    if (String(c.item || "").trim().length > agrupados[chave].item.length) {
+      agrupados[chave].item = String(c.item || "").trim();
+    }
+  });
+
+  const tops = Object.values(agrupados).sort((a,b)=>b.val-a.val).slice(0,8);
   const max = tops[0] ? tops[0].val : 1;
   document.getElementById("barList").innerHTML = tops.length ? tops.map(t => `<div class="bar-item">
     <div class="bar-lbl">${t.item}</div>
     <div class="bar-track"><div class="bar-fill" style="width:${(t.val/max)*100}%;background:${(t.cat||"").toLowerCase().includes("insumo") ? "rgba(28,201,168,.65)" : "rgba(240,160,32,.65)"}"></div></div>
     <div class="bar-val">${moeda(t.val,2)}</div>
-    <div class="bar-cnt">${t.qty || 1}x</div>
+    <div class="bar-cnt">${t.qty || t.ocorrencias}x</div>
   </div>`).join("") : `<div class="empty">Sem compras no mês selecionado.</div>`;
+
   setText("tcnt-c", comprasMes.length + " itens");
   document.getElementById("tbody-c").innerHTML = comprasMes.length ? comprasMes.map(c => `<tr>
     <td class="td-d">${c.d}</td>
