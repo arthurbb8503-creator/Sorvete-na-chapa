@@ -699,6 +699,10 @@ function diasNoMes(key) {
   const [y,m] = key.split("-").map(Number);
   return new Date(y, m, 0).getDate();
 }
+function diasConsideradosMeta(mes) {
+  const dias = diasNoMes(mes);
+  return mes === "2026-03" ? Math.max(0, dias - 1) : dias;
+}
 function moeda(v, dec=0) {
   const n = Number(v || 0);
   return "R$" + n.toLocaleString("pt-BR", { minimumFractionDigits: dec, maximumFractionDigits: dec });
@@ -840,7 +844,7 @@ function renderHoje(vendasMes, ultimo, ultimoDia) {
   }
 
   const mediaDia = vendasMes.length ? vendasMes.reduce((s,v)=>s+v.fat,0)/vendasMes.length : 0;
-  const diasMes = diasConsideradosMeta(MES_ATUAL);
+  const diasMes = diasNoMes(MES_ATUAL);
   const projMes = mediaDia * diasMes;
   const metaMin = diasMes * 400;
   const metaIdeal = diasMes * 500;
@@ -1121,8 +1125,3 @@ renderTudo();
 </script>
 </body>
 </html>
-function diasConsideradosMeta(mes) {
-  const dias = diasNoMes(mes);
-  return mes === "2026-03" ? Math.max(0, dias - 1) : dias;
-}
-
