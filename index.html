@@ -270,7 +270,7 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
       <select id="mesSelecionado" class="month-select"></select>
       <button id="btnAtualizar" class="refresh-btn" type="button">↻ Atualizar</button>
     </div>
-    <span class="hdr-date" id="lastUpdated">Dados: 03/04/2026 . 04/04 10:07</span>
+    <span class="hdr-date" id="lastUpdated">Dados: 03/04/2026 · 04/04 10:28</span>
   </div>
 </div>
 
@@ -575,39 +575,39 @@ tbody td{padding:9px 12px;font-size:11px;font-weight:500;}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
 const vendas=[
-  {d:'02/03',wd:0,fat:495,ext:0,dv:null,maq:2.47,dia:90,luc:402.53,out:null,obs:'',sorv:33,lucro_real:187.98},
-  {d:'03/03',wd:1,fat:144,ext:9,dv:173.98,maq:0.85,dia:80,luc:-110.82999999999998,out:null,obs:'',sorv:9,lucro_real:-71},
-  {d:'04/03',wd:2,fat:447,ext:0,dv:355.67,maq:2.33,dia:80,luc:8.999999999999984,out:null,obs:'Aluguel',sorv:30,lucro_real:160.17},
-  {d:'05/03',wd:3,fat:330,ext:15,dv:50.82,maq:1.56,dia:80,luc:197.62,out:null,obs:'',sorv:21,lucro_real:74.09},
-  {d:'06/03',wd:4,fat:747,ext:0,dv:101.21,maq:2,dia:80,luc:563.79,out:null,obs:'',sorv:50,lucro_real:393.5},
-  {d:'07/03',wd:5,fat:615,ext:0,dv:257.68,maq:2.7,dia:80,luc:274.62,out:null,obs:'',sorv:41,lucro_real:290.95},
-  {d:'08/03',wd:6,fat:408,ext:0,dv:152.84,maq:1.93,dia:110,luc:143.23,out:null,obs:'',sorv:27,lucro_real:101.62},
-  {d:'09/03',wd:0,fat:440,ext:5,dv:204.29999999999998,maq:1.78,dia:80,luc:153.92000000000002,out:null,obs:'',sorv:29,lucro_real:157.07},
-  {d:'10/03',wd:1,fat:505,ext:10,dv:27.84,maq:3.38,dia:90,luc:383.78000000000003,out:null,obs:'',sorv:33,lucro_real:197.07},
-  {d:'11/03',wd:2,fat:575,ext:0,dv:31.6,maq:3.39,dia:70,luc:470.01,out:780,obs:'Aluguel',sorv:38,lucro_real:270.31},
-  {d:'12/03',wd:3,fat:730,ext:65,dv:69.85000000000001,maq:3.02,dia:83,luc:574.13,out:null,obs:'',sorv:44,lucro_real:392.58},
-  {d:'13/03',wd:4,fat:520,ext:25,dv:254.82999999999998,maq:2.6,dia:80,luc:182.57000000000002,out:null,obs:'',sorv:33,lucro_real:222.85},
-  {d:'14/03',wd:5,fat:640,ext:35,dv:24.58,maq:2.54,dia:77,luc:535.88,out:null,obs:'',sorv:40,lucro_real:322.46},
-  {d:'15/03',wd:6,fat:500,ext:20,dv:20.89,maq:2.33,dia:74,luc:402.78000000000003,out:null,obs:'',sorv:32,lucro_real:212.47},
-  {d:'16/03',wd:0,fat:340,ext:55,dv:375.11,maq:1.91,dia:81,luc:-118.02000000000001,out:null,obs:'',sorv:19,lucro_real:89.44},
-  {d:'17/03',wd:1,fat:335,ext:5,dv:46.739999999999995,maq:1.53,dia:90,luc:196.73,out:null,obs:'',sorv:22,lucro_real:65.77},
-  {d:'18/03',wd:2,fat:525,ext:30,dv:111.49000000000001,maq:2.32,dia:76,luc:335.19,out:780,obs:'Aluguel',sorv:33,lucro_real:232.13},
-  {d:'19/03',wd:3,fat:345,ext:25,dv:297.46,maq:1.48,dia:75,luc:-28.93999999999998,out:null,obs:'',sorv:21,lucro_real:94.17},
-  {d:'20/03',wd:4,fat:510,ext:15,dv:179.89999999999998,maq:9.1,dia:73,luc:248.00000000000003,out:null,obs:'Empréstimo',sorv:33,lucro_real:213.35},
-  {d:'21/03',wd:5,fat:775,ext:50,dv:60.13,maq:11.88,dia:80,luc:622.99,out:null,obs:'',sorv:48,lucro_real:418.32},
-  {d:'22/03',wd:6,fat:670,ext:15,dv:117.46,maq:9.78,dia:73,luc:469.76,out:null,obs:'',sorv:44,lucro_real:335.82},
-  {d:'23/03',wd:0,fat:240,ext:30,dv:115.53999999999999,maq:3.02,dia:126,luc:-4.559999999999992,out:null,obs:'',sorv:14,lucro_real:-39.92},
-  {d:'24/03',wd:1,fat:510,ext:0,dv:null,maq:6.43,dia:90,luc:413.57,out:null,obs:'',sorv:34,lucro_real:195.67},
-  {d:'25/03',wd:2,fat:500,ext:20,dv:null,maq:6.9,dia:74,luc:419.1,out:780,obs:'Aluguel',sorv:32,lucro_real:207.9},
-  {d:'26/03',wd:3,fat:430,ext:20,dv:86.62,maq:3.29,dia:74,luc:266.09,out:null,obs:'',sorv:27,lucro_real:158.26},
-  {d:'27/03',wd:4,fat:435,ext:40,dv:64.97,maq:7.31,dia:78,luc:284.71999999999997,out:null,obs:'',sorv:26,lucro_real:158.59},
-  {d:'28/03',wd:5,fat:806,ext:20,dv:126.42999999999999,maq:10.48,dia:78,luc:591.09,out:null,obs:'',sorv:52,lucro_real:439.32},
-  {d:'29/03',wd:6,fat:505,ext:20,dv:59.900000000000006,maq:7.99,dia:90,luc:347.11,out:null,obs:'',sorv:32,lucro_real:195.81},
-  {d:'30/03',wd:0,fat:505,ext:30,dv:142.07999999999998,maq:9.03,dia:76,luc:277.89000000000004,out:null,obs:'',sorv:32,lucro_real:208.77},
-  {d:'31/03',wd:1,fat:150,ext:15,dv:365.23,maq:2.54,dia:73,luc:-290.77000000000004,out:500,obs:'Ajuda de custo',sorv:9,lucro_real:-59.69},
-  {d:'01/04',wd:2,fat:120,ext:15,dv:556.35,maq:1.4,dia:73,luc:-510.75,out:780,obs:'Aluguel',sorv:7,lucro_real:-81.85},
-  {d:'02/04',wd:3,fat:300,ext:0,dv:267.3,maq:4.14,dia:80,luc:-51.44000000000001,out:null,obs:'',sorv:20,lucro_real:44.86},
-  {d:'03/04',wd:4,fat:675,ext:35,dv:82.34,maq:7.11,dia:0,luc:585.55,out:null,obs:'',sorv:43,lucro_real:419.84}
+  {d:'02/03',wd:0,fat:495,ext:0,dv:null,maq:2.47,dia:90,luc:402.53,out:null,obs:'',sorv:33},
+  {d:'03/03',wd:1,fat:144,ext:9,dv:173.98,maq:0.85,dia:80,luc:-110.82999999999998,out:null,obs:'',sorv:9},
+  {d:'04/03',wd:2,fat:447,ext:0,dv:355.67,maq:2.33,dia:80,luc:8.999999999999984,out:null,obs:'Aluguel',sorv:30},
+  {d:'05/03',wd:3,fat:330,ext:15,dv:50.82,maq:1.56,dia:80,luc:197.62,out:null,obs:'',sorv:21},
+  {d:'06/03',wd:4,fat:747,ext:0,dv:101.21,maq:2,dia:80,luc:563.79,out:null,obs:'',sorv:50},
+  {d:'07/03',wd:5,fat:615,ext:0,dv:257.68,maq:2.7,dia:80,luc:274.62,out:null,obs:'',sorv:41},
+  {d:'08/03',wd:6,fat:408,ext:0,dv:152.84,maq:1.93,dia:110,luc:143.23,out:null,obs:'',sorv:27},
+  {d:'09/03',wd:0,fat:440,ext:5,dv:204.29999999999998,maq:1.78,dia:80,luc:153.92000000000002,out:null,obs:'',sorv:29},
+  {d:'10/03',wd:1,fat:505,ext:10,dv:27.84,maq:3.38,dia:90,luc:383.78000000000003,out:null,obs:'',sorv:33},
+  {d:'11/03',wd:2,fat:575,ext:0,dv:31.6,maq:3.39,dia:70,luc:470.01,out:780,obs:'Aluguel',sorv:38},
+  {d:'12/03',wd:3,fat:730,ext:65,dv:69.85000000000001,maq:3.02,dia:83,luc:574.13,out:null,obs:'',sorv:44},
+  {d:'13/03',wd:4,fat:520,ext:25,dv:254.82999999999998,maq:2.6,dia:80,luc:182.57000000000002,out:null,obs:'',sorv:33},
+  {d:'14/03',wd:5,fat:640,ext:35,dv:24.58,maq:2.54,dia:77,luc:535.88,out:null,obs:'',sorv:40},
+  {d:'15/03',wd:6,fat:500,ext:20,dv:20.89,maq:2.33,dia:74,luc:402.78000000000003,out:null,obs:'',sorv:32},
+  {d:'16/03',wd:0,fat:340,ext:55,dv:375.11,maq:1.91,dia:81,luc:-118.02000000000001,out:null,obs:'',sorv:19},
+  {d:'17/03',wd:1,fat:335,ext:5,dv:46.739999999999995,maq:1.53,dia:90,luc:196.73,out:null,obs:'',sorv:22},
+  {d:'18/03',wd:2,fat:525,ext:30,dv:111.49000000000001,maq:2.32,dia:76,luc:335.19,out:780,obs:'Aluguel',sorv:33},
+  {d:'19/03',wd:3,fat:345,ext:25,dv:297.46,maq:1.48,dia:75,luc:-28.93999999999998,out:null,obs:'',sorv:21},
+  {d:'20/03',wd:4,fat:510,ext:15,dv:179.89999999999998,maq:9.1,dia:73,luc:248.00000000000003,out:null,obs:'Empréstimo',sorv:33},
+  {d:'21/03',wd:5,fat:775,ext:50,dv:60.13,maq:11.88,dia:80,luc:622.99,out:null,obs:'',sorv:48},
+  {d:'22/03',wd:6,fat:670,ext:15,dv:117.46,maq:9.78,dia:73,luc:469.76,out:null,obs:'',sorv:44},
+  {d:'23/03',wd:0,fat:240,ext:30,dv:115.53999999999999,maq:3.02,dia:126,luc:-4.559999999999992,out:null,obs:'',sorv:14},
+  {d:'24/03',wd:1,fat:510,ext:0,dv:null,maq:6.43,dia:90,luc:413.57,out:null,obs:'',sorv:34},
+  {d:'25/03',wd:2,fat:500,ext:20,dv:null,maq:6.9,dia:74,luc:419.1,out:780,obs:'Aluguel',sorv:32},
+  {d:'26/03',wd:3,fat:430,ext:20,dv:86.62,maq:3.29,dia:74,luc:266.09,out:null,obs:'',sorv:27},
+  {d:'27/03',wd:4,fat:435,ext:40,dv:64.97,maq:7.31,dia:78,luc:284.71999999999997,out:null,obs:'',sorv:26},
+  {d:'28/03',wd:5,fat:806,ext:20,dv:126.42999999999999,maq:10.48,dia:78,luc:591.09,out:null,obs:'',sorv:52},
+  {d:'29/03',wd:6,fat:505,ext:20,dv:59.900000000000006,maq:7.99,dia:90,luc:347.11,out:null,obs:'',sorv:32},
+  {d:'30/03',wd:0,fat:505,ext:30,dv:142.07999999999998,maq:9.03,dia:76,luc:277.89000000000004,out:null,obs:'',sorv:32},
+  {d:'31/03',wd:1,fat:150,ext:15,dv:365.23,maq:2.54,dia:73,luc:-290.77000000000004,out:500,obs:'Ajuda de custo',sorv:9},
+  {d:'01/04',wd:2,fat:120,ext:15,dv:556.35,maq:1.4,dia:73,luc:-510.75,out:780,obs:'Aluguel',sorv:7},
+  {d:'02/04',wd:3,fat:300,ext:0,dv:267.3,maq:4.14,dia:80,luc:-51.44000000000001,out:null,obs:'',sorv:20},
+  {d:'03/04',wd:4,fat:675,ext:35,dv:82.34,maq:7.11,dia:0,luc:585.55,out:null,obs:'',sorv:43}
 ];
 const compras=[
   {d:'03/03',item:'Cobertura Chocolate 1,3kg',cat:'Insumo',val:18.79,qty:1},
